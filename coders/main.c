@@ -6,13 +6,42 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com>  #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri         #+#    #+#              */
-/*   Updated: 2026/03/26 14:44:50 by dmota-ri        ###   ########.fr        */
+/*   Updated: 2026/03/26 14:59:08 by dmota-ri        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void create_coders(pthread_t * coders, pthread_mutex_t * dongles,
+t_inpt_args parse_args_inputs(int argc, char *argv[])
+{
+    t_inpt_args inputs;
+    int i;
+
+    i = 1;
+    while (argv[i])
+    {
+        split_comment = split(argv[i], '#')
+        split = split(split_comment[0], '=')
+        if len(split) != 2
+        {
+            printf("in argument %i is formatted incorrectly", i)
+            printf("got:\t%s", split_comment[0])
+            printf("Expected:\t")
+        }
+    }
+
+    inputs.number_of_coders;
+	inputs.time_to_burnout;
+	inputs.time_to_compile;
+	inputs.time_to_debug;
+	inputs.time_to_refactor;
+	inputs.number_of_compiles_required;
+	inputs.dongle_cooldown;
+	inputs.scheduler;
+
+}
+
+void create_coders(pthread_t *coders, pthread_mutex_t *dongles,
 	pthread_cond_t	*dongles_state, int number_of_coders)
 {
 	*coders = malloc(sizeof(pthread_t) * number_of_coders);
@@ -32,7 +61,7 @@ int	main(int argc, char *argv[])
 	t_inpt_args		input;
 	int				i;
 
-	input
+	input = parse_args_inputs(argc, argv);
 	create_coders(coders, dongles, dongles_state, input.number_of_coders);
 	gettimeofday(&input.start_time, NULL);
 	i = 0;
