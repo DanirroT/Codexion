@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   codexion.h                                        :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com>  #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/03/25 19:40:31 by dmota-ri         #+#    #+#              */
-/*   Updated: 2026/03/26 14:45:08 by dmota-ri        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   codexion.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
+/*   Updated: 2026/04/01 20:37:02 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,23 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdint.h>
 
 // https://www.geeksforgeeks.org/c/thread-functions-in-c-c/
 
-typedef struct s_inpt_args
+typedef struct	s_input_args
 {
 	int		number_of_coders;
 	int		time_to_burnout;
-	int		time_to_compile;
-	int		time_to_debug;
-	int		time_to_refactor;
+	int		time_to_compile; // main constraint. Connected to Matrix
+	int		time_to_debug; // time spent debugging
+	int		time_to_refactor; // after this is done, try to compile
 	int		number_of_compiles_required;
 	int		dongle_cooldown;
-	char	*scheduler;
-	struct timeval start_time
+	int		scheduler;
+	struct timeval start_time;
 
-}	t_inpt_args;
+}				t_input_args;
 
 /*
 number_of_coders: The number of coders and also the number of dongles.
@@ -64,5 +65,17 @@ request arrived first.
 - edf means Earliest Deadline First with deadline = last_compile_start +
 time_to_burnout.
 */
+
+// Utils
+
+int ft_out(t_input_args *args, int code);
+
+void	*trash(void *ptr);
+void	*trash_2d_void(void **ptr);
+void	*trash_2d_char(char **ptr);
+void	*trash_2d_int(int **ptr);
+
+char	*ft_trim(char const *s1, char const *set);
+char	**ft_split(char const *s, char c);
 
 #endif

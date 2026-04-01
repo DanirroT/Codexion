@@ -1,76 +1,100 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   main.c                                            :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com>  #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/03/25 19:40:31 by dmota-ri         #+#    #+#              */
-/*   Updated: 2026/03/26 14:59:08 by dmota-ri        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
+/*   Updated: 2026/04/01 20:41:47 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-t_inpt_args parse_args_inputs(int argc, char *argv[])
+int ft_out(t_input_args *args, int code)
 {
-    t_inpt_args inputs;
-    int i;
-
-    i = 1;
-    while (argv[i])
-    {
-        split_comment = split(argv[i], '#')
-        split = split(split_comment[0], '=')
-        if len(split) != 2
-        {
-            printf("in argument %i is formatted incorrectly", i)
-            printf("got:\t%s", split_comment[0])
-            printf("Expected:\t")
-        }
-    }
-
-    inputs.number_of_coders;
-	inputs.time_to_burnout;
-	inputs.time_to_compile;
-	inputs.time_to_debug;
-	inputs.time_to_refactor;
-	inputs.number_of_compiles_required;
-	inputs.dongle_cooldown;
-	inputs.scheduler;
-
+	if (args)
+		free(args);
+	if (code)
+		exit(code);
+	return code;
 }
 
 void create_coders(pthread_t *coders, pthread_mutex_t *dongles,
 	pthread_cond_t	*dongles_state, int number_of_coders)
 {
-	*coders = malloc(sizeof(pthread_t) * number_of_coders);
-	*dongles = malloc(sizeof(pthread_mutex_t) * number_of_coders);
-	*dongles_state = malloc(sizeof(pthread_cond_t) * number_of_coders);
+	coders = malloc(sizeof(pthread_t) * number_of_coders);
+	dongles = malloc(sizeof(pthread_mutex_t) * number_of_coders);
+	dongles_state = malloc(sizeof(pthread_cond_t) * number_of_coders);
 }
 
-int	coder_funct(t_inpt_args input)
+int	coder_funct(t_input_args input)
 {
+
 }
+
+t_input_args	*get_inputs()
+{
+	t_input_args	*input;
+
+	input = malloc(sizeof(t_input_args));
+	if (!input)
+		return (NULL);
+
+	input->number_of_coders = 5;
+	input->time_to_burnout = 1000;
+	input->time_to_compile = 200;
+	input->time_to_debug = 100;
+	input->time_to_refactor = 100;
+	input->number_of_compiles_required = 3;
+	input->dongle_cooldown = 50;
+	input->scheduler = 1;
+
+	return (input);
+}
+
+/*
+ 0	- ERROR
+ 1	- fifo means First In, First Out: the dongle is granted to the coder whose
+request arrived first.
+ 2	- edf means Earliest Deadline First with deadline = last_compile_start +
+time_to_burnout.
+*/
 
 int	main(int argc, char *argv[])
 {
 	pthread_t		*coders;
 	pthread_mutex_t	*dongles;
 	pthread_cond_t	*dongles_state;
-	t_inpt_args		input;
+	t_input_args		*input;
 	int				i;
 
-	input = parse_args_inputs(argc, argv);
-	create_coders(coders, dongles, dongles_state, input.number_of_coders);
-	gettimeofday(&input.start_time, NULL);
+	input = get_inputs();
+
+	printf("Number of coders: %i\n", input->number_of_coders);
+	printf("Time to burnout: %i\n", input->time_to_burnout);
+	printf("Time to compile: %i\n", input->time_to_compile);
+	printf("Time to debug: %i\n", input->time_to_debug);
+	printf("Time to refactor: %i\n", input->time_to_refactor);
+	printf("Number of compiles required: %i\n", input->number_of_compiles_required);
+	printf("Dongle cooldown: %i\n", input->dongle_cooldown);
+	printf("Scheduler: %i\n", input->scheduler);
+
+	// input = parse_args_inputs(argc, argv);
+	create_coders(coders, dongles, dongles_state, input->number_of_coders);
+	gettimeofday(&input->start_time, NULL);
+
+	// printf("start_time: %li\n", input->start_time);
 	i = 0;
-	while (i < input.number_of_coders)
+	while (i < input->number_of_coders)
 	{
 		pthread_create(&(coders[i]), NULL, coder_funct, input);
 		pthread_mutex_init(&(dongles[i]), NULL);
 		pthread_cond_init(&(dongles_state[i]), NULL);
 	}
+
+	return ft_out(input, 0);
 }
 
 /*
