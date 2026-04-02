@@ -6,34 +6,41 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/01 20:41:47 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/02 21:01:04 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int ft_out(t_input_args *args, int code)
+int	ft_out(t_input_args *args, int *temp, int code, char *msg)
 {
-	if (args)
-		free(args);
+	trash(args);
+	trash(temp);
+	if (msg)
+		printf("%s\n", msg);
 	if (code)
 		exit(code);
-	return code;
+	return (code);
 }
 
-void create_coders(pthread_t *coders, pthread_mutex_t *dongles,
-	pthread_cond_t	*dongles_state, int number_of_coders)
+void	create_coders(t_programming_room *room, int number_of_coders)
 {
-	coders = malloc(sizeof(pthread_t) * number_of_coders);
-	dongles = malloc(sizeof(pthread_mutex_t) * number_of_coders);
-	dongles_state = malloc(sizeof(pthread_cond_t) * number_of_coders);
+	room->coders = malloc(sizeof(pthread_t) * number_of_coders);
+	room->dongles = malloc(sizeof(pthread_mutex_t) * number_of_coders);
+	room->dongles_state = malloc(sizeof(pthread_cond_t) * number_of_coders);
 }
 
-int	coder_funct(t_input_args input)
+void	*coder_funct(void *input_raw)
 {
+	t_input_args *input;
 
+	input = (t_input_args *)input_raw;
+
+	printf("Hello from coder thread!\n%li", input->start_time.tv_sec);
+	return (NULL);
 }
 
+/*
 t_input_args	*get_inputs()
 {
 	t_input_args	*input;
@@ -53,6 +60,7 @@ t_input_args	*get_inputs()
 
 	return (input);
 }
+*/
 
 /*
  0	- ERROR
@@ -64,37 +72,38 @@ time_to_burnout.
 
 int	main(int argc, char *argv[])
 {
-	pthread_t		*coders;
-	pthread_mutex_t	*dongles;
-	pthread_cond_t	*dongles_state;
+	t_programming_room	room;
 	t_input_args		*input;
-	int				i;
+	int					i;
 
-	input = get_inputs();
+	// input = get_inputs();
+	input = parse_args_inputs(argc, argv);
 
-	printf("Number of coders: %i\n", input->number_of_coders);
-	printf("Time to burnout: %i\n", input->time_to_burnout);
-	printf("Time to compile: %i\n", input->time_to_compile);
-	printf("Time to debug: %i\n", input->time_to_debug);
-	printf("Time to refactor: %i\n", input->time_to_refactor);
-	printf("Number of compiles required: %i\n", input->number_of_compiles_required);
-	printf("Dongle cooldown: %i\n", input->dongle_cooldown);
-	printf("Scheduler: %i\n", input->scheduler);
+	// printf("Number of coders: %i\n", input->number_of_coders);
+	// printf("Time to burnout: %i\n", input->time_to_burnout);
+	// printf("Time to compile: %i\n", input->time_to_compile);
+	// printf("Time to debug: %i\n", input->time_to_debug);
+	// printf("Time to refactor: %i\n", input->time_to_refactor);
+	// printf("Number of compiles required: %i\n",
+	//		input->number_of_compiles_required);
+	// printf("Dongle cooldown: %i\n", input->dongle_cooldown);
+	// printf("Scheduler: %i\n", input->scheduler);
 
-	// input = parse_args_inputs(argc, argv);
-	create_coders(coders, dongles, dongles_state, input->number_of_coders);
+	create_coders(&room, input->number_of_coders);
 	gettimeofday(&input->start_time, NULL);
 
 	// printf("start_time: %li\n", input->start_time);
 	i = 0;
 	while (i < input->number_of_coders)
 	{
-		pthread_create(&(coders[i]), NULL, coder_funct, input);
-		pthread_mutex_init(&(dongles[i]), NULL);
-		pthread_cond_init(&(dongles_state[i]), NULL);
+		pthread_create(&(room.coders[i]), NULL, coder_funct, input);
+		printf("Created coder thread %i\n", i);
+		pthread_mutex_init(&(room.dongles[i]), NULL);
+		pthread_cond_init(&(room.dongles_state[i]), NULL);
+		i++;
 	}
 
-	return ft_out(input, 0);
+	return ft_out(input, NULL, 0, "Simulation ended successfully.");
 }
 
 /*

@@ -6,11 +6,31 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 17:25:07 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/01 17:18:53 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/02 20:57:04 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+char	*ft_strdup(const char *s)
+{
+	int		i;
+	char	*dup;
+
+	if (!s)
+		return (NULL);
+	dup = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
 
 static int	c_in_set(char c, char const *set)
 {
