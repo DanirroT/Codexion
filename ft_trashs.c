@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_trashs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 11:40:20 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/01/08 14:00:28 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 16:48:16 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@ void	*trash(void *ptr)
 {
 	if (ptr)
 		free(ptr);
-	return (NULL);
-}
-
-void	*trash_2d_void(void **ptr)
-{
-	int	i;
-
-	i = 0;
-	while (ptr[i])
-		free(ptr[i++]);
-	free(ptr);
 	return (NULL);
 }
 

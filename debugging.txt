@@ -1,0 +1,5 @@
+Hello from coder thread 2!
+Hello from coder thread 4!
+free(): invalid pointer
+Hello from coder thread 4!
+Aborted (core dumped)

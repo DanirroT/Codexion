@@ -6,18 +6,21 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/02 20:41:59 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:56:12 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# include <string.h>
+# include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
+
 # include <stdint.h>
 # include <limits.h>
 
@@ -32,24 +35,16 @@ typedef struct s_mult_ind
 
 typedef struct s_input_args
 {
-	int				number_of_coders;
-	int				time_to_burnout;
-	int				time_to_compile; // main constraint. Connected to Matrix
-	int				time_to_debug; // time spent debugging
-	int				time_to_refactor; // after this is done, try to compile
-	int				number_of_compiles_required;
-	int				dongle_cooldown;
-	int				scheduler;
-	struct timeval	start_time;
+	int	number_of_coders;
+	int	time_to_burnout;
+	int	time_to_compile; // main constraint. Connected to Matrix
+	int	time_to_debug; // time spent debugging
+	int	time_to_refactor; // after this is done, try to compile
+	int	number_of_compiles_required;
+	int	dongle_cooldown;
+	int	scheduler;
 
 }				t_input_args;
-
-typedef struct s_programming_room
-{
-	pthread_t		*coders;
-	pthread_mutex_t	*dongles;
-	pthread_cond_t	*dongles_state;
-}				t_programming_room;
 
 /*
 number_of_coders: The number of coders and also the number of dongles.
@@ -82,28 +77,43 @@ request arrived first.
 time_to_burnout.
 */
 
+typedef struct s_programming_room
+{
+	pthread_t		*coders;
+	pthread_mutex_t	*dongles;
+	pthread_cond_t	*dongles_state;
+	struct timeval	start_time;
+	int				iter;
+	t_input_args	*inputs;
+}				t_programming_room;
+
+typedef struct s_coder
+{
+	int				id;
+	long int		burnout_timer;
+	long int		last_compile_time;
+	int				compilations_complete;
+	int				dongle_r;
+	int				dongle_l;
+}				t_coder;
+
 // Input and Utils
 
-int				ft_isitoa(int c);
 int				ft_isspace(int c);
 int				ft_isdigit(int c);
-int				ft_num_count(char *args[], int num_count);
+// int				ft_num_count(char *args[], int num_count);
 t_input_args	*parse_args_inputs(int argc, char *argv[]);
 
 // Utils
 
-int				ft_out(t_input_args *args, int *temp, int code, char *msg);
+int	ft_out(t_programming_room *room, int *temp, int code, char *msg);
 
 void			*trash(void *ptr);
-void			*trash_2d_void(void **ptr);
 void			*trash_2d_char(char **ptr);
 void			*trash_2d_int(int **ptr);
 
-size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dsize);
 
-char			*ft_trim(char const *s1, char const *set);
-char			**ft_split(char const *s, char c);
 char			**ft_split_space(char const *s);
 
 #endif

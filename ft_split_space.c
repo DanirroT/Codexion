@@ -6,23 +6,11 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 15:08:55 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/02 20:46:22 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 15:13:51 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	res;
-
-	if (!s)
-		return (0);
-	res = 0;
-	while (s[res])
-		res++;
-	return (res);
-}
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dsize)
 {
@@ -31,7 +19,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dsize)
 	if (!src)
 		return (0);
 	if (dsize == 0 || !dst)
-		return (ft_strlen(src));
+		return (strlen(src));
 	i = 0;
 	while (src[i] && (i < dsize - 1))
 	{
@@ -39,7 +27,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dsize)
 		i++;
 	}
 	dst[i] = '\0';
-	return (ft_strlen(src));
+	return (strlen(src));
 }
 
 static size_t	ft_wordlen(const char *s)

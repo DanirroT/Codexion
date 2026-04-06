@@ -6,18 +6,31 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/02 21:01:04 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 18:21:28 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	ft_out(t_input_args *args, int *temp, int code, char *msg)
+int	ft_out(t_programming_room *room, int *temp, int code, char *msg)
 {
-	trash(args);
+	if (room)
+	{
+		while (room->inputs->number_of_coders)
+		{
+			pthread_join(*room->coders, NULL);
+			room->inputs->number_of_coders--;
+			pthread_mutex_destroy(room->dongles);
+			pthread_cond_destroy(room->dongles_state);
+		}
+		trash(room->coders);
+		trash(room->dongles);
+		trash(room->dongles_state);
+		trash(room->inputs);
+	}
 	trash(temp);
 	if (msg)
-		printf("%s\n", msg);
+		fprintf(stderr, "%s\n", msg);
 	if (code)
 		exit(code);
 	return (code);
@@ -30,13 +43,98 @@ void	create_coders(t_programming_room *room, int number_of_coders)
 	room->dongles_state = malloc(sizeof(pthread_cond_t) * number_of_coders);
 }
 
+void	do_compile(t_coder *self, t_programming_room *room)
+{
+	struct timeval	start_time;
+
+	gettimeofday(&start_time, NULL);
+	fprintf(stdout, "%li %i is compiling\n", start_time.tv_usec, self->id);
+	self->last_compile_time = start_time.tv_usec;
+	usleep(room->inputs->time_to_compile);
+
+}
+
+void	do_debugg(t_coder *self, t_programming_room *room)
+{
+	struct timeval	start_time;
+
+	gettimeofday(&start_time, NULL);
+	fprintf(stdout, "%li %i is debugging\n", start_time.tv_usec, self->id);
+	usleep(room->inputs->time_to_debug);
+
+}
+
+void	do_refactor(t_coder *self, t_programming_room *room)
+{
+	struct timeval	start_time;
+
+	gettimeofday(&start_time, NULL);
+	fprintf(stdout, "%li %i is refactoring\n", start_time.tv_usec, self->id);
+	usleep(room->inputs->time_to_refactor);
+
+}
+
+void	take_dongles(t_coder *self, t_programming_room *room)
+{
+	struct timeval	loop_time;
+	int ready;
+
+	ready = 2;
+	while (ready != 0)
+	{
+		gettimeofday(&loop_time, NULL);
+
+		loop_time.tv_sec += 5;
+		loop_time.tv_usec += 5;
+		pthread_cond_timedwait(&room->dongles_state[self->dongle_r], &room->dongles[self->dongle_r], &loop_time);
+		pthread_mutex_lock(&room->dongles[self->dongle_r]);
+		fprintf(stdout, "%li %i has taken a dongle\n", loop_time.tv_usec, self->id);
+
+		loop_time.tv_sec += 5;
+		loop_time.tv_usec += 5;
+		pthread_cond_timedwait(&room->dongles_state[self->dongle_l], &room->dongles[self->dongle_l], &loop_time);
+		pthread_mutex_lock(&room->dongles[self->dongle_l]);
+		fprintf(stdout, "%li %i has taken a dongle\n", loop_time.tv_usec, self->id);
+	}
+}
+
+void	free_dongles(t_programming_room *room, int index_l, int index_r)
+{
+	struct timeval	start_time;
+
+	gettimeofday(&start_time, NULL);
+	start_time.tv_sec += room->inputs->dongle_cooldown;
+	start_time.tv_usec += room->inputs->dongle_cooldown;
+
+	pthread_cond_timedwait(&room->dongles_state[index_l], NULL, &start_time);
+	pthread_mutex_unlock(&room->dongles[index_l]);
+	pthread_mutex_unlock(&room->dongles[index_r]);
+}
+
 void	*coder_funct(void *input_raw)
 {
-	t_input_args *input;
+	t_programming_room *room;
+	t_coder self;
 
-	input = (t_input_args *)input_raw;
+	room = (t_programming_room *)input_raw;
 
-	printf("Hello from coder thread!\n%li", input->start_time.tv_sec);
+	self.id = room->iter;
+	self.last_compile_time = -1;
+	self.burnout_timer = room->inputs->time_to_burnout;
+
+	fprintf(stderr, "Hello from coder thread %i!\n", self.id);
+
+	take_dongles(&self, room);
+	do_compile(&self, room);
+	free_dongles(room, self.dongle_r, self.dongle_l);
+	while (self.compilations_complete > room->inputs->number_of_compiles_required)
+	{
+		do_debugg(&self, room);
+		do_refactor(&self, room);
+		take_dongles(&self, room);
+		do_compile(&self, room);
+		free_dongles(room, self.dongle_r, self.dongle_l);
+	}
 	return (NULL);
 }
 
@@ -73,37 +171,34 @@ time_to_burnout.
 int	main(int argc, char *argv[])
 {
 	t_programming_room	room;
-	t_input_args		*input;
-	int					i;
 
 	// input = get_inputs();
-	input = parse_args_inputs(argc, argv);
+	room.inputs = parse_args_inputs(argc, argv);
 
-	// printf("Number of coders: %i\n", input->number_of_coders);
-	// printf("Time to burnout: %i\n", input->time_to_burnout);
-	// printf("Time to compile: %i\n", input->time_to_compile);
-	// printf("Time to debug: %i\n", input->time_to_debug);
-	// printf("Time to refactor: %i\n", input->time_to_refactor);
+	// printf("Number of coders: %i\n", room.inputs->number_of_coders);
+	// printf("Time to burnout: %i\n", room.inputs->time_to_burnout);
+	// printf("Time to compile: %i\n", room.inputs->time_to_compile);
+	// printf("Time to debug: %i\n", room.inputs->time_to_debug);
+	// printf("Time to refactor: %i\n", room.inputs->time_to_refactor);
 	// printf("Number of compiles required: %i\n",
-	//		input->number_of_compiles_required);
-	// printf("Dongle cooldown: %i\n", input->dongle_cooldown);
-	// printf("Scheduler: %i\n", input->scheduler);
+	//		room.inputs->number_of_compiles_required);
+	// printf("Dongle cooldown: %i\n", room.inputs->dongle_cooldown);
+	// printf("Scheduler: %i\n", room.inputs->scheduler);
 
-	create_coders(&room, input->number_of_coders);
-	gettimeofday(&input->start_time, NULL);
+	create_coders(&room, room.inputs->number_of_coders);
 
-	// printf("start_time: %li\n", input->start_time);
-	i = 0;
-	while (i < input->number_of_coders)
+	// printf("start_time: %li\n", room.inputs->start_time);
+	room.iter = 1;
+	while (room.iter <= room.inputs->number_of_coders)
 	{
-		pthread_create(&(room.coders[i]), NULL, coder_funct, input);
-		printf("Created coder thread %i\n", i);
-		pthread_mutex_init(&(room.dongles[i]), NULL);
-		pthread_cond_init(&(room.dongles_state[i]), NULL);
-		i++;
+		pthread_create(&(room.coders[room.iter]), NULL, coder_funct, &room);
+		pthread_mutex_init(&(room.dongles[room.iter]), NULL);
+		pthread_cond_init(&(room.dongles_state[room.iter]), NULL);
+		room.iter++;
 	}
+	gettimeofday(&room.start_time, NULL);
 
-	return ft_out(input, NULL, 0, "Simulation ended successfully.");
+	return ft_out(&room, NULL, 0, "Simulation ended successfully.");
 }
 
 /*
