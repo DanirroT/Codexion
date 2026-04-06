@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/06 17:56:12 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 18:27:20 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ typedef struct s_programming_room
 	struct timeval	start_time;
 	int				iter;
 	t_input_args	*inputs;
+	pthread_mutex_t	start_sim_m;
+	pthread_cond_t	start_sim_c;
 }				t_programming_room;
 
 typedef struct s_coder

@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/06 18:21:28 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 18:30:28 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void	*coder_funct(void *input_raw)
 
 	fprintf(stderr, "Hello from coder thread %i!\n", self.id);
 
+	pthread_cond_wait(&room->start_sim_c, &room->start_sim_m);
+
 	take_dongles(&self, room);
 	do_compile(&self, room);
 	free_dongles(room, self.dongle_r, self.dongle_l);
@@ -187,6 +189,8 @@ int	main(int argc, char *argv[])
 
 	create_coders(&room, room.inputs->number_of_coders);
 
+	pthread_mutex_init(&room.start_sim_m, NULL);
+	pthread_cond_init(&room.start_sim_c, NULL);
 	// printf("start_time: %li\n", room.inputs->start_time);
 	room.iter = 1;
 	while (room.iter <= room.inputs->number_of_coders)
@@ -196,7 +200,9 @@ int	main(int argc, char *argv[])
 		pthread_cond_init(&(room.dongles_state[room.iter]), NULL);
 		room.iter++;
 	}
+
 	gettimeofday(&room.start_time, NULL);
+	pthread_cond_broadcast(&room.start_sim_c);
 
 	return ft_out(&room, NULL, 0, "Simulation ended successfully.");
 }
