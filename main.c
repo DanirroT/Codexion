@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/06 18:30:28 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 18:48:29 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	ft_out(t_programming_room *room, int *temp, int code, char *msg)
 
 void	create_coders(t_programming_room *room, int number_of_coders)
 {
-	room->coders = malloc(sizeof(pthread_t) * number_of_coders);
-	room->dongles = malloc(sizeof(pthread_mutex_t) * number_of_coders);
-	room->dongles_state = malloc(sizeof(pthread_cond_t) * number_of_coders);
+	room->coders = malloc(sizeof(pthread_t) * (number_of_coders + 1));
+	room->dongles = malloc(sizeof(pthread_mutex_t) * (number_of_coders + 1));
+	room->dongles_state = malloc(sizeof(pthread_cond_t) * (number_of_coders + 1));
 }
 
 void	do_compile(t_coder *self, t_programming_room *room)
@@ -106,7 +106,7 @@ void	free_dongles(t_programming_room *room, int index_l, int index_r)
 	start_time.tv_sec += room->inputs->dongle_cooldown;
 	start_time.tv_usec += room->inputs->dongle_cooldown;
 
-	pthread_cond_timedwait(&room->dongles_state[index_l], NULL, &start_time);
+	pthread_cond_timedwait(&room->dongles_state[index_l], &room->dongles[index_l], &start_time);
 	pthread_mutex_unlock(&room->dongles[index_l]);
 	pthread_mutex_unlock(&room->dongles[index_r]);
 }
@@ -206,6 +206,9 @@ int	main(int argc, char *argv[])
 
 	return ft_out(&room, NULL, 0, "Simulation ended successfully.");
 }
+
+well, incesing the malloced space worked to solve all the real errors happening, so that is good.
+
 
 /*
 

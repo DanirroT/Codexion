@@ -6,7 +6,7 @@
 #    By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/25 19:11:53 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/04/06 15:20:18 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/04/06 18:32:16 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ = $(SRC:.c=.o)
 INC = codexion.h
 
 CFLAGS = -Wall -Wextra -Werror
-CC = cc $(CFLAGS)
+CC = cc #$(CFLAGS)
 
 RM = rm -f
 

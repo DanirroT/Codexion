@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 17:01:36 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/06 16:29:38 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 18:33:08 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	*split_args(char *args[], int size)
 
 	output = malloc(size * sizeof(int));
 	if (!output || args[1][0] == '\0')
-		return (free(output), NULL);
+		return (trash(output), NULL);
 	ind.i = -1;
 	ind.k = 0;
 	while (++ind.i >= 0 && args[ind.i] && ind.i < size - 2)
@@ -72,7 +72,7 @@ int	*split_args(char *args[], int size)
 		ind.j = -1;
 		temp = ft_split_space(args[ind.i]);
 		if (!temp)
-			return (free(output), NULL);
+			return (trash(output), NULL);
 		while (temp[++ind.j])
 			output[ind.k++] = check_do_atoi_strict_pos(temp, ind.j, output);
 		trash_2d_char(temp);

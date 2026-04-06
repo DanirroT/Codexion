@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config_file_management.c                           :+:      :+:    :+:   */
+/*   .config_file_management.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 17:13:21 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/01 17:17:38 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/06 18:39:41 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char *parse_txt_config(char *line)
 		trash_2d_char(split_str);
 		return NULL;
 	}
-	free(split_str);
+	trash(split_str);
 	return split_comment;
 }
 
