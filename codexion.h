@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/06 18:27:20 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:49:06 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,15 @@ request arrived first.
 time_to_burnout.
 */
 
-typedef struct s_programming_room
+
+
+typedef struct s_dongle
 {
-	pthread_t		*coders;
-	pthread_mutex_t	*dongles;
-	pthread_cond_t	*dongles_state;
-	struct timeval	start_time;
-	int				iter;
-	t_input_args	*inputs;
-	pthread_mutex_t	start_sim_m;
-	pthread_cond_t	start_sim_c;
-}				t_programming_room;
+	int				id;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	state;
+}				t_dongle;
+
 
 typedef struct s_coder
 {
@@ -98,6 +96,25 @@ typedef struct s_coder
 	int				dongle_r;
 	int				dongle_l;
 }				t_coder;
+
+typedef struct s_programming_room
+{
+	pthread_t		*coder_threads;
+	t_coder			*coders;
+
+	pthread_t		*dongle_threads;
+	t_dongle		*dongles;
+
+	int				iter;
+	t_input_args	*inputs;
+	struct timeval	start_time;
+
+	pthread_mutex_t	start_sim_m;
+	pthread_cond_t	start_sim_c;
+
+	pthread_mutex_t	pause_m;
+	pthread_cond_t	pause_c;
+}				t_programming_room;
 
 // Input and Utils
 
@@ -113,6 +130,7 @@ int	ft_out(t_programming_room *room, int *temp, int code, char *msg);
 void			*trash(void *ptr);
 void			*trash_2d_char(char **ptr);
 void			*trash_2d_int(int **ptr);
+long long		get_time_past(struct timeval *start);
 
 size_t			ft_strlcpy(char *dst, const char *src, size_t dsize);
 
