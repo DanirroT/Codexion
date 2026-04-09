@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/08 16:49:06 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:13:30 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,13 @@ request arrived first.
 time_to_burnout.
 */
 
-
-
 typedef struct s_dongle
 {
 	int				id;
+	int				dongle_cooldown;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	state;
 }				t_dongle;
-
 
 typedef struct s_coder
 {
@@ -105,7 +103,6 @@ typedef struct s_programming_room
 	pthread_t		*dongle_threads;
 	t_dongle		*dongles;
 
-	int				iter;
 	t_input_args	*inputs;
 	struct timeval	start_time;
 
@@ -114,7 +111,23 @@ typedef struct s_programming_room
 
 	pthread_mutex_t	pause_m;
 	pthread_cond_t	pause_c;
+
+	pthread_mutex_t	burnout_m;
+	pthread_cond_t	burnout_c;
 }				t_programming_room;
+
+// coder functions
+
+void			do_compile(t_coder *self, t_programming_room *room);
+void			do_debugg(t_coder *self, t_programming_room *room);
+void			do_refactor(t_coder *self, t_programming_room *room);
+void			take_dongles(t_coder *self, t_programming_room *room);
+
+void			dongle_cooldown(void *input_raw);
+void			free_dongles(t_programming_room *room,
+					int index_l, int index_r);
+
+void			*coder_funct(void *input_raw);
 
 // Input and Utils
 
@@ -125,7 +138,8 @@ t_input_args	*parse_args_inputs(int argc, char *argv[]);
 
 // Utils
 
-int	ft_out(t_programming_room *room, int *temp, int code, char *msg);
+int				ft_out(t_programming_room *room,
+					int *temp, int code, char *msg);
 
 void			*trash(void *ptr);
 void			*trash_2d_char(char **ptr);

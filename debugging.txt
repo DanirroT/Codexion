@@ -1,1 +1,5 @@
-Simulation ended successfully.
+Hello from coder thread 0!
+Hello from coder thread 0!
+Hello from coder thread 0!
+Hello from coder thread 0!
+Hello from coder thread 0!

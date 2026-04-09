@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 17:01:36 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/06 18:33:08 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:14:02 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	*split_args(char *args[], int size)
 		trash_2d_char(temp);
 	}
 	ind.i++;
-	if (strcmp(args[ind.i], "fifo") == 0)  //  || strcmp(temp[ind.j], "fifo ") == 0
+	if (strcmp(args[ind.i], "fifo") == 0) // || strcmp(temp[ind.j], "fifo ") == 0
 		output[ind.k] = 1;
 	else if (strcmp(args[ind.i], "edf") == 0)
 		output[ind.k] = 2;

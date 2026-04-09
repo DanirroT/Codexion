@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/08 17:00:50 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:16:53 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ int	ft_out(t_programming_room *room, int *temp, int code, char *msg)
 		trash(room->coders);
 		trash(room->dongle_threads);
 		trash(room->dongles);
-		if (room->inputs)
-		{
-			trash(room->inputs->scheduler);
-			free(room->inputs);
-		}
+		trash(room->inputs);
 	}
 	trash(temp);
 	if (msg)
@@ -43,133 +39,31 @@ int	ft_out(t_programming_room *room, int *temp, int code, char *msg)
 
 void	prep_room(t_programming_room *room, int len)
 {
+	int	i;
+
 	room->coder_threads = malloc(sizeof(pthread_t) * (len + 1));
 	room->coders = malloc(sizeof(t_coder) * (len + 1));
-
 	room->dongle_threads = malloc(sizeof(pthread_t) * (len + 1));
 	room->dongles = malloc(sizeof(t_dongle) * (len + 1));
-
-	room->iter = 1;
-
+	i = 1;
+	while (i <= len)
+	{
+		room->coders[i].id = i;
+		room->coders[i].last_compile_time = -1;
+		room->coders[i].compilations_complete = 0;
+		room->coders[i].burnout_timer = room->inputs->time_to_burnout;
+		room->coders[i].dongle_l = i;
+		room->coders[i].dongle_r = (i + 1) % (len + 1);
+		room->dongles[i].id = i;
+		room->dongles[i].dongle_cooldown = room->inputs->dongle_cooldown;
+		i++;
+	}
 	pthread_mutex_init(&room->start_sim_m, NULL);
 	pthread_cond_init(&room->start_sim_c, NULL);
-
 	pthread_mutex_init(&room->pause_m, NULL);
 	pthread_cond_init(&room->pause_c, NULL);
-}
-
-void	do_compile(t_coder *self, t_programming_room *room)
-{
-	long long	start_time;
-
-	start_time = get_time_past(&room->start_time);
-	fprintf(stdout, "%lli %i is compiling\n", start_time, self->id);
-	fflush(stdout);
-	self->last_compile_time = start_time;
-	usleep(room->inputs->time_to_compile);
-
-}
-
-void	do_debugg(t_coder *self, t_programming_room *room)
-{
-	long long	start_time;
-
-	start_time = get_time_past(&room->start_time);
-	fprintf(stdout, "%lli %i is debugging\n", start_time, self->id);
-	fflush(stdout);
-	usleep(room->inputs->time_to_debug);
-
-}
-
-void	do_refactor(t_coder *self, t_programming_room *room)
-{
-	long long	start_time;
-
-	start_time = get_time_past(&room->start_time);
-	fprintf(stdout, "%lli %i is refactoring\n", start_time, self->id);
-	fflush(stdout);
-
-	usleep(room->inputs->time_to_refactor);
-
-}
-
-void	take_dongles(t_coder *self, t_programming_room *room)
-{
-	long long	loop_time;
-	int ready;
-
-	ready = 2;
-	while (ready != 0)
-	{
-		loop_time = get_time_past(&room->start_time);
-
-		loop_time += 50;
-		pthread_cond_timedwait(&room->dongle[self->dongle_r].state, &room->dongles[self->dongle_r].mutex, &loop_time);
-		pthread_mutex_lock(&room->dongles[self->dongle_r]);
-		fprintf(stdout, "%lli %i has taken a dongle\n", loop_time, self->id);
-		fflush(stdout);
-
-		loop_time += 50;
-		pthread_cond_timedwait(&room->dongle[self->dongle_l].state, &room->dongles[self->dongle_l].mutex, &loop_time);
-		pthread_mutex_lock(&room->dongles[self->dongle_l]);
-		fprintf(stdout, "%lli %i has taken a dongle\n", loop_time, self->id);
-		fflush(stdout);
-	}
-}
-
-void	dongle_cooldown(void *input_raw)
-{
-	long long	cooldown_time;
-	t_dongle *dongle;
-
-	dongle = (t_dongle *)input_raw;
-
-	cooldown_time = get_time_past(NULL);
-	cooldown_time += room->inputs->dongle_cooldown;
-
-	pthread_cond_timedwait(&room->dongles[room->iter].state,
-		&room->dongles[room->iter].mutex, &cooldown_time);
-	pthread_mutex_unlock(&room->dongles[room->iter].mutex);
-}
-
-void	free_dongles(t_programming_room *room, int index_l, int index_r)
-{
-	pthread_t dongle_l;
-	pthread_t dongle_r;
-
-	pthread_create(&dongle_l, NULL, dongle_cooldown, &room->dongles[index_l]);
-	pthread_create(&dongle_r, NULL, dongle_cooldown, &room->dongles[index_r]);
-}
-
-void	*coder_funct(void *input_raw)
-{
-	t_programming_room *room;
-	t_coder self;
-
-	room = (t_programming_room *)input_raw;
-
-	self.id = room->iter;
-	self.last_compile_time = -1;
-	self.burnout_timer = room->inputs->time_to_burnout;
-
-	fprintf(stderr, "Hello from coder thread %i!\n", self.id);
-
-	pthread_cond_broadcast(&room->pause_c);
-
-	pthread_cond_wait(&room->start_sim_c, &room->start_sim_m);
-
-	take_dongles(&self, room);
-	do_compile(&self, room);
-	free_dongles(room, self.dongle_r, self.dongle_l);
-	while (self.compilations_complete > room->inputs->number_of_compiles_required)
-	{
-		do_debugg(&self, room);
-		do_refactor(&self, room);
-		take_dongles(&self, room);
-		do_compile(&self, room);
-		free_dongles(room, self.dongle_r, self.dongle_l);
-	}
-	return (NULL);
+	pthread_mutex_init(&room->burnout_m, NULL);
+	pthread_cond_init(&room->burnout_c, NULL);
 }
 
 /*
@@ -205,6 +99,7 @@ time_to_burnout.
 int	main(int argc, char *argv[])
 {
 	t_programming_room	room;
+	int					i;
 
 	// input = get_inputs();
 	room.inputs = parse_args_inputs(argc, argv);
@@ -220,19 +115,21 @@ int	main(int argc, char *argv[])
 	// printf("Scheduler: %i\n", room.inputs->scheduler);
 
 	prep_room(&room, room.inputs->number_of_coders);
-	while (room.iter <= room.inputs->number_of_coders)
+	i = 0;
+	while (i <= room.inputs->number_of_coders)
 	{
-		pthread_create(&(room.coders[room.iter]), NULL, coder_funct, &room);
-		pthread_mutex_init(&(room.dongles[room.iter]), NULL);
-		pthread_cond_init(&(room.dongles_state[room.iter]), NULL);
+		pthread_create(&(room.coder_threads[i]), NULL, coder_funct, &room);
+		// pthread_create(&(room.dongle_threads[i]), NULL, dongle_funct, &room);
+		pthread_mutex_init(&(room.dongles[i].mutex), NULL);
+		pthread_cond_init(&(room.dongles[i].state), NULL);
 		pthread_cond_wait(&room.pause_c, &room.pause_m);
-		room.iter++;
+		i++;
 	}
 
 	gettimeofday(&room.start_time, NULL);
 	pthread_cond_broadcast(&room.start_sim_c);
 
-	return ft_out(&room, NULL, 0, "Simulation ended successfully.");
+	return (ft_out(&room, NULL, 0, "Simulation ended successfully."));
 }
 
 /*

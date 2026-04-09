@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:45:47 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/08 16:27:09 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:11:32 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ long long	get_time_past(struct timeval *start)
 
 	gettimeofday(&now, NULL);
 	return ((now.tv_sec - start->tv_sec) * 1000LL + (now.tv_usec
-		- start->tv_usec) / 1000LL);
+			- start->tv_usec) / 1000LL);
 }
