@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 17:01:36 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/09 15:14:02 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/19 19:54:07 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	*split_args(char *args[], int size)
 	}
 	ind.i++;
 	if (strcmp(args[ind.i], "fifo") == 0) // || strcmp(temp[ind.j], "fifo ") == 0
-		output[ind.k] = 1;
+		output[ind.k] = FIFO;
 	else if (strcmp(args[ind.i], "edf") == 0)
-		output[ind.k] = 2;
+		output[ind.k] = EDF;
 	else
 		ft_out(NULL, output, -1, "Error: Invalid scheduler. Must be 'fifo' or 'edf'.");
 	return (output);

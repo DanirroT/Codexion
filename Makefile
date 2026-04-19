@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+         #
+#    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/25 19:11:53 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/04/06 18:32:16 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/04/19 22:54:53 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRC =	main.c\
 		utils_lib.c\
 		inputs.c\
 		ft_trashs.c\
-		ft_split_space.c
+		ft_split_space.c\
+		coder_functs.c
 # 		ft_trim.c\
 # 		ft_split.c\
 
@@ -29,7 +30,7 @@ OBJ = $(SRC:.c=.o)
 INC = codexion.h
 
 CFLAGS = -Wall -Wextra -Werror
-CC = cc #$(CFLAGS)
+CC = cc $(CFLAGS)
 
 RM = rm -f
 
