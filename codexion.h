@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/19 23:13:30 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/20 17:09:03 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ typedef struct s_dongle
 	int				dongle_cooldown;
 	pthread_t		thread;
 	pthread_mutex_t	mutex;
-	pthread_cond_t	state;
+	pthread_cond_t	cond;
+	int				state;
 }				t_dongle;
 
 typedef struct s_coder
@@ -109,7 +110,7 @@ typedef struct s_programming_room
 	t_dongle		*dongles;
 
 	t_input_args	*inputs;
-	struct timeval	*start_time;
+	struct timeval	start_time;
 
 	pthread_mutex_t	start_sim_m;
 	pthread_cond_t	start_sim_c;
@@ -141,8 +142,9 @@ int				ft_isdigit(int c);
 // int				ft_num_count(char *args[], int num_count);
 t_input_args	*parse_args_inputs(int argc, char *argv[]);
 
-
+long long		get_time_past(struct timeval start);
 struct timespec get_timespec_offset(int offset);
+int				msleep(int wait);
 
 int cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex, int *condition);
 int cond_timedwait(pthread_cond_t *cond, pthread_mutex_t *mutex, int *condition, int delay);
@@ -153,7 +155,6 @@ int				ft_out(t_programming_room *room,
 void			*trash(void *ptr);
 void			*trash_2d_char(char **ptr);
 void			*trash_2d_int(int **ptr);
-long long		get_time_past(struct timeval *start);
 
 size_t			ft_strlcpy(char *dst, const char *src, size_t dsize);
 

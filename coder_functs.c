@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:09:17 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/19 23:03:18 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/20 17:45:49 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	do_compile(t_coder *self)
 	long long	start_time;
 
 	start_time = get_time_past(self->room->start_time);
-	fprintf(stdout, "%lli %i is compiling\n", start_time, self->id);
+	fprintf(stdout, "%lli %i is compiling %i\n", start_time, self->id, self->compilations_complete);
 	fflush(stdout);
 	self->last_compile_time = start_time;
-	usleep(self->room->inputs->time_to_compile);
+	self->compilations_complete += 1;
+	msleep(self->room->inputs->time_to_compile);
 
 }
 
@@ -31,7 +32,7 @@ void	do_debug(t_coder *self)
 	start_time = get_time_past(self->room->start_time);
 	fprintf(stdout, "%lli %i is debugging\n", start_time, self->id);
 	fflush(stdout);
-	usleep(self->room->inputs->time_to_debug);
+	msleep(self->room->inputs->time_to_debug);
 
 }
 
@@ -43,53 +44,25 @@ void	do_refactor(t_coder *self)
 	fprintf(stdout, "%lli %i is refactoring\n", start_time, self->id);
 	fflush(stdout);
 
-	usleep(self->room->inputs->time_to_refactor);
+	msleep(self->room->inputs->time_to_refactor);
 }
-void	take_dongles(t_coder *self)
+
+int	take_dongle(t_dongle *dongle, int id, struct timeval start)
 {
-	int				result;
+	int out;
 
-	result = 1;
-	while(result)
+	while (1)
 	{
-		pthread_mutex_lock(&self->dongle_l->mutex);
-		fprintf(stdout, "%lli %i has taken a dongle %i\n", get_time_past(self->room->start_time), self->id, self->dongle_l->id);
-		fflush(stdout);
-
-		result = cond_timedwait(&(self->dongle_r)->state, &(self->dongle_r)->mutex, &self->room->burnout_state, 50);
-		if (!result)
+		if (!dongle->state)
 		{
-			pthread_mutex_lock(&self->dongle_r->mutex);
-			fprintf(stdout, "%lli %i has taken a dongle %i\n", get_time_past(self->room->start_time), self->id, self->dongle_r->id);
+			out = pthread_mutex_lock(&dongle->mutex);
+			dongle->state = 1;
+			fprintf(stdout, "%lli %i has taken a dongle %i\n", get_time_past(start), id, dongle->id);
 			fflush(stdout);
-		}
-		else
-		{
-			pthread_mutex_unlock(&self->dongle_l->mutex);
-			fprintf(stdout, "%lli %i has let go of a dongle %i\n", get_time_past(self->room->start_time), self->id, self->dongle_l->id);
-			usleep(50);
+			return (out);
 		}
 	}
 }
-
-/*
-	while (ready != 0)
-	{
-		gettimeofday(&loop_time, NULL);
-
-		loop_time.tv_usec += 50;
-		cond_timedwait(&room->dongles[self->dongle_r].state, &room->dongles[self->dongle_r].mutex, &loop_time);
-		pthread_mutex_lock(&room->dongles[self->dongle_r]);
-		fprintf(stdout, "%lli %i has taken a dongle\n", loop_time, self->id);
-		fflush(stdout);
-
-		loop_time.tv_usec += 50;
-		cond_timedwait(&room->dongles[self->dongle_l].state, &room->dongles[self->dongle_l].mutex, &loop_time);
-		pthread_mutex_lock(&room->dongles[self->dongle_l]);
-		fprintf(stdout, "%lli %i has taken a dongle\n", loop_time, self->id);
-		fflush(stdout);
-	}
-*/
 
 void	*dongle_cooldown(void *input_raw)
 {
@@ -97,12 +70,18 @@ void	*dongle_cooldown(void *input_raw)
 
 	dongle = (t_dongle *)input_raw;
 
-	usleep(dongle->dongle_cooldown);
+	fprintf(stdout, "\tDongle %i let go!\n", dongle->id);
+	fflush(stdout);
+	msleep(dongle->dongle_cooldown);
 
 	// cond_timedwait(&dongle->state,
 	// 	&dongle->mutex, 50);
+	dongle->state = 0;
 	pthread_mutex_unlock(&dongle->mutex);
-	pthread_cond_broadcast(&dongle->state);
+	pthread_cond_broadcast(&dongle->cond);
+
+	fprintf(stdout, "\tDongle %i Free!\n", dongle->id);
+	fflush(stdout);
 	return (NULL);
 }
 
@@ -122,23 +101,45 @@ void	*coder_funct(void *input_raw)
 	self = (t_coder *)input_raw;
 
 	fprintf(stderr, "Hello from coder thread %i!\n", self->id);
-	fflush(stdout);
 
 	cond_wait(&self->room->start_sim_c, &self->room->start_sim_m, &self->room->burnout_state);
 
 	fprintf(stderr, "\tSTART %i!\n", self->id);
-	fflush(stdout);
 
-	take_dongles(self);
+	if (!(self->id % 2))
+		msleep(5);
+
+	if (self->id % 2)
+	{
+		take_dongle(self->dongle_l, self->id, self->room->start_time);
+		take_dongle(self->dongle_r, self->id, self->room->start_time);
+	}
+	else
+	{
+		take_dongle(self->dongle_r, self->id, self->room->start_time);
+		take_dongle(self->dongle_l, self->id, self->room->start_time);
+	}
+
 	do_compile(self);
 	free_dongles(self);
-	while (self->compilations_complete > self->room->inputs->number_of_compiles_required)
+	while (self->compilations_complete < self->room->inputs->number_of_compiles_required)
 	{
 		do_debug(self);
 		do_refactor(self);
-		take_dongles(self);
+	if (self->id % 2)
+	{
+		take_dongle(self->dongle_l, self->id, self->room->start_time);
+		take_dongle(self->dongle_r, self->id, self->room->start_time);
+	}
+	else
+	{
+		take_dongle(self->dongle_r, self->id, self->room->start_time);
+		take_dongle(self->dongle_l, self->id, self->room->start_time);
+	}
 		do_compile(self);
 		free_dongles(self);
 	}
+	fprintf(stderr, "Coder %i is Finished!\n", self->id);
+
 	return (NULL);
 }
