@@ -2,15 +2,15 @@ Hello from coder thread 1!
 	START 1!
 Hello from coder thread 2!
 	START 2!
-Hello from coder thread 3!
-	START 3!
 Hello from coder thread 4!
 	START 4!
+Hello from coder thread 3!
+	START 3!
 	Room Prepped!
 	LET THE GAMES BEGIN!
 	OUT TRIGGERED!
-Coder 1 is Finished!
 Coder 3 is Finished!
+Coder 1 is Finished!
 Coder 2 is Finished!
 Coder 4 is Finished!
 Simulation ended successfully.
