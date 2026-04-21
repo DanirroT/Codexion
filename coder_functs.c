@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:09:17 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/21 22:30:23 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/21 23:13:14 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,20 @@ void	*coder_burnout(void *input_raw)
 	t_coder	*self;
 	int		res;
 
+	// res = cond_timedwait(&self->dongle_l->cond, &self->dongle_l->mutex,
+	// 		&self->room->burnout_state, 1);
+
 	self = (t_coder *) input_raw;
-	while (1)
+	while (self->compilations_complete
+		< self->room->inputs->number_of_compiles_required
+		&& self->room->burnout_state)
 	{
-		if (self->compilations_complete
-			>= self->room->inputs->number_of_compiles_required
-			|| !self->room->burnout_state)
-			return (NULL);
 		res = cond_timedwait(&self->compiling_c, &self->compiling_m,
 			&self->room->burnout_state, self->room->inputs->time_to_burnout);
-		fprintf(stderr, "coder_burnout res %i\n", res);
-		fflush(stderr);
-		if (res == 0)
+		fprintf(stdout, "%i coder_burnout res %i\n", self->id, res);
+		fflush(stdout);
+
+		if (!res)
 		{
 			fprintf(stdout, "%llu %i Burned Out!\n", get_time_past(self->room->start_time), self->id);
 			fflush(stdout);
@@ -85,36 +87,7 @@ void	*coder_burnout(void *input_raw)
 			ft_out(self->room, NULL, 1, "A coder has burned out! Simulation ending.");
 		}
 	}
-}
-
-void	*dongle_cooldown(void *input_raw)
-{
-	t_dongle	*dongle;
-
-	dongle = (t_dongle *)input_raw;
-
-	msleep(dongle->dongle_cooldown);
-
-	// cond_timedwait(&dongle->state,
-	// 	&dongle->mutex, 50);
-	dongle->state = 0;
-	pthread_mutex_unlock(&dongle->mutex);
-	pthread_cond_broadcast(&dongle->cond);
-
-	fprintf(stdout, "\tDongle %i Free!\n", dongle->id);
-	fflush(stdout);
 	return (NULL);
-}
-
-void	free_dongles(t_coder *self)
-{
-	pthread_t	dongle_l;
-	pthread_t	dongle_r;
-
-	fprintf(stdout, "\tCoder %i let go of dongles %i and %i\n", self->id, self->dongle_l->id, self->dongle_r->id);
-	fflush(stdout);
-	pthread_create(&dongle_l, NULL, dongle_cooldown, self->dongle_l);
-	pthread_create(&dongle_r, NULL, dongle_cooldown, self->dongle_r);
 }
 
 void	*coder_funct(void *input_raw)
@@ -133,9 +106,9 @@ void	*coder_funct(void *input_raw)
 		< self->room->inputs->number_of_compiles_required
 		&& self->room->burnout_state)
 	{
+		do_debug(self);
 		do_refactor(self);
 		do_compile(self);
-		free_dongles(self);
 	}
 	fprintf(stderr, "Coder %i is Finished!\n", self->id);
 	return (NULL);
