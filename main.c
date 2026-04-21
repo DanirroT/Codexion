@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/20 17:21:42 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/21 20:26:44 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 int	ft_out(t_programming_room *room, int *temp, int code, char *msg)
 {
-	int id;
-
-	fprintf(stderr, "\tOUT TRIGGERED!\n");
-	fflush(stdout);
+	int	id;
 
 	if (room)
 	{
@@ -43,25 +40,29 @@ int	ft_out(t_programming_room *room, int *temp, int code, char *msg)
 	return (code);
 }
 
-void init_coder(t_programming_room *room, int id)
+void	init_coder(t_programming_room *room, int id)
 {
-		room->coders[id].id = id + 1;
-		room->coders[id].room = room;
-		room->coders[id].last_compile_time = -1;
-		room->coders[id].compilations_complete = 0;
-		room->coders[id].burnout_timer = room->inputs->time_to_burnout;
-		room->coders[id].dongle_l = &room->dongles[id];
-		room->coders[id].dongle_r = &room->dongles[(id + 1) % (room->inputs->number_of_coders)];
-		pthread_create(&room->coders[id].thread, NULL, coder_funct, &room->coders[id]);
+	room->coders[id].id = id + 1;
+	room->coders[id].room = room;
+	// room->coders[id].last_compile_time = -1;
+	room->coders[id].compilations_complete = 0;
+	// room->coders[id].burnout_timer = room->inputs->time_to_burnout;
+	room->coders[id].dongle_l = &room->dongles[id];
+	room->coders[id].dongle_r = &room->dongles[(id + 1)
+		% (room->inputs->number_of_coders)];
+	pthread_mutex_init(&room->coders[id].compiling_m, NULL);
+	pthread_cond_init(&room->coders[id].compiling_c, NULL);
+	pthread_create(&room->coders[id].thread, NULL,
+		coder_funct, &room->coders[id]);
 }
 
-void init_dongle(t_programming_room *room, int id)
+void	init_dongle(t_programming_room *room, int id)
 {
-		room->dongles[id].id = id + 1;
-		room->dongles[id].dongle_cooldown = room->inputs->dongle_cooldown;
-		pthread_mutex_init(&(room->dongles[id].mutex), NULL);
-		pthread_cond_init(&(room->dongles[id].cond), NULL);
-		room->dongles[id].state = 0;
+	room->dongles[id].id = id + 1;
+	room->dongles[id].dongle_cooldown = room->inputs->dongle_cooldown;
+	pthread_mutex_init(&(room->dongles[id].mutex), NULL);
+	pthread_cond_init(&(room->dongles[id].cond), NULL);
+	room->dongles[id].state = 0;
 }
 
 void	prep_room(t_programming_room *room)
@@ -70,13 +71,15 @@ void	prep_room(t_programming_room *room)
 
 	pthread_mutex_init(&(room->start_sim_m), NULL);
 	pthread_cond_init(&(room->start_sim_c), NULL);
-	pthread_mutex_init(&(room->pause_m), NULL);
-	pthread_cond_init(&(room->pause_c), NULL);
+	// pthread_mutex_init(&(room->pause_m), NULL);
+	// pthread_cond_init(&(room->pause_c), NULL);
 	pthread_mutex_init(&(room->burnout_m), NULL);
-	pthread_cond_init(&(room->burnout_c), NULL);
+	// pthread_cond_init(&(room->burnout_c), NULL);
 	room->burnout_state = 1;
-	room->coders = malloc(sizeof(t_coder) * (room->inputs->number_of_coders));
-	room->dongles = malloc(sizeof(t_dongle) * (room->inputs->number_of_coders));
+	room->coders = malloc((size_t)(sizeof(t_coder)
+				* (room->inputs->number_of_coders)));
+	room->dongles = malloc((size_t)(sizeof(t_dongle)
+				* (room->inputs->number_of_coders)));
 	id = -1;
 	while (++id < room->inputs->number_of_coders)
 		init_dongle(room, id);
@@ -85,13 +88,13 @@ void	prep_room(t_programming_room *room)
 		init_coder(room, id);
 }
 
-		// pthread_create(&(room->dongles[id].thread), NULL, dongle_funct, &room);
+// pthread_create(&(room->dongles[id].thread), NULL, dongle_funct, &room);
 /*
 t_input_args	*get_inputs()
 {
 	t_input_args	*input;
 
-	input = malloc(sizeof(t_input_args));
+	input = malloc((size_t)(sizeof(t_input_args)));
 	if (!input)
 		return (NULL);
 
@@ -106,13 +109,13 @@ t_input_args	*get_inputs()
 
 	return (input);
 }
+// input = get_inputs();
 */
-	// input = get_inputs();
 
 /*
- 0	- fifo means First In, First Out: the dongle is granted to the coder whose
+0	- fifo means First In, First Out: the dongle is granted to the coder whose
 request arrived first.
- 1	-edf means Earliest Deadline First with deadline = last_compile_start +
+1	-edf means Earliest Deadline First with deadline = last_compile_start +
 time_to_burnout.
 */
 
@@ -121,32 +124,24 @@ int	main(int argc, char *argv[])
 	t_programming_room	room;
 
 	room.inputs = parse_args_inputs(argc, argv);
-
-	// printf("Number of coders: %i\n", room.inputs->number_of_coders);
-	// printf("Time to burnout: %i\n", room.inputs->time_to_burnout);
-	// printf("Time to compile: %i\n", room.inputs->time_to_compile);
-	// printf("Time to debug: %i\n", room.inputs->time_to_debug);
-	// printf("Time to refactor: %i\n", room.inputs->time_to_refactor);
-	// printf("Number of compiles required: %i\n",
-	//		room.inputs->number_of_compiles_required);
-	// printf("Dongle cooldown: %i\n", room.inputs->dongle_cooldown);
-	// printf("Scheduler: %i\n", room.inputs->scheduler);
-
+	fflush(stdout);
 	prep_room(&room);
-
 	msleep(room.inputs->number_of_coders * 5);
-
 	fprintf(stderr, "\tRoom Prepped!\n");
-	fflush(stdout);
-
+	fflush(stderr);
 	gettimeofday(&room.start_time, NULL);
+	fprintf(stderr, "\tTime initialized!\n");
+	fflush(stderr);
+	// msleep(25+room.inputs->time_to_compile); // 4
 	pthread_cond_broadcast(&room.start_sim_c);
-
 	fprintf(stderr, "\tLET THE GAMES BEGIN!\n");
-	fflush(stdout);
-
-	// msleep(room.inputs->number_of_coders * 50000);
-
+	fflush(stderr);
+	while (room.burnout_state)
+	{
+		fprintf(stderr, "_");
+		fflush(stdout);
+		fflush(stderr);
+	}
 	return (ft_out(&room, NULL, 0, "Simulation ended successfully."));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_space.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 15:08:55 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/06 15:13:51 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:19:44 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dsize)
 
 static size_t	ft_wordlen(const char *s)
 {
-	int	res;
+	size_t	res;
 
 	res = 0;
 	while (s[res] && !ft_isspace(s[res]))

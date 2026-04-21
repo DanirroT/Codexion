@@ -6,7 +6,7 @@
 #    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/25 19:11:53 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/04/21 22:21:56 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/04/21 22:31:00 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ NAME = Codexion
 SRC =	main.c\
 		utils_lib.c\
 		inputs.c\
+		coder_functs.c\
+		dongle_functs.c\
+		time.c\
 		ft_trashs.c\
 		ft_split_space.c\
-		coder_functs.c
-# 		ft_trim.c\
-# 		ft_split.c\
 
 OBJ = $(SRC:.c=.o)
 
@@ -50,8 +50,13 @@ fclean: clean
 
 re: fclean all
 
+INPUTS = 2 800 200 200 200 3 100 fifo
+
 test: all
-	./$(NAME) 4 400 200 200 200 3 100 fifo 2> debugging.txt
+	./$(NAME) $(INPUTS) 2> debugging.txt
+
+memtest: all
+	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all ./$(NAME) $(INPUTS) 2> debugging_mem.txt
 
 retest: fclean test
 

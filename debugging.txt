@@ -1,6 +1,6 @@
 Hello from coder thread 1!
-	START 1!
 Hello from coder thread 2!
+<<<<<<< HEAD
 	START 2!
 Hello from coder thread 4!
 	START 4!
@@ -10,7 +10,22 @@ Hello from coder thread 3!
 	LET THE GAMES BEGIN!
 	OUT TRIGGERED!
 Coder 3 is Finished!
+=======
+get_time_past: now 1776799610.797191 start 0.0
+1776799610.797191 -> 1776799610797
+
+coder_burnout res 0
+get_time_past: now 1776799610.797209 start 0.0
+1776799610.797209 -> 1776799610797
+
+get_time_past: now 1776799610.797205 start 0.0
+1776799610.797205 -> 1776799610797
+
+coder_burnout res 0
+get_time_past: now 1776799610.797229 start 0.0
+1776799610.797229 -> 1776799610797
+
+>>>>>>> 3361334a7323679b75be04a4bc0c66b5a27980c5
 Coder 1 is Finished!
 Coder 2 is Finished!
-Coder 4 is Finished!
-Simulation ended successfully.
+A coder has burned out! Simulation ending.
