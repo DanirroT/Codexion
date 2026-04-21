@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/20 17:09:03 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:33:06 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ typedef struct s_mult_ind
 	int	i;
 	int	j;
 	int	k;
-}		t_mult_ind;
+}	t_mult_ind;
 
-enum s_scheduler_type {
-	FIFO, // 0
-	EDF   // 1
+enum e_scheduler_type
+{
+	FIFO,
+	EDF
 };
 
 // https://www.geeksforgeeks.org/c/thread-functions-in-c-c/
@@ -42,14 +43,17 @@ typedef struct s_input_args
 {
 	int	number_of_coders;
 	int	time_to_burnout;
-	int	time_to_compile; // main constraint. Connected to Matrix
-	int	time_to_debug; // time spent debugging
-	int	time_to_refactor; // after this is done, try to compile
+	int	time_to_compile;
+	// main constraint. Connected to Matrix
+	int	time_to_debug;
+	// time spent debugging
+	int	time_to_refactor;
+	// after this is done, try to compile
 	int	number_of_compiles_required;
 	int	dongle_cooldown;
 	int	scheduler;
 
-}				t_input_args;
+}	t_input_args;
 
 /*
 number_of_coders: The number of coders and also the number of dongles.
@@ -90,19 +94,22 @@ typedef struct s_dongle
 	pthread_mutex_t	mutex;
 	pthread_cond_t	cond;
 	int				state;
-}				t_dongle;
+}	t_dongle;
 
 typedef struct s_coder
 {
 	int							id;
-	long int					burnout_timer;
-	long int					last_compile_time;
+	// long int					burnout_timer;
+	// long int					last_compile_time;
 	int							compilations_complete;
 	pthread_t					thread;
+	pthread_t					burnout_thread;
+	pthread_mutex_t				compiling_m;
+	pthread_cond_t				compiling_c;
 	t_dongle					*dongle_r;
 	t_dongle					*dongle_l;
 	struct s_programming_room	*room;
-}				t_coder;
+}	t_coder;
 
 typedef struct s_programming_room
 {
@@ -115,13 +122,13 @@ typedef struct s_programming_room
 	pthread_mutex_t	start_sim_m;
 	pthread_cond_t	start_sim_c;
 
-	pthread_mutex_t	pause_m;
-	pthread_cond_t	pause_c;
+	// pthread_mutex_t	pause_m;
+	// pthread_cond_t	pause_c;
 
 	pthread_mutex_t	burnout_m;
-	pthread_cond_t	burnout_c;
+	// pthread_cond_t	burnout_c;
 	int				burnout_state;
-}				t_programming_room;
+}	t_programming_room;
 
 // Coder functions
 
@@ -139,18 +146,20 @@ void			*coder_funct(void *input_raw);
 
 int				ft_isspace(int c);
 int				ft_isdigit(int c);
-// int				ft_num_count(char *args[], int num_count);
+int				ft_num_count(char *args[], int num_count);
 t_input_args	*parse_args_inputs(int argc, char *argv[]);
 
 long long		get_time_past(struct timeval start);
-struct timespec get_timespec_offset(int offset);
+struct timespec	get_timespec_offset(int offset);
 int				msleep(int wait);
 
-int cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex, int *condition);
-int cond_timedwait(pthread_cond_t *cond, pthread_mutex_t *mutex, int *condition, int delay);
+int				cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex,
+					int *condition);
+int				cond_timedwait(pthread_cond_t *cond, pthread_mutex_t *mutex,
+					int *condition, int delay);
 
-int				ft_out(t_programming_room *room,
-					int *temp, int code, char *msg);
+int				ft_out(t_programming_room *room, int *temp,
+					int code, char *msg);
 
 void			*trash(void *ptr);
 void			*trash_2d_char(char **ptr);
