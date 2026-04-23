@@ -6,13 +6,14 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:40:09 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/21 19:52:54 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/23 19:53:34 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	take_dongle(t_dongle *dongle, int id, struct timeval start)
+int	take_dongle(t_dongle *dongle, int id,
+		struct timeval start, pthread_mutex_t print)
 {
 	int	out;
 
@@ -22,25 +23,30 @@ int	take_dongle(t_dongle *dongle, int id, struct timeval start)
 		{
 			out = pthread_mutex_lock(&dongle->mutex);
 			dongle->state = 1;
+			pthread_mutex_lock(&print);
 			fprintf(stdout, "%lli %i has taken a dongle %i\n",
 				get_time_past(start), id, dongle->id);
 			fflush(stdout);
+			pthread_mutex_unlock(&print);
 			return (out);
 		}
 	}
 }
 
-void	take_dongles(t_coder *self)
+void	take_dongles(t_coder *self, pthread_mutex_t print)
 {
+	// printf("burnout %i\n", self->room->burnout_state);
+	if (!self->room->burnout_state)
+		return ;
 	if (self->id % 2)
 	{
-		take_dongle(self->dongle_l, self->id, self->room->start_time);
-		take_dongle(self->dongle_r, self->id, self->room->start_time);
+		take_dongle(self->dongle_l, self->id, self->room->start_time, print);
+		take_dongle(self->dongle_r, self->id, self->room->start_time, print);
 	}
 	else
 	{
-		take_dongle(self->dongle_r, self->id, self->room->start_time);
-		take_dongle(self->dongle_l, self->id, self->room->start_time);
+		take_dongle(self->dongle_r, self->id, self->room->start_time, print);
+		take_dongle(self->dongle_l, self->id, self->room->start_time, print);
 	}
 }
 

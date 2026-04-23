@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/21 20:26:44 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/23 19:39:39 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,14 @@ void	prep_room(t_programming_room *room)
 {
 	int	id;
 
-	pthread_mutex_init(&(room->start_sim_m), NULL);
-	pthread_cond_init(&(room->start_sim_c), NULL);
+	pthread_mutex_init(&(room->print_m), NULL);
+	// pthread_mutex_init(&(room->start_sim_m), NULL);
+	// pthread_cond_init(&(room->start_sim_c), NULL);
 	// pthread_mutex_init(&(room->pause_m), NULL);
 	// pthread_cond_init(&(room->pause_c), NULL);
 	pthread_mutex_init(&(room->burnout_m), NULL);
 	// pthread_cond_init(&(room->burnout_c), NULL);
-	room->burnout_state = 1;
+	room->burnout_state = 0;
 	room->coders = malloc((size_t)(sizeof(t_coder)
 				* (room->inputs->number_of_coders)));
 	room->dongles = malloc((size_t)(sizeof(t_dongle)
@@ -119,26 +120,41 @@ request arrived first.
 time_to_burnout.
 */
 
+void print_inputs(t_input_args *inputs)
+{
+	printf("Number of Coders: %d\n", inputs->number_of_coders);
+	printf("Time to Burnout: %d\n", inputs->time_to_burnout);
+	printf("Time to Compile: %d\n", inputs->time_to_compile);
+	printf("Time to Debug: %d\n", inputs->time_to_debug);
+	printf("Time to Refactor: %d\n", inputs->time_to_refactor);
+	printf("Number of Compiles Required: %d\n", inputs->number_of_compiles_required);
+	printf("Dongle Cooldown: %d\n", inputs->dongle_cooldown);
+	printf("Scheduler: %d\n", inputs->scheduler);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_programming_room	room;
 
 	room.inputs = parse_args_inputs(argc, argv);
-	fflush(stdout);
+	// print_inputs(room.inputs);
+	// fflush(stdout);
 	prep_room(&room);
+	pthread_mutex_lock(&room.print_m);
 	msleep(room.inputs->number_of_coders * 5);
 	fprintf(stderr, "\tRoom Prepped!\n");
 	fflush(stderr);
 	gettimeofday(&room.start_time, NULL);
 	fprintf(stderr, "\tTime initialized!\n");
 	fflush(stderr);
-	// msleep(25+room.inputs->time_to_compile); // 4
-	pthread_cond_broadcast(&room.start_sim_c);
+	// msleep(21); // 4
+	// pthread_cond_broadcast(&room.start_sim_c);
 	fprintf(stderr, "\tLET THE GAMES BEGIN!\n");
 	fflush(stderr);
+	pthread_mutex_unlock(&room.print_m);
 	while (room.burnout_state)
 	{
-		fprintf(stderr, "_");
+		// fprintf(stderr, "_");
 		fflush(stdout);
 		fflush(stderr);
 	}

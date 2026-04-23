@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/21 19:33:06 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/23 19:17:25 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,10 @@ typedef struct s_programming_room
 	t_input_args	*inputs;
 	struct timeval	start_time;
 
-	pthread_mutex_t	start_sim_m;
-	pthread_cond_t	start_sim_c;
+	pthread_mutex_t	print_m;
+
+	// pthread_mutex_t	start_sim_m;
+	// pthread_cond_t	start_sim_c;
 
 	// pthread_mutex_t	pause_m;
 	// pthread_cond_t	pause_c;
@@ -135,13 +137,15 @@ typedef struct s_programming_room
 void			do_compile(t_coder *self);
 void			do_debug(t_coder *self);
 void			do_refactor(t_coder *self);
-void			take_dongles(t_coder *self);
+void			*coder_funct(void *input_raw);
 
+void			take_dongles(t_coder *self, pthread_mutex_t print);
+int				take_dongle(t_dongle *dongle, int id,
+					struct timeval start, pthread_mutex_t print);
 void			*dongle_cooldown(void *input_raw);
 void			free_dongles(t_coder *self);
 
-void			*coder_funct(void *input_raw);
-
+void 			print_inputs(t_input_args *inputs);
 // Input and Utils
 
 int				ft_isspace(int c);

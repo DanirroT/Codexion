@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:45:47 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/04/21 23:14:19 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/04/23 19:38:36 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	cond_timedwait(pthread_cond_t *cond, pthread_mutex_t *mutex,
 {
 	int				result;
 	struct timespec	timespec_time;
-
+	printf("Expecting timed wait delay: %i condition: %i\n", delay, *condition);
 	timespec_time = get_timespec_offset(delay);
 	pthread_mutex_lock(mutex);
 	while (!*condition)

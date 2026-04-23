@@ -1,175 +1,84 @@
-==221357== Memcheck, a memory error detector
-==221357== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==221357== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==221357== Command: ./Codexion 2 800 200 200 200 3 100 fifo
-==221357== 
+==46882== Memcheck, a memory error detector
+==46882== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==46882== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==46882== Command: ./codexion 2 800 200 200 200 3 100 fifo
+==46882== 
 Hello from coder thread 2!
+Hello from coder thread 1!
 	Room Prepped!
 	Time initialized!
 	LET THE GAMES BEGIN!
-Hello from coder thread 1!
-get_time_past: now 1776799190.420056 start 1776799190.372304
-0.47752 -> 47
-
-get_time_past: now 1776799190.426078 start 1776799190.372304
-0.53774 -> 53
-
-get_time_past: now 1776799190.426514 start 1776799190.372304
-0.54210 -> 54
-
-==221357== Thread 4:
-==221357== Conditional jump or move depends on uninitialised value(s)
-==221357==    at 0x48E7AD6: __vfprintf_internal (vfprintf-internal.c:1516)
-==221357==    by 0x48E8664: buffered_vfprintf (vfprintf-internal.c:2261)
-==221357==    by 0x48D16C9: fprintf (fprintf.c:32)
-==221357==    by 0x4022BA: coder_burnout (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357==    by 0x4996A83: clone (clone.S:100)
-==221357==  Uninitialised value was created by a stack allocation
-==221357==    at 0x401900: cond_timedwait (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== Use of uninitialised value of size 8
-==221357==    at 0x48CB2EB: _itoa_word (_itoa.c:177)
-==221357==    by 0x48E6ABD: __vfprintf_internal (vfprintf-internal.c:1516)
-==221357==    by 0x48E8664: buffered_vfprintf (vfprintf-internal.c:2261)
-==221357==    by 0x48D16C9: fprintf (fprintf.c:32)
-==221357==    by 0x4022BA: coder_burnout (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357==    by 0x4996A83: clone (clone.S:100)
-==221357==  Uninitialised value was created by a stack allocation
-==221357==    at 0x401900: cond_timedwait (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== Conditional jump or move depends on uninitialised value(s)
-==221357==    at 0x48CB2FC: _itoa_word (_itoa.c:177)
-==221357==    by 0x48E6ABD: __vfprintf_internal (vfprintf-internal.c:1516)
-==221357==    by 0x48E8664: buffered_vfprintf (vfprintf-internal.c:2261)
-==221357==    by 0x48D16C9: fprintf (fprintf.c:32)
-==221357==    by 0x4022BA: coder_burnout (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357==    by 0x4996A83: clone (clone.S:100)
-==221357==  Uninitialised value was created by a stack allocation
-==221357==    at 0x401900: cond_timedwait (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== Conditional jump or move depends on uninitialised value(s)
-==221357==    at 0x48E75C3: __vfprintf_internal (vfprintf-internal.c:1516)
-==221357==    by 0x48E8664: buffered_vfprintf (vfprintf-internal.c:2261)
-==221357==    by 0x48D16C9: fprintf (fprintf.c:32)
-==221357==    by 0x4022BA: coder_burnout (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357==    by 0x4996A83: clone (clone.S:100)
-==221357==  Uninitialised value was created by a stack allocation
-==221357==    at 0x401900: cond_timedwait (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== Conditional jump or move depends on uninitialised value(s)
-==221357==    at 0x48E6C05: __vfprintf_internal (vfprintf-internal.c:1516)
-==221357==    by 0x48E8664: buffered_vfprintf (vfprintf-internal.c:2261)
-==221357==    by 0x48D16C9: fprintf (fprintf.c:32)
-==221357==    by 0x4022BA: coder_burnout (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357==    by 0x4996A83: clone (clone.S:100)
-==221357==  Uninitialised value was created by a stack allocation
-==221357==    at 0x401900: cond_timedwait (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-coder_burnout res 0
-==221357== 
-==221357== Process terminating with default action of signal 2 (SIGINT)
-==221357==    at 0x4902117: __futex_abstimed_wait_common64 (futex-internal.c:57)
-==221357==    by 0x4902117: __futex_abstimed_wait_common (futex-internal.c:87)
-==221357==    by 0x4902117: __futex_abstimed_wait_cancelable64 (futex-internal.c:139)
-==221357==    by 0x4907623: __pthread_clockjoin_ex (pthread_join_common.c:105)
-==221357==    by 0x4012C3: ft_out (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4017B5: main (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== HEAP SUMMARY:
-==221357==     in use at exit: 3,184 bytes in 10 blocks
-==221357==   total heap usage: 11 allocs, 1 frees, 3,216 bytes allocated
-==221357== 
-==221357== Thread 1:
-==221357== 32 bytes in 1 blocks are still reachable in loss record 1 of 8
-==221357==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==221357==    by 0x401F56: parse_args_inputs (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4016D4: main (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== 224 bytes in 1 blocks are still reachable in loss record 2 of 8
-==221357==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==221357==    by 0x401634: prep_room (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4016F4: main (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== 272 bytes in 1 blocks are still reachable in loss record 3 of 8
-==221357==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==221357==    by 0x401616: prep_room (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4016F4: main (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== 272 bytes in 1 blocks are possibly lost in loss record 4 of 8
-==221357==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==221357==    by 0x40147D9: calloc (rtld-malloc.h:44)
-==221357==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
-==221357==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
-==221357==    by 0x49067B4: allocate_stack (allocatestack.c:430)
-==221357==    by 0x49067B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
-==221357==    by 0x402769: free_dongles (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4020C8: do_compile (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x402440: coder_funct (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357==    by 0x4996A83: clone (clone.S:100)
-==221357== 
-==221357== 272 bytes in 1 blocks are possibly lost in loss record 5 of 8
-==221357==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==221357==    by 0x40147D9: calloc (rtld-malloc.h:44)
-==221357==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
-==221357==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
-==221357==    by 0x49067B4: allocate_stack (allocatestack.c:430)
-==221357==    by 0x49067B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
-==221357==    by 0x402788: free_dongles (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4020C8: do_compile (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x402440: coder_funct (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357==    by 0x4996A83: clone (clone.S:100)
-==221357== 
-==221357== 544 bytes in 2 blocks are possibly lost in loss record 6 of 8
-==221357==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==221357==    by 0x40147D9: calloc (rtld-malloc.h:44)
-==221357==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
-==221357==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
-==221357==    by 0x49067B4: allocate_stack (allocatestack.c:430)
-==221357==    by 0x49067B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
-==221357==    by 0x4014F4: init_coder (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x40169C: prep_room (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4016F4: main (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357== 
-==221357== 544 bytes in 2 blocks are possibly lost in loss record 7 of 8
-==221357==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==221357==    by 0x40147D9: calloc (rtld-malloc.h:44)
-==221357==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
-==221357==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
-==221357==    by 0x49067B4: allocate_stack (allocatestack.c:430)
-==221357==    by 0x49067B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
-==221357==    by 0x402416: coder_funct (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357==    by 0x4996A83: clone (clone.S:100)
-==221357== 
-==221357== 1,024 bytes in 1 blocks are still reachable in loss record 8 of 8
-==221357==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==221357==    by 0x48EFBA3: _IO_file_doallocate (filedoalloc.c:101)
-==221357==    by 0x48FECDF: _IO_doallocbuf (genops.c:347)
-==221357==    by 0x48FDF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
-==221357==    by 0x48FC6D4: _IO_new_file_xsputn (fileops.c:1243)
-==221357==    by 0x48FC6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
-==221357==    by 0x48E6CA8: outstring_func (vfprintf-internal.c:239)
-==221357==    by 0x48E6CA8: __vfprintf_internal (vfprintf-internal.c:1516)
-==221357==    by 0x48D16C9: fprintf (fprintf.c:32)
-==221357==    by 0x40255A: take_dongle (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4025C8: take_dongles (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x402021: do_compile (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x402440: coder_funct (in /home/dmota-ri/42_work/Entregas/Milestone03/Codexion/Codexion)
-==221357==    by 0x4905AC2: start_thread (pthread_create.c:442)
-==221357== 
-==221357== LEAK SUMMARY:
-==221357==    definitely lost: 0 bytes in 0 blocks
-==221357==    indirectly lost: 0 bytes in 0 blocks
-==221357==      possibly lost: 1,632 bytes in 6 blocks
-==221357==    still reachable: 1,552 bytes in 4 blocks
-==221357==         suppressed: 0 bytes in 0 blocks
-==221357== 
-==221357== For lists of detected and suppressed errors, rerun with: -s
-==221357== ERROR SUMMARY: 14 errors from 9 contexts (suppressed: 0 from 0)
+Coder 2 Stat!
+Coder 1 Stat!
+==46882== 
+==46882== Process terminating with default action of signal 2 (SIGINT)
+==46882==    at 0x402321: do_refactor (coder_functs.c:57)
+==46882==    by 0x40269F: coder_funct (coder_functs.c:119)
+==46882==    by 0x4906AC2: start_thread (pthread_create.c:442)
+==46882==    by 0x4997A83: clone (clone.S:100)
+==46882== 
+==46882== HEAP SUMMARY:
+==46882==     in use at exit: 2,640 bytes in 8 blocks
+==46882==   total heap usage: 9 allocs, 1 frees, 2,672 bytes allocated
+==46882== 
+==46882== 32 bytes in 1 blocks are still reachable in loss record 1 of 6
+==46882==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==46882==    by 0x402076: parse_args_inputs (inputs.c:155)
+==46882==    by 0x4017B4: main (main.c:139)
+==46882== 
+==46882== 224 bytes in 1 blocks are still reachable in loss record 2 of 6
+==46882==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==46882==    by 0x40162D: prep_room (main.c:82)
+==46882==    by 0x4017C4: main (main.c:142)
+==46882== 
+==46882== 272 bytes in 1 blocks are still reachable in loss record 3 of 6
+==46882==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==46882==    by 0x40160F: prep_room (main.c:80)
+==46882==    by 0x4017C4: main (main.c:142)
+==46882== 
+==46882== 544 bytes in 2 blocks are possibly lost in loss record 4 of 6
+==46882==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==46882==    by 0x40147D9: calloc (rtld-malloc.h:44)
+==46882==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
+==46882==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+==46882==    by 0x49077B4: allocate_stack (allocatestack.c:430)
+==46882==    by 0x49077B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+==46882==    by 0x401504: init_coder (main.c:55)
+==46882==    by 0x401695: prep_room (main.c:89)
+==46882==    by 0x4017C4: main (main.c:142)
+==46882== 
+==46882== 544 bytes in 2 blocks are possibly lost in loss record 5 of 6
+==46882==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==46882==    by 0x40147D9: calloc (rtld-malloc.h:44)
+==46882==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
+==46882==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+==46882==    by 0x49077B4: allocate_stack (allocatestack.c:430)
+==46882==    by 0x49077B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+==46882==    by 0x4025E5: coder_funct (coder_functs.c:106)
+==46882==    by 0x4906AC2: start_thread (pthread_create.c:442)
+==46882==    by 0x4997A83: clone (clone.S:100)
+==46882== 
+==46882== 1,024 bytes in 1 blocks are still reachable in loss record 6 of 6
+==46882==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==46882==    by 0x48F0BA3: _IO_file_doallocate (filedoalloc.c:101)
+==46882==    by 0x48FFCDF: _IO_doallocbuf (genops.c:347)
+==46882==    by 0x48FEF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==46882==    by 0x48FD6D4: _IO_new_file_xsputn (fileops.c:1243)
+==46882==    by 0x48FD6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==46882==    by 0x48E714C: outstring_func (vfprintf-internal.c:239)
+==46882==    by 0x48E714C: __vfprintf_internal (vfprintf-internal.c:1263)
+==46882==    by 0x48D279E: printf (printf.c:33)
+==46882==    by 0x401A40: cond_timedwait (utils_lib.c:46)
+==46882==    by 0x402454: coder_burnout (coder_functs.c:78)
+==46882==    by 0x4906AC2: start_thread (pthread_create.c:442)
+==46882==    by 0x4997A83: clone (clone.S:100)
+==46882== 
+==46882== LEAK SUMMARY:
+==46882==    definitely lost: 0 bytes in 0 blocks
+==46882==    indirectly lost: 0 bytes in 0 blocks
+==46882==      possibly lost: 1,088 bytes in 4 blocks
+==46882==    still reachable: 1,552 bytes in 4 blocks
+==46882==         suppressed: 0 bytes in 0 blocks
+==46882== 
+==46882== For lists of detected and suppressed errors, rerun with: -s
+==46882== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)

@@ -6,11 +6,11 @@
 #    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/25 19:11:53 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/04/21 22:31:00 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/04/23 15:23:43 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Codexion
+NAME = codexion
 
 SRC =	main.c\
 		utils_lib.c\
@@ -37,10 +37,10 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INC)
-	$(CC) -I . $(OBJ) -o $(NAME)
+	$(CC) -I . $(OBJ) -g -o $(NAME)
 
 %.o: %.c $(INC)
-	$(CC) -I . -c $< -o $@
+	$(CC) -I . -c $< -g -o $@
 
 clean:
 	$(RM) $(OBJ)
