@@ -5,21 +5,30 @@ Hello from coder thread 2!
 	LET THE GAMES BEGIN!
 Coder 1 Stat!
 Coder 2 Stat!
-get_time_past: now 1776970614.445844 start 1776970614.445748
-0.96 -> 0
+get_time_past: now 1777395594.351601 start 1777395594.351464
+0.137 -> 0
+
+get_time_past: now 1777395594.351617 start 1777395594.351464
+0.153 -> 0
+
+get_time_past: now 1777395594.351620 start 1777395594.351464
+0.156 -> 0
+
+get_time_past: now 1777395594.351628 start 1777395594.351464
+0.164 -> 0
+
+get_time_past: now 1777395594.351654 start 1777395594.351464
+0.190 -> 0
 
 Coder 1 is Finished!
-get_time_past: now 1776970614.445879 start 1776970614.445748
-0.131 -> 0
+get_time_past: now 1777395594.651889 start 1777395594.351464
+0.300425 -> 300
 
-get_time_past: now 1776970614.450886 start 1776970614.445748
-0.5138 -> 5
+get_time_past: now 1777395594.651970 start 1777395594.351464
+0.300506 -> 300
 
-get_time_past: now 1776970614.450898 start 1776970614.445748
-0.5150 -> 5
-
-get_time_past: now 1776970614.450902 start 1776970614.445748
-0.5154 -> 5
+get_time_past: now 1777395594.651978 start 1777395594.351464
+0.300514 -> 300
 
 Coder 2 is Finished!
-A coder has burned out! Simulation ending.
+Simulation ended successfully.

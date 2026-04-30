@@ -10,6 +10,7 @@ else
 fi
 
 make fclean
+make fclean -C other_projects
 echo ""
 git status
 echo ""

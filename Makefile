@@ -6,7 +6,7 @@
 #    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/25 19:11:53 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/04/23 15:23:43 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/04/28 17:59:31 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ = $(SRC:.c=.o)
 
 INC = codexion.h
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -pthread
 CC = cc $(CFLAGS)
 
 RM = rm -f
@@ -37,10 +37,10 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INC)
-	$(CC) -I . $(OBJ) -g -o $(NAME)
+	$(CC) -I . $(OBJ) -o $(NAME)
 
 %.o: %.c $(INC)
-	$(CC) -I . -c $< -g -o $@
+	$(CC) -I . -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)
