@@ -10,7 +10,7 @@ else
 fi
 
 make fclean
-make fclean -C other_projects
+make fclean -C other_projects/codexion-nstreet-
 echo ""
 git status
 echo ""
