@@ -1,0 +1,9 @@
+.vscode
+*.out
+obj/
+old/
+db/
+dbm/
+debugging_mem.txt
+debugging.txt
+Codexion
