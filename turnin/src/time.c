@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:55:00 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/06/04 14:08:07 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 21:15:45 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	safe_msleep(int wait, t_programming_room *room)
 	return (msleep(wait));
 }
 
-long long	get_time_past(struct timeval start)
+unsigned long long	get_time_past(struct timeval start)
 {
 	struct timeval	now;
 

@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/06/25 11:28:44 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 22:05:25 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ static void	out_coders(t_programming_room *room)
 
 	if (!room->coders)
 		return ;
+	pthread_join(room->burnout_thread, NULL);
 	id = -1;
 	while (++id < room->inputs->number_of_coders)
 	{
-		fprintf(stderr, "\t\tWaiting for C%i\n", id + 1);
-		fflush(stderr);
 		pthread_join(room->coders[id].thread, NULL);
 		fprintf(stderr, "\t\tMain C%i Done\n", id + 1);
 		fflush(stderr);
@@ -45,7 +44,6 @@ static void	out_dongles(t_programming_room *room)
 		fprintf(stderr, "\t\tMain D%i Done\n", id + 1);
 		fflush(stderr);
 		pthread_mutex_destroy(&room->coders[id].compiling_m);
-		pthread_cond_destroy(&room->coders[id].compiling_c);
 		pthread_cond_destroy(&room->dongles[id].take);
 		pthread_cond_destroy(&room->dongles[id].free);
 		pthread_cond_destroy(&room->dongles[id].ready);
@@ -57,12 +55,15 @@ static void	out_dongles(t_programming_room *room)
 
 int	ft_out(t_programming_room *room, void *temp, int code)
 {
-	out_coders(room);
-	out_dongles(room);
-	trash(room->coders);
-	trash(room->dongles);
-	trash(room->inputs);
-	trash(room);
+	if (room)
+	{
+		out_coders(room);
+		out_dongles(room);
+		trash(room->coders);
+		trash(room->dongles);
+		trash(room->inputs);
+		trash(room);
+	}
 	trash(temp);
 	if (code)
 		exit(code);

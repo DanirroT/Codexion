@@ -6,16 +6,16 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 22:31:12 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/14 18:09:59 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 22:18:40 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static void	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
+static int	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
 {
-	if (check_burnout(self->room))
-		return ;
+	if (check_burnout(self->room) || self->dongle_l == self->dongle_r)
+		return (1);
 	if (self->id % 2)
 	{
 		*first = self->dongle_l;
@@ -27,12 +27,13 @@ static void	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
 		*second = self->dongle_l;
 	}
 	if (check_burnout(self->room))
-		return ;
+		return (1);
 	fprintf(stderr, "C%i requests 1st D%i\n", self->id, (*first)->id);
 	add_d_queue(*first, self);
 	fprintf(stderr, "C%i requests 2nd D%i\n", self->id, (*second)->id);
 	add_d_queue(*second, self);
 	fprintf(stderr, "\tC%i request done\n", self->id);
+	return (0);
 }
 
 static void	wait_for_ready(t_coder *self, t_dongle *first, t_dongle *second)
@@ -62,7 +63,8 @@ void	take_dongles(t_coder *self)
 	t_dongle		*second;
 
 	fprintf(stderr, "C%i in take_dongles\n", self->id);
-	request_dongles(self, &first, &second);
+	if (request_dongles(self, &first, &second))
+		return ;
 	while (!check_burnout(self->room))
 	{
 		pthread_mutex_lock(&first->state_m);
@@ -79,8 +81,8 @@ void	take_dongles(t_coder *self)
 				&& self == first->queue->content)
 			{
 				fprintf(stderr, "C%i taking Dongles\n", self->id);
-				remove_from_queue(first);
-				remove_from_queue(second);
+				remove_from_queue(first, self->id);
+				remove_from_queue(second, self->id);
 				pthread_mutex_unlock(&second->state_m);
 				pthread_mutex_unlock(&first->state_m);
 				fprintf(stderr, "C%i Dongles taken\n", self->id);

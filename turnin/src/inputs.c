@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 17:01:36 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/06/26 18:50:12 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 23:23:05 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ static t_input_args	*termin_to_room(t_programming_room *room, int *temp)
 	return (inputs);
 }
 
-void	parse_args_inputs(char *argv[], t_programming_room *room)
+int	parse_args_inputs(char *argv[], t_programming_room *room)
 {
 	int	*temp;
 	int	argc;
@@ -158,16 +158,17 @@ void	parse_args_inputs(char *argv[], t_programming_room *room)
 		printf("Incorrect argument input.\nUsage: ./Codexion number_of_coders "
 			"time_to_burnout time_to_compile time_to_debug time_to_refactor "
 			"number_of_compiles_required dongle_cooldown scheduler\n");
-		ft_out(room, NULL, -2);
+		return (ft_out(room, NULL, -2), DONE);
 	}
 	temp = split_args(&argv[1], room);
 	if (!temp)
 	{
 		printf("Error processing arguments. Please check your input format.");
-		ft_out(room, NULL, -2);
+		return (ft_out(room, NULL, -2), DONE);
 	}
 	room->inputs = termin_to_room(room, temp);
 	if (!room->inputs)
-		ft_out(room, NULL, -2);
+		return (ft_out(room, temp, -2), DONE);
 	free(temp);
+	return (ACTIVE);
 }

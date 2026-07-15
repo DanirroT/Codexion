@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/14 19:10:31 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 23:21:58 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	init_coder(t_programming_room *room, int id)
 {
 	room->coders[id].id = id + 1;
 	room->coders[id].c_ready = ACTIVE;
-	room->coders[id].b_ready = ACTIVE;
 	room->coders[id].room = room;
 	room->coders[id].compilations_complete = 0;
 	room->coders[id].last_ct = 0;
@@ -24,7 +23,6 @@ static void	init_coder(t_programming_room *room, int id)
 	room->coders[id].dongle_r = &room->dongles[(id + 1)
 		% (room->inputs->number_of_coders)];
 	pthread_mutex_init(&room->coders[id].compiling_m, NULL);
-	pthread_cond_init(&room->coders[id].compiling_c, NULL);
 	pthread_create(&room->coders[id].thread, NULL,
 		coder_funct, &room->coders[id]);
 	fprintf(stderr, "C%i - state %p compiling_m %p\n",
@@ -82,6 +80,8 @@ static int	prep_room(t_programming_room *room)
 	id = -1;
 	while (++id < room->inputs->number_of_coders)
 		init_coder(room, id);
+	pthread_create(&room->burnout_thread, NULL,
+		coder_burnout, room);
 	return (ACTIVE);
 }
 
@@ -122,12 +122,11 @@ static void	wait_all_ready(t_programming_room *room, int out, int i)
 	while (1)
 	{
 		out = 0;
-		while (i <= room->inputs->number_of_coders)
+		while (i < room->inputs->number_of_coders)
 		{
 			// fprintf(stderr, "  %i", i);
 			pthread_mutex_lock(&room->ready_m);
 			if (room->coders[i].c_ready == ACTIVE
-				|| room->coders[i].b_ready == ACTIVE
 				|| room->dongles[i].d_ready == ACTIVE)
 			{
 				// fprintf(stderr, " - not ready\n");
@@ -142,6 +141,21 @@ static void	wait_all_ready(t_programming_room *room, int out, int i)
 			break ;
 		msleep(room->inputs->number_of_coders - i);
 	}
+	// fprintf(stderr, "\n\tAll Ready!\n");
+	// fflush(stderr);
+	while (1)
+	{
+		pthread_mutex_lock(&room->ready_m);
+		if (room->b_ready == DONE)
+		{
+			pthread_mutex_unlock(&room->ready_m);
+			break;
+		}
+		pthread_mutex_unlock(&room->ready_m);
+		msleep(2);
+	}
+	// fprintf(stderr, "\t burnout Ready!\n");
+	// fflush(stderr);
 	// fprintf(stderr, "\nWaiting for Ready Done\n");
 	msleep(room->inputs->number_of_coders);
 }
@@ -155,7 +169,6 @@ int	main(int argc, char *argv[])
 	room = malloc(sizeof(t_programming_room));
 	if (!room)
 		return (ft_out(NULL, NULL, -1));
-	// gettimeofday(&room->start_time, NULL);
 	memset(room, 0, sizeof(t_programming_room));
 	// print_inputs(room->inputs);
 	// fflush(stdout);

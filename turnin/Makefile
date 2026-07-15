@@ -6,7 +6,7 @@
 #    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/18 17:59:26 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/07/08 14:37:40 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/07/15 21:22:34 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,8 @@ helgrind: $(NAME) db/
 
 # Threading issues
 TESTING = valgrind --tool=helgrind
+
+# search for pattern "----- (\d+) 1 " must total 13
 
 test_many: $(NAME)
 	@rm -fdr dbm/

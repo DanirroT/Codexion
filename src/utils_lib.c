@@ -6,16 +6,11 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 20:45:47 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/06/26 18:49:20 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 23:14:35 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
-// int	ft_isitoa(int c)
-// {
-// 	return (ft_isspace(c) || ft_isdigit(c) || c == '+' || c == '-');
-// }
 
 int	ft_isdigit(int c)
 {

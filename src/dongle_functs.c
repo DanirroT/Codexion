@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:40:09 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/14 18:49:44 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 23:32:46 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	dongle_main_loop(t_dongle *self)
 {
-	int				req;
 	struct timespec	offset;
 
 	fprintf(stderr, "start dongle_main_loop D%i\n", self->id);
@@ -23,7 +22,8 @@ static void	dongle_main_loop(t_dongle *self)
 	{
 		pthread_mutex_lock(&self->state_m);
 		self->state = FREE;
-		fprintf(stderr, "D%i: Broadcast Ready %p (%p)\n", self->id, &self->ready, &self->state_m);
+		fprintf(stderr, "D%i: Broadcast Ready %p (%p)\n",
+			self->id, &self->ready, &self->state_m);
 		pthread_cond_broadcast(&self->ready);
 		if (!check_burnout(self->room))
 		{
@@ -48,6 +48,8 @@ void	*dongle_funct(void *input_raw)
 	safe_mod_val_int(&self->d_ready, DONE, &self->room->ready_m);
 	safe_cond_timedwait(&self->room->start_sim_c, &self->room->start_sim_m,
 		power(self->room->inputs->number_of_coders, 3) + 200, self->room);
+	fprintf(stderr, "Hello from D%i\n", self->id);
 	dongle_main_loop(self);
+	fprintf(stderr, "Goodbye from D%i\n", self->id);
 	return (NULL);
 }

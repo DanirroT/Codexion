@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/06/25 12:05:16 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 23:23:35 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	out_coders(t_programming_room *room)
 
 	if (!room->coders)
 		return ;
+	pthread_join(room->burnout_thread, NULL);
 	id = -1;
 	while (++id < room->inputs->number_of_coders)
 	{
@@ -37,7 +38,6 @@ static void	out_dongles(t_programming_room *room)
 	{
 		pthread_join(room->dongles[id].thread, NULL);
 		pthread_mutex_destroy(&room->coders[id].compiling_m);
-		pthread_cond_destroy(&room->coders[id].compiling_c);
 		pthread_cond_destroy(&room->dongles[id].take);
 		pthread_cond_destroy(&room->dongles[id].free);
 		pthread_cond_destroy(&room->dongles[id].ready);
@@ -49,12 +49,15 @@ static void	out_dongles(t_programming_room *room)
 
 int	ft_out(t_programming_room *room, void *temp, int code)
 {
-	out_coders(room);
-	out_dongles(room);
-	trash(room->coders);
-	trash(room->dongles);
-	trash(room->inputs);
-	trash(room);
+	if (room)
+	{
+		out_coders(room);
+		out_dongles(room);
+		trash(room->coders);
+		trash(room->dongles);
+		trash(room->inputs);
+		trash(room);
+	}
 	trash(temp);
 	if (code)
 		exit(code);

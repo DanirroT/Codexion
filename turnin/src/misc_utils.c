@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 14:54:49 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/06/26 15:49:47 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 22:12:46 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,17 @@ int	check_burnout(t_programming_room *room)
 	return (0);
 }
 
-long long	print_event(struct timeval start_time, int id,
-	char *msg, pthread_mutex_t *mutex)
+unsigned long long	print_event(t_programming_room *room, int id, char *msg)
 {
-	long long	time_past;
+	unsigned long long	time_past;
 
-	time_past = get_time_past(start_time);
-	pthread_mutex_lock(mutex);
-	printf("%llu %i %s\n", time_past, id, msg);
-	pthread_mutex_unlock(mutex);
+	time_past = get_time_past(room->start_time);
+	if (!check_burnout(room))
+	{
+		pthread_mutex_lock(&room->print_m);
+		printf("%llu %i %s\n", time_past, id, msg);
+		fprintf(stderr, "\t----- %llu %i %s -----\n", time_past, id, msg);
+		pthread_mutex_unlock(&room->print_m);
+	}
 	return (time_past);
 }

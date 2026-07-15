@@ -6,16 +6,16 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 19:03:01 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/06/26 18:51:40 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/15 23:25:25 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static void	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
+static int	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
 {
-	if (check_burnout(self->room))
-		return ;
+	if (check_burnout(self->room) || self->dongle_l == self->dongle_r)
+		return (1);
 	if (self->id % 2)
 	{
 		*first = self->dongle_l;
@@ -27,9 +27,10 @@ static void	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
 		*second = self->dongle_l;
 	}
 	if (check_burnout(self->room))
-		return ;
+		return (1);
 	add_d_queue(*first, self);
 	add_d_queue(*second, self);
+	return (0);
 }
 
 static void	wait_for_ready(t_coder *self, t_dongle *first, t_dongle *second)
@@ -52,7 +53,8 @@ void	take_dongles(t_coder *self)
 	t_dongle		*first;
 	t_dongle		*second;
 
-	request_dongles(self, &first, &second);
+	if (request_dongles(self, &first, &second))
+		return ;
 	while (!check_burnout(self->room))
 	{
 		pthread_mutex_lock(&first->state_m);
@@ -62,8 +64,8 @@ void	take_dongles(t_coder *self)
 			if (self == second->queue->content
 				&& self == first->queue->content)
 			{
-				remove_from_queue(first);
-				remove_from_queue(second);
+				remove_from_queue(first, self->id);
+				remove_from_queue(second, self->id);
 				pthread_mutex_unlock(&second->state_m);
 				pthread_mutex_unlock(&first->state_m);
 				return ;

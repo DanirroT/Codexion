@@ -6,11 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/07/14 18:07:38 by dmota-ri         ###   ########.fr       */
-=======
-/*   Updated: 2026/07/01 00:39:37 by dmota-ri         ###   ########.fr       */
->>>>>>> origin/main
+/*   Updated: 2026/07/15 23:30:00 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +140,6 @@ typedef struct s_coder
 	t_dongle					*dongle_l;
 
 	int							c_ready;
-	int							b_ready;
 
 	struct s_programming_room	*room;
 }	t_coder;
@@ -153,6 +148,8 @@ typedef struct s_programming_room
 {
 	t_coder			*coders;
 	t_dongle		*dongles;
+	pthread_t		burnout_thread;
+	int				b_ready;
 
 	t_input_args	*inputs;
 	struct timeval	start_time;
@@ -168,69 +165,67 @@ typedef struct s_programming_room
 	int				complete_state;
 }	t_programming_room;
 
-int				ft_out(t_programming_room *room, void *temp, int code);
+int							ft_out(t_programming_room *room, void *temp, int code);
 
 // Input
-int				parse_args_inputs(char *argv[], t_programming_room *room);
-// void			print_inputs(t_input_args *inputs);
-// int				ft_num_count(char *args[], int num_count);
-int				check_do_atoi_strict_pos(char **arg, int rep,
-					int *temp, t_programming_room *room);
-
+int							parse_args_inputs(char *argv[], t_programming_room *room);
+// void						print_inputs(t_input_args *inputs);
+// int							ft_num_count(char *args[], int num_count);
+int							check_do_atoi_strict_pos(char **arg, int rep,
+								int *temp, t_programming_room *room);
 
 // Coder functions
-void			*coder_funct(void *input_raw);
-void			*coder_burnout(void *input_raw);
-// void			do_compile(t_coder *self);
-// void			do_compile_loop(t_coder *self);
+void						*coder_funct(void *input_raw);
+void						*coder_burnout(void *input_raw);
+// void						do_compile(t_coder *self);
+// void						do_compile_loop(t_coder *self);
 
 
 // Coder <-> Queue Communication
-void			take_dongles(t_coder *self);
-void			free_dongles(t_coder *self);
+void						take_dongles(t_coder *self);
+void						free_dongles(t_coder *self);
 
 // // Dongle functions
-// void			*dongle_cooldown(void *input_raw);
+// void						*dongle_cooldown(void *input_raw);
 
-void			*dongle_funct(void *input_raw);
+void						*dongle_funct(void *input_raw);
 
 // Queue Management
-t_list			*ft_lstnew(void *content);
-int				ft_lstsize(t_list *lst);
-void			ft_lstadd_back(t_list **lst, t_list *new);
-void			ft_lstclear(t_list **lst);
+t_list						*ft_lstnew(void *content);
+int							ft_lstsize(t_list *lst);
+void						ft_lstadd_back(t_list **lst, t_list *new);
+void						ft_lstclear(t_list **lst);
 
-void			add_d_queue(t_dongle *dongle, t_coder *self);
-void			remove_from_queue(t_dongle *dongle);
-void			print_queue(t_list *queue, int d_id, char *s);
+void						add_d_queue(t_dongle *dongle, t_coder *self);
+void						remove_from_queue(t_dongle *dongle, int id);
+void						print_queue(t_list *queue, int d_id, char *s);
 
 // Time
-long long		get_time_past(struct timeval start);
-struct timespec	get_timespec_offset(int offset);
-int				msleep(int wait);
-int				safe_msleep(int wait, t_programming_room *room);
+unsigned long long			get_time_past(struct timeval start);
+struct timespec				get_timespec_offset(int offset);
+int							msleep(int wait);
+int							safe_msleep(int wait, t_programming_room *room);
 
 // Mutex Safe Functions
-long long		print_event(struct timeval start_time, int id,
-					char *msg, pthread_mutex_t *mutex);
-int				check_burnout(t_programming_room *room);
-// void			safe_add_val_int(int *var, int val, pthread_mutex_t *mutex);
-void			safe_mod_val_int(int *var, int val, pthread_mutex_t *mutex);
-void			safe_broadcast(pthread_cond_t *cond, pthread_mutex_t *mutex);
-void			safe_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex,
-					t_programming_room *room);
-int				safe_cond_timedwait(pthread_cond_t *cond,
-					pthread_mutex_t *mutex,
-					int offset, t_programming_room *room);
+unsigned long long			print_event(t_programming_room *room, int id, char *msg);
+int							check_burnout(t_programming_room *room);
+// void						safe_add_val_int(int *var, int val, pthread_mutex_t *mutex);
+void						safe_mod_val_int(int *var, int val, pthread_mutex_t *mutex);
+void						safe_broadcast(pthread_cond_t *cond, pthread_mutex_t *mutex);
+void						safe_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex,
+								t_programming_room *room);
+int							safe_cond_timedwait(pthread_cond_t *cond,
+								pthread_mutex_t *mutex,
+								int offset, t_programming_room *room);
 
 // // Utils
-int				ft_isspace(int c);
-int				ft_isdigit(int c);
-int				power(int base, int exp);
+int							ft_isspace(int c);
+int							ft_isdigit(int c);
+int							power(int base, int exp);
 
-void			*trash(void *ptr);
-void			*trash_2d_char(char **ptr);
+void						*trash(void *ptr);
+void						*trash_2d_char(char **ptr);
 
-char			**ft_split_space(char const *s);
+char						**ft_split_space(char const *s);
 
 #endif
