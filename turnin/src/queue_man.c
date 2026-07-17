@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 19:36:53 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/15 22:17:31 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 14:23:17 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	remove_from_queue(t_dongle *dongle, int id)
 	t_list	**queue;
 
 	queue = &dongle->queue;
-	if (!queue || !*queue)
+	if (!queue || !*queue || check_burnout(dongle->room))
 		return ;
 	temp = (*queue);
 	(*queue) = temp->next;

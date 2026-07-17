@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 21:23:46 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/06/25 12:18:12 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 14:21:53 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@ t_list	*ft_lstnew(void *val)
 	new->content = val;
 	return (new);
 }
-
-// void	ft_lstadd_front(t_list **lst, t_list *new)
-// {
-// 	if (!lst || !new)
-// 		return ;
-// 	new->next = *lst;
-// 	*lst = new;
-// }
 
 int	ft_lstsize(t_list *lst)
 {

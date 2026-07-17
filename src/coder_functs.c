@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:09:17 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/17 17:13:12 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 23:31:59 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ static void	do_compile(t_coder *self)
 	take_dongles(self);
 	if (check_burnout(self->room))
 	{
-		fprintf(stderr,
-			"C%i exits compilation prematurely\n", self->id);
+		fprintf(stderr, "C%i exits compilation prematurely\n", self->id);
 		free_dongles(self);
 		return ;
 	}
@@ -111,10 +110,10 @@ void	*coder_funct(void *input_raw)
 	self = (t_coder *)input_raw;
 	fprintf(stderr, "Hello from C%i thread!\n", self->id);
 	safe_mod_val_int(&self->c_ready, DONE, &self->room->ready_m);
-	// safe_cond_timedwait(&self->room->start_sim_c, &self->room->start_sim_m,
-	// 	power(self->room->inputs->number_of_coders, 3) + 200, self->room);
-	safe_cond_wait(&self->room->start_sim_c, &self->room->start_sim_m,
-		self->room);
+	safe_cond_timedwait(&self->room->start_sim_c, &self->room->start_sim_m,
+		power(self->room->inputs->number_of_coders, 3) + 200, self->room);
+	// safe_cond_wait(&self->room->start_sim_c, &self->room->start_sim_m,
+	// 	self->room);
 	fprintf(stderr, "C%i Stat!\n", self->id);
 	if (!(self->id % 2))
 		safe_msleep(self->room->inputs->time_to_compile - 20, self->room);

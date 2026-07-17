@@ -6,58 +6,52 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 19:36:53 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/15 22:15:35 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 14:23:12 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static void	perform_edf(t_list **queue_head, t_coder *coder)
+static int	has_higher_priority(t_coder *new, t_coder *current)
 {
-	t_list	**searching_in;
-	t_list	*temp;
-	t_coder	*temp_coder;
 	t_coder	*first;
 	t_coder	*second;
+	int		result;
 
-	searching_in = queue_head;
-	while (*searching_in)
+	if (new->id < current->id)
 	{
-		temp_coder = (*searching_in)->content;
-		if (temp_coder->id > coder->id)
+		first = new;
+		second = current;
+	}
+	else
+	{
+		first = current;
+		second = new;
+	}
+	pthread_mutex_lock(&first->compiling_m);
+	pthread_mutex_lock(&second->compiling_m);
+	result = (new->last_ct < current->last_ct);
+	pthread_mutex_unlock(&second->compiling_m);
+	pthread_mutex_unlock(&first->compiling_m);
+	return (result);
+}
+
+static void	perform_edf(t_list **queue, t_coder *coder)
+{
+	t_list	*temp;
+
+	while (*queue)
+	{
+		if (has_higher_priority(coder, (*queue)->content))
 		{
-			first = temp_coder;
-			second = coder;
-		}
-		else
-		{
-			first = coder;
-			second = temp_coder;
-		}
-		pthread_mutex_lock(&first->compiling_m);
-		pthread_mutex_lock(&second->compiling_m);
-		// fprintf(stderr, "to add: %i %lli looking at: %i %lli\n",
-		// 	coder->id, coder->last_ct,
-		// 	temp_coder->id, temp_coder->last_ct);
-		// printf("searching %lli > %lli", temp_coder->last_ct,
-		// 	coder->last_ct);
-		if (coder->last_ct + coder->room->inputs->time_to_burnout
-			< temp_coder->last_ct
-			+ coder->room->inputs->time_to_burnout)
-		{
-			fprintf(stderr, "\t\tFOUND!\n");
-			temp = (*searching_in);
-			(*searching_in) = ft_lstnew(coder);
-			(*searching_in)->next = temp;
-			pthread_mutex_unlock(&second->compiling_m);
-			pthread_mutex_unlock(&first->compiling_m);
+			temp = (*queue);
+			(*queue) = ft_lstnew(coder);
+			(*queue)->next = temp;
 			return ;
 		}
-		searching_in = &(*searching_in)->next;
-		pthread_mutex_unlock(&second->compiling_m);
-		pthread_mutex_unlock(&first->compiling_m);
+		queue = &(*queue)->next;
 	}
-	(*searching_in) = ft_lstnew(coder);
+	(*queue) = ft_lstnew(coder);
 }
 
 void	add_d_queue(t_dongle *dongle, t_coder *coder)
@@ -84,7 +78,7 @@ void	remove_from_queue(t_dongle *dongle, int id)
 	t_list	**queue;
 
 	queue = &dongle->queue;
-	if (!queue || !*queue)
+	if (!queue || !*queue || check_burnout(dongle->room))
 		return ;
 	temp = (*queue);
 	(*queue) = temp->next;
