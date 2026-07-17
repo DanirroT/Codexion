@@ -6,7 +6,7 @@
 #    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/18 17:59:26 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/07/15 21:22:34 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/07/17 17:11:57 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ CC = cc $(CFLAGS)
 
 RM = rm -fdr
 
-VALGRIND = valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all
+VALGRIND = valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all
 
 HELGRIND = valgrind --tool=helgrind
 
@@ -69,8 +69,8 @@ re: fclean all
 
 # valid
 #       nb bout com deb ref nbc dcd sk
-# INPUTS = 2 8000 200 200 200 3 1000 edf
-INPUTS = 2 8000 200 200 200 3 100 fifo
+INPUTS = 3 100 200 200 200 3 100 edf
+# INPUTS = 100 8000 200 200 200 3 1000 fifo
 # invalid
 #       nb bout com deb ref nbc dcd sk
 # INPUTS = 3 100 200 200 200 3 100 fifo
@@ -86,13 +86,13 @@ helgrind: $(NAME) db/
 	-$(HELGRIND) ./$(NAME) $(INPUTS) 2> db/debugging_hell.txt
 
 # no extras
-# TESTING =
+TESTING =
 
 # Memory leaks
-# TESTING = valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all
+# TESTING = valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all
 
 # Threading issues
-TESTING = valgrind --tool=helgrind
+# TESTING = valgrind --tool=helgrind
 
 # search for pattern "----- (\d+) 1 " must total 13
 
@@ -101,6 +101,9 @@ test_many: $(NAME)
 	@mkdir -p dbm
 	@echo "\nTesting NULL\n"
 	-$(TESTING) ./$(NAME) 2> dbm/debugging_NULL.txt
+
+	@echo "\nTesting with 1 Coder\n"
+	$(TESTING) ./$(NAME) 1 1000 200 200 200 3 100 fifo 2> dbm/debugging_one.txt
 
 	@echo "\nTesting with 2 Coders, no Burnout FIFO\n"
 	$(TESTING) ./$(NAME) 2 8000 200 200 200 3 100 fifo 2> dbm/debugging_2sf.txt
@@ -157,10 +160,25 @@ test_many: $(NAME)
 	@echo "\nTesting with 100 Coders, no Burnout EDF, long cooldown\n"
 	$(TESTING) ./$(NAME) 100 12000 200 200 200 3 1000 edf 2> dbm/debugging_100le.txt
 
-	@echo "\nTesting with 100 Coders, Burnout! FIFO\n"
-	$(TESTING) ./$(NAME) 100 100 200 200 200 3 100 fifo 2> dbm/debugging_100bf.txt
-	@echo "\nTesting with 100 Coders, Burnout! EDF\n"
-	$(TESTING) ./$(NAME) 100 100 200 200 200 3 100 edf 2> dbm/debugging_100be.txt
+	@echo "\nTesting with 200 Coders, Burnout! FIFO\n"
+	$(TESTING) ./$(NAME) 200 100 200 200 200 3 100 fifo 2> dbm/debugging_200bf.txt
+	@echo "\nTesting with 200 Coders, Burnout! EDF\n"
+	$(TESTING) ./$(NAME) 200 100 200 200 200 3 100 edf 2> dbm/debugging_200be.txt
+
+	@echo "\nTesting with 200 Coders, no Burnout FIFO\n"
+	$(TESTING) ./$(NAME) 200 20000 200 200 200 3 100 fifo 2> dbm/debugging_200sf.txt
+	@echo "\nTesting with 200 Coders, no Burnout EDF\n"
+	$(TESTING) ./$(NAME) 200 20000 200 200 200 3 100 edf 2> dbm/debugging_200se.txt
+
+	@echo "\nTesting with 200 Coders, no Burnout FIFO, long cooldown\n"
+	$(TESTING) ./$(NAME) 200 20000 200 200 200 3 1000 fifo 2> dbm/debugging_200lf.txt
+	@echo "\nTesting with 200 Coders, no Burnout EDF, long cooldown\n"
+	$(TESTING) ./$(NAME) 200 20000 200 200 200 3 1000 edf 2> dbm/debugging_200le.txt
+
+	@echo "\nTesting with 200 Coders, Burnout! FIFO\n"
+	$(TESTING) ./$(NAME) 200 100 200 200 200 3 100 fifo 2> dbm/debugging_200bf.txt
+	@echo "\nTesting with 200 Coders, Burnout! EDF\n"
+	$(TESTING) ./$(NAME) 200 100 200 200 200 3 100 edf 2> dbm/debugging_200be.txt
 
 db/:
 	@mkdir -p db

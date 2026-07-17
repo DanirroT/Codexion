@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:40:09 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/15 23:32:48 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:43:04 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	dongle_main_loop(t_dongle *self)
 		if (!check_burnout(self->room))
 		{
 			offset = get_timespec_offset(self->room->inputs->time_to_burnout
-										 + self->room->inputs->time_to_compile);
+					+ self->room->inputs->time_to_compile);
 			pthread_cond_timedwait(&self->free, &self->state_m, &offset);
 		}
 		pthread_mutex_unlock(&self->state_m);

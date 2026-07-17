@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/15 23:21:58 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:41:49 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ static int	prep_room(t_programming_room *room)
 	pthread_cond_init(&room->start_sim_c, NULL);
 	room->burnout_state = ACTIVE;
 	room->complete_state = ACTIVE;
-	fprintf(stderr, "burnout_m at %p, print_m at %p, burnout_state at %p, complete_state at %p\n",
-		&room->burnout_m, &room->print_m, &room->burnout_state, &room->complete_state);
+	fprintf(stderr, "burnout_m at %p, print_m at %p, "
+		"burnout_state at %p, complete_state at %p\n",
+		&room->burnout_m, &room->print_m,
+		&room->burnout_state, &room->complete_state);
 	room->dongles = malloc((size_t)(sizeof(t_dongle)
 				* (room->inputs->number_of_coders)));
 	if (!room->dongles)
@@ -149,7 +151,7 @@ static void	wait_all_ready(t_programming_room *room, int out, int i)
 		if (room->b_ready == DONE)
 		{
 			pthread_mutex_unlock(&room->ready_m);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&room->ready_m);
 		msleep(2);
@@ -173,7 +175,7 @@ int	main(int argc, char *argv[])
 	// print_inputs(room->inputs);
 	// fflush(stdout);
 	if (parse_args_inputs(argv, room) == DONE
-			|| prep_room(room) == DONE)
+		|| prep_room(room) == DONE)
 		return (ft_out(room, NULL, -1));
 	fprintf(stderr, "\tRoom Prepped!\n");
 	fflush(stderr);

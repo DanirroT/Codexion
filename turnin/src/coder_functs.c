@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:09:17 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/15 23:27:56 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:38:54 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static int	wait_for_burnout(t_programming_room *room)
 				pthread_mutex_unlock(&room->coders[i].compiling_m);
 				continue ;
 			}
-			if (room->coders[i].last_ct + (long long)room->inputs->time_to_burnout
+			if (room->coders[i].last_ct
+				+ (long long)room->inputs->time_to_burnout
 				<= timeout)
 				id = room->coders[i].id;
 			out = 1;
@@ -76,7 +77,6 @@ static int	wait_for_burnout(t_programming_room *room)
 	}
 	return (id);
 }
-
 
 void	*coder_burnout(void *input_raw)
 {
@@ -90,8 +90,8 @@ void	*coder_burnout(void *input_raw)
 	id = wait_for_burnout(room);
 	if (id == -1)
 		return (NULL);
-	print_event(room, id, "burned out");
 	safe_mod_val_int(&room->burnout_state, DONE, &room->burnout_m);
+	print_event(room, id, "burned out");
 	return (NULL);
 }
 
@@ -117,6 +117,5 @@ void	*coder_funct(void *input_raw)
 		pthread_mutex_lock(&self->compiling_m);
 	}
 	pthread_mutex_unlock(&self->compiling_m);
-	fprintf(stderr, "C%i END!\n", self->id);
 	return (NULL);
 }

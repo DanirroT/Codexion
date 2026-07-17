@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/15 23:22:32 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:42:06 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ static void	wait_all_ready(t_programming_room *room, int out, int i)
 		if (room->b_ready == DONE)
 		{
 			pthread_mutex_unlock(&room->ready_m);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&room->ready_m);
 		msleep(2);
@@ -149,7 +149,7 @@ int	main(int argc, char *argv[])
 		return (ft_out(NULL, NULL, -1));
 	memset(room, 0, sizeof(t_programming_room));
 	if (parse_args_inputs(argv, room) == DONE
-			|| prep_room(room) == DONE)
+		|| prep_room(room) == DONE)
 		return (ft_out(room, NULL, -1));
 	wait_all_ready(room, 0, 0);
 	gettimeofday(&room->start_time, NULL);

@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 19:03:01 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/15 23:25:25 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 20:41:46 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
 {
 	if (check_burnout(self->room) || self->dongle_l == self->dongle_r)
-		return (1);
+		return (0);
 	if (self->id % 2)
 	{
 		*first = self->dongle_l;

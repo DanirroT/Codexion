@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 14:54:49 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/15 22:12:02 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:31:32 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,16 @@ unsigned long long	print_event(t_programming_room *room, int id, char *msg)
 	unsigned long long	time_past;
 
 	time_past = get_time_past(room->start_time);
-	if (!check_burnout(room))
+	pthread_mutex_lock(&room->print_m);
+	if (!check_burnout(room) || !strcmp("burned out", msg))
 	{
-		pthread_mutex_lock(&room->print_m);
 		printf("%llu %i %s\n", time_past, id, msg);
-		fprintf(stderr, "\t----- %llu %i %s -----\n", time_past, id, msg);
-		pthread_mutex_unlock(&room->print_m);
+		fprintf(stderr, "\t----- %llu %i %s -----\n",
+			time_past, id, msg);
 	}
+	pthread_mutex_unlock(&room->print_m);
 	return (time_past);
 }
-
-
 
 // int main(int argc, char const *argv[])
 // {
