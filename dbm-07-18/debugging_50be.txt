@@ -1,0 +1,1750 @@
+==11187== Helgrind, a thread error detector
+==11187== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==11187== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==11187== Command: ./Codexion 50 100 200 200 200 3 100 edf
+==11187== 
+burnout_m at 0x4a7e560, print_m at 0x4a7e4b8, burnout_state at 0x4a7e588, complete_state at 0x4a7e58c
+Hello from D1
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D1 - state 0x4a7e758, state_m 0x4a7e6a0, take 0x4a7e6c8, free 0x4a7e6f8, ready 0x4a7e728
+Hello from D2
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D2 - state 0x4a7e840, state_m 0x4a7e788, take 0x4a7e7b0, free 0x4a7e7e0, ready 0x4a7e810
+Hello from D3
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D3 - state 0x4a7e928, state_m 0x4a7e870, take 0x4a7e898, free 0x4a7e8c8, ready 0x4a7e8f8
+Hello from D4
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D4 - state 0x4a7ea10, state_m 0x4a7e958, take 0x4a7e980, free 0x4a7e9b0, ready 0x4a7e9e0
+Hello from D5
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D5 - state 0x4a7eaf8, state_m 0x4a7ea40, take 0x4a7ea68, free 0x4a7ea98, ready 0x4a7eac8
+Hello from D6
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D6 - state 0x4a7ebe0, state_m 0x4a7eb28, take 0x4a7eb50, free 0x4a7eb80, ready 0x4a7ebb0
+Hello from D7
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D7 - state 0x4a7ecc8, state_m 0x4a7ec10, take 0x4a7ec38, free 0x4a7ec68, ready 0x4a7ec98
+Hello from D8
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D8 - state 0x4a7edb0, state_m 0x4a7ecf8, take 0x4a7ed20, free 0x4a7ed50, ready 0x4a7ed80
+Hello from D9
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D9 - state 0x4a7ee98, state_m 0x4a7ede0, take 0x4a7ee08, free 0x4a7ee38, ready 0x4a7ee68
+Hello from D10
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D10 - state 0x4a7ef80, state_m 0x4a7eec8, take 0x4a7eef0, free 0x4a7ef20, ready 0x4a7ef50
+Hello from D11
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D11 - state 0x4a7f068, state_m 0x4a7efb0, take 0x4a7efd8, free 0x4a7f008, ready 0x4a7f038
+Hello from D12
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D12 - state 0x4a7f150, state_m 0x4a7f098, take 0x4a7f0c0, free 0x4a7f0f0, ready 0x4a7f120
+Hello from D13
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D13 - state 0x4a7f238, state_m 0x4a7f180, take 0x4a7f1a8, free 0x4a7f1d8, ready 0x4a7f208
+Hello from D14
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D14 - state 0x4a7f320, state_m 0x4a7f268, take 0x4a7f290, free 0x4a7f2c0, ready 0x4a7f2f0
+Hello from D15
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D15 - state 0x4a7f408, state_m 0x4a7f350, take 0x4a7f378, free 0x4a7f3a8, ready 0x4a7f3d8
+Hello from D16
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D16 - state 0x4a7f4f0, state_m 0x4a7f438, take 0x4a7f460, free 0x4a7f490, ready 0x4a7f4c0
+Hello from D17
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D17 - state 0x4a7f5d8, state_m 0x4a7f520, take 0x4a7f548, free 0x4a7f578, ready 0x4a7f5a8
+Hello from D18
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D18 - state 0x4a7f6c0, state_m 0x4a7f608, take 0x4a7f630, free 0x4a7f660, ready 0x4a7f690
+Hello from D19
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D19 - state 0x4a7f7a8, state_m 0x4a7f6f0, take 0x4a7f718, free 0x4a7f748, ready 0x4a7f778
+Hello from D20
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D20 - state 0x4a7f890, state_m 0x4a7f7d8, take 0x4a7f800, free 0x4a7f830, ready 0x4a7f860
+Hello from D21
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D21 - state 0x4a7f978, state_m 0x4a7f8c0, take 0x4a7f8e8, free 0x4a7f918, ready 0x4a7f948
+Hello from D22
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D22 - state 0x4a7fa60, state_m 0x4a7f9a8, take 0x4a7f9d0, free 0x4a7fa00, ready 0x4a7fa30
+Hello from D23
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D23 - state 0x4a7fb48, state_m 0x4a7fa90, take 0x4a7fab8, free 0x4a7fae8, ready 0x4a7fb18
+Hello from D24
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D24 - state 0x4a7fc30, state_m 0x4a7fb78, take 0x4a7fba0, free 0x4a7fbd0, ready 0x4a7fc00
+Hello from D25
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D25 - state 0x4a7fd18, state_m 0x4a7fc60, take 0x4a7fc88, free 0x4a7fcb8, ready 0x4a7fce8
+Hello from D26
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D26 - state 0x4a7fe00, state_m 0x4a7fd48, take 0x4a7fd70, free 0x4a7fda0, ready 0x4a7fdd0
+Hello from D27
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D27 - state 0x4a7fee8, state_m 0x4a7fe30, take 0x4a7fe58, free 0x4a7fe88, ready 0x4a7feb8
+Hello from D28
+D28 - state 0x4a7ffd0, state_m 0x4a7ff18, take 0x4a7ff40, free 0x4a7ff70, ready 0x4a7ffa0
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+Hello from D29
+D29 - state 0x4a800b8, state_m 0x4a80000, take 0x4a80028, free 0x4a80058, ready 0x4a80088
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+Hello from D30
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D30 - state 0x4a801a0, state_m 0x4a800e8, take 0x4a80110, free 0x4a80140, ready 0x4a80170
+Hello from D31
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D31 - state 0x4a80288, state_m 0x4a801d0, take 0x4a801f8, free 0x4a80228, ready 0x4a80258
+Hello from D32
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D32 - state 0x4a80370, state_m 0x4a802b8, take 0x4a802e0, free 0x4a80310, ready 0x4a80340
+Hello from D33
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D33 - state 0x4a80458, state_m 0x4a803a0, take 0x4a803c8, free 0x4a803f8, ready 0x4a80428
+Hello from D34
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D34 - state 0x4a80540, state_m 0x4a80488, take 0x4a804b0, free 0x4a804e0, ready 0x4a80510
+Hello from D35
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D35 - state 0x4a80628, state_m 0x4a80570, take 0x4a80598, free 0x4a805c8, ready 0x4a805f8
+Hello from D36
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D36 - state 0x4a80710, state_m 0x4a80658, take 0x4a80680, free 0x4a806b0, ready 0x4a806e0
+Hello from D37
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D37 - state 0x4a807f8, state_m 0x4a80740, take 0x4a80768, free 0x4a80798, ready 0x4a807c8
+Hello from D38
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D38 - state 0x4a808e0, state_m 0x4a80828, take 0x4a80850, free 0x4a80880, ready 0x4a808b0
+Hello from D39
+D39 - state 0x4a809c8, state_m 0x4a80910, take 0x4a80938, free 0x4a80968, ready 0x4a80998
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+Hello from D40
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D40 - state 0x4a80ab0, state_m 0x4a809f8, take 0x4a80a20, free 0x4a80a50, ready 0x4a80a80
+Hello from D41
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D41 - state 0x4a80b98, state_m 0x4a80ae0, take 0x4a80b08, free 0x4a80b38, ready 0x4a80b68
+Hello from D42
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D42 - state 0x4a80c80, state_m 0x4a80bc8, take 0x4a80bf0, free 0x4a80c20, ready 0x4a80c50
+Hello from D43
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D43 - state 0x4a80d68, state_m 0x4a80cb0, take 0x4a80cd8, free 0x4a80d08, ready 0x4a80d38
+Hello from D44
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D44 - state 0x4a80e50, state_m 0x4a80d98, take 0x4a80dc0, free 0x4a80df0, ready 0x4a80e20
+Hello from D45
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D45 - state 0x4a80f38, state_m 0x4a80e80, take 0x4a80ea8, free 0x4a80ed8, ready 0x4a80f08
+Hello from D46
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D46 - state 0x4a81020, state_m 0x4a80f68, take 0x4a80f90, free 0x4a80fc0, ready 0x4a80ff0
+Hello from D47
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D47 - state 0x4a81108, state_m 0x4a81050, take 0x4a81078, free 0x4a810a8, ready 0x4a810d8
+Hello from D48
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D48 - state 0x4a811f0, state_m 0x4a81138, take 0x4a81160, free 0x4a81190, ready 0x4a811c0
+Hello from D49
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D49 - state 0x4a812d8, state_m 0x4a81220, take 0x4a81248, free 0x4a81278, ready 0x4a812a8
+Hello from D50
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+D50 - state 0x4a813c0, state_m 0x4a81308, take 0x4a81330, free 0x4a81360, ready 0x4a81390
+Hello from C1 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C1 - state 0x4a855d0 compiling_m 0x4a855e0
+Hello from C2 thread!
+C2 - state 0x4a85668 compiling_m 0x4a85678
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+Hello from C3 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C3 - state 0x4a85700 compiling_m 0x4a85710
+Hello from C4 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C4 - state 0x4a85798 compiling_m 0x4a857a8
+Hello from C5 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C5 - state 0x4a85830 compiling_m 0x4a85840
+Hello from C6 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C6 - state 0x4a858c8 compiling_m 0x4a858d8
+Hello from C7 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C7 - state 0x4a85960 compiling_m 0x4a85970
+Hello from C8 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C8 - state 0x4a859f8 compiling_m 0x4a85a08
+Hello from C9 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C9 - state 0x4a85a90 compiling_m 0x4a85aa0
+Hello from C10 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C10 - state 0x4a85b28 compiling_m 0x4a85b38
+Hello from C11 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C11 - state 0x4a85bc0 compiling_m 0x4a85bd0
+Hello from C12 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C12 - state 0x4a85c58 compiling_m 0x4a85c68
+Hello from C13 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C13 - state 0x4a85cf0 compiling_m 0x4a85d00
+Hello from C14 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C14 - state 0x4a85d88 compiling_m 0x4a85d98
+Hello from C15 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C15 - state 0x4a85e20 compiling_m 0x4a85e30
+Hello from C16 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C16 - state 0x4a85eb8 compiling_m 0x4a85ec8
+Hello from C17 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C17 - state 0x4a85f50 compiling_m 0x4a85f60
+Hello from C18 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C18 - state 0x4a85fe8 compiling_m 0x4a85ff8
+Hello from C19 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C19 - state 0x4a86080 compiling_m 0x4a86090
+Hello from C20 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C20 - state 0x4a86118 compiling_m 0x4a86128
+Hello from C21 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C21 - state 0x4a861b0 compiling_m 0x4a861c0
+Hello from C22 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C22 - state 0x4a86248 compiling_m 0x4a86258
+Hello from C23 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C23 - state 0x4a862e0 compiling_m 0x4a862f0
+Hello from C24 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C24 - state 0x4a86378 compiling_m 0x4a86388
+Hello from C25 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C25 - state 0x4a86410 compiling_m 0x4a86420
+Hello from C26 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C26 - state 0x4a864a8 compiling_m 0x4a864b8
+Hello from C27 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C27 - state 0x4a86540 compiling_m 0x4a86550
+Hello from C28 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C28 - state 0x4a865d8 compiling_m 0x4a865e8
+Hello from C29 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C29 - state 0x4a86670 compiling_m 0x4a86680
+Hello from C30 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C30 - state 0x4a86708 compiling_m 0x4a86718
+Hello from C31 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C31 - state 0x4a867a0 compiling_m 0x4a867b0
+Hello from C32 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C32 - state 0x4a86838 compiling_m 0x4a86848
+Hello from C33 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C33 - state 0x4a868d0 compiling_m 0x4a868e0
+Hello from C34 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C34 - state 0x4a86968 compiling_m 0x4a86978
+Hello from C35 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C35 - state 0x4a86a00 compiling_m 0x4a86a10
+Hello from C36 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C36 - state 0x4a86a98 compiling_m 0x4a86aa8
+Hello from C37 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C37 - state 0x4a86b30 compiling_m 0x4a86b40
+Hello from C38 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C38 - state 0x4a86bc8 compiling_m 0x4a86bd8
+Hello from C39 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C39 - state 0x4a86c60 compiling_m 0x4a86c70
+Hello from C40 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C40 - state 0x4a86cf8 compiling_m 0x4a86d08
+Hello from C41 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C41 - state 0x4a86d90 compiling_m 0x4a86da0
+Hello from C42 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C42 - state 0x4a86e28 compiling_m 0x4a86e38
+Hello from C43 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C43 - state 0x4a86ec0 compiling_m 0x4a86ed0
+Hello from C44 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C44 - state 0x4a86f58 compiling_m 0x4a86f68
+Hello from C45 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C45 - state 0x4a86ff0 compiling_m 0x4a87000
+Hello from C46 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C46 - state 0x4a87088 compiling_m 0x4a87098
+Hello from C47 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C47 - state 0x4a87120 compiling_m 0x4a87130
+Hello from C48 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C48 - state 0x4a871b8 compiling_m 0x4a871c8
+Hello from C49 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C49 - state 0x4a87250 compiling_m 0x4a87260
+Hello from C50 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+C50 - state 0x4a872e8 compiling_m 0x4a872f8
+Starting CB
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 125200ms
+	Room Prepped!
+	Time initialized!
+	Broadcast 0x4a7e530 (0x4a7e508)
+	LET THE GAMES BEGIN!
+Hello from D10
+start dongle_main_loop D10
+C50 Stat!
+Hello from D12
+Hello from D29
+start dongle_main_loop D29
+D29: Broadcast Ready 0x4a80088 (0x4a80000)
+C4 Stat!
+Hello from D31
+start dongle_main_loop D31
+D31: Broadcast Ready 0x4a80258 (0x4a801d0)
+C15 Stat!
+C15 in Compile
+C15 in take_dongles
+C15 requests 1st D15
+C15 requests 2nd D16
+	C15 request done
+C15 Checking D15 & D16
+C15 waiting for 1st D15-ready 0x4a7f3d8 (0x4a7f350)
+C19 Stat!
+C19 in Compile
+C19 in take_dongles
+C19 requests 1st D19
+C19 requests 2nd D20
+	C19 request done
+C19 Checking D19 & D20
+C19 waiting for 1st D19-ready 0x4a7f778 (0x4a7f6f0)
+Hello from D14
+start dongle_main_loop D14
+D14: Broadcast Ready 0x4a7f2f0 (0x4a7f268)
+Hello from D22
+start dongle_main_loop D22
+D22: Broadcast Ready 0x4a7fa30 (0x4a7f9a8)
+Hello from D3
+start dongle_main_loop D3
+D3: Broadcast Ready 0x4a7e8f8 (0x4a7e870)
+C5 Stat!
+C5 in Compile
+C5 in take_dongles
+C5 requests 1st D5
+C5 requests 2nd D6
+	C5 request done
+C5 Checking D5 & D6
+C5 waiting for 1st D5-ready 0x4a7eac8 (0x4a7ea40)
+C38 Stat!
+Hello from D5
+start dongle_main_loop D5
+D5: Broadcast Ready 0x4a7eac8 (0x4a7ea40)
+Hello from D8
+start dongle_main_loop D8
+D8: Broadcast Ready 0x4a7ed80 (0x4a7ecf8)
+C25 Stat!
+C25 in Compile
+C25 in take_dongles
+C25 requests 1st D25
+C25 requests 2nd D26
+	C25 request done
+C25 Checking D25 & D26
+C25 waiting for 1st D25-ready 0x4a7fce8 (0x4a7fc60)
+C27 Stat!
+C27 in Compile
+C27 in take_dongles
+C27 requests 1st D27
+C27 requests 2nd D28
+	C27 request done
+C27 Checking D27 & D28
+C27 waiting for 1st D27-ready 0x4a7feb8 (0x4a7fe30)
+C32 Stat!
+C18 Stat!
+Hello from D32
+start dongle_main_loop D32
+D32: Broadcast Ready 0x4a80340 (0x4a802b8)
+Hello from D33
+start dongle_main_loop D33
+D33: Broadcast Ready 0x4a80428 (0x4a803a0)
+C35 Stat!
+C35 in Compile
+C35 in take_dongles
+C35 requests 1st D35
+C35 requests 2nd D36
+	C35 request done
+C35 Checking D35 & D36
+C35 waiting for 1st D35-ready 0x4a805f8 (0x4a80570)
+C48 Stat!
+C39 Stat!
+C39 in Compile
+C39 in take_dongles
+C39 requests 1st D39
+C39 requests 2nd D40
+	C39 request done
+C39 Checking D39 & D40
+C39 waiting for 1st D39-ready 0x4a80998 (0x4a80910)
+Hello from D34
+start dongle_main_loop D34
+D34: Broadcast Ready 0x4a80510 (0x4a80488)
+Hello from D35
+start dongle_main_loop D35
+D35: Broadcast Ready 0x4a805f8 (0x4a80570)
+Hello from D36
+start dongle_main_loop D36
+D36: Broadcast Ready 0x4a806e0 (0x4a80658)
+C35 waiting for 2nd D36-ready 0x4a806e0 (0x4a80658)
+C35 Both Ready 35 & 36
+C35 Checking D35 & D36
+C35: D35 & D36 FREE
+In Printing Queue of D35:	1: 35
+In Printing Queue of D36:	1: 35
+C35 taking Dongles
+Out Printing Queue of D35:
+	----- 123 35 has taken a dongle -----
+	Broadcast 0x4a80598 (0x4a80570)
+Out Printing Queue of D36:
+	----- 127 35 has taken a dongle -----
+	Broadcast 0x4a80680 (0x4a80658)
+C35 Dongles taken
+	----- 130 35 is compiling -----
+Hello from D26
+start dongle_main_loop D26
+D26: Broadcast Ready 0x4a7fdd0 (0x4a7fd48)
+Hello from D47
+start dongle_main_loop D47
+D47: Broadcast Ready 0x4a810d8 (0x4a81050)
+Hello from D48
+start dongle_main_loop D48
+D48: Broadcast Ready 0x4a811c0 (0x4a81138)
+C1 Stat!
+C1 in Compile
+C1 in take_dongles
+C1 requests 1st D1
+C1 requests 2nd D2
+	C1 request done
+C1 Checking D1 & D2
+C1 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+Hello from D11
+start dongle_main_loop D11
+D11: Broadcast Ready 0x4a7f038 (0x4a7efb0)
+C10 Stat!
+C12 Stat!
+C14 Stat!
+C16 Stat!
+Hello from D15
+start dongle_main_loop D15
+D15: Broadcast Ready 0x4a7f3d8 (0x4a7f350)
+Hello from D16
+start dongle_main_loop D16
+D16: Broadcast Ready 0x4a7f4c0 (0x4a7f438)
+C37 Stat!
+C37 in Compile
+C37 in take_dongles
+C37 requests 1st D37
+C37 requests 2nd D38
+	C37 request done
+C37 Checking D37 & D38
+C37 waiting for 1st D37-ready 0x4a807c8 (0x4a80740)
+Hello from D1
+start dongle_main_loop D1
+D1: Broadcast Ready 0x4a7e728 (0x4a7e6a0)
+Hello from D30
+start dongle_main_loop D30
+D30: Broadcast Ready 0x4a80170 (0x4a800e8)
+Hello from D28
+start dongle_main_loop D28
+D28: Broadcast Ready 0x4a7ffa0 (0x4a7ff18)
+C3 Stat!
+C3 in Compile
+C3 in take_dongles
+C3 requests 1st D3
+C3 requests 2nd D4
+	C3 request done
+C3 Checking D3 & D4
+C3 waiting for 1st D3-ready 0x4a7e8f8 (0x4a7e870)
+C3 waiting for 2nd D4-ready 0x4a7e9e0 (0x4a7e958)
+C11 Stat!
+C11 in Compile
+C11 in take_dongles
+C11 requests 1st D11
+C11 requests 2nd D12
+	C11 request done
+C11 Checking D11 & D12
+C11 waiting for 1st D11-ready 0x4a7f038 (0x4a7efb0)
+C11 waiting for 2nd D12-ready 0x4a7f120 (0x4a7f098)
+Hello from D43
+start dongle_main_loop D43
+D43: Broadcast Ready 0x4a80d38 (0x4a80cb0)
+Hello from D45
+start dongle_main_loop D45
+D45: Broadcast Ready 0x4a80f08 (0x4a80e80)
+Hello from D21
+start dongle_main_loop D21
+D21: Broadcast Ready 0x4a7f948 (0x4a7f8c0)
+C20 Stat!
+D10: Broadcast Ready 0x4a7ef50 (0x4a7eec8)
+Hello from D6
+start dongle_main_loop D6
+D6: Broadcast Ready 0x4a7ebb0 (0x4a7eb28)
+C6 Stat!
+C9 Stat!
+C9 in Compile
+C9 in take_dongles
+C9 requests 1st D9
+C9 requests 2nd D10
+	C9 request done
+C9 Checking D9 & D10
+C9 waiting for 1st D9-ready 0x4a7ee68 (0x4a7ede0)
+C28 Stat!
+C34 Stat!
+C36 Stat!
+C42 Stat!
+C46 Stat!
+Hello from D2
+start dongle_main_loop D2
+D2: Broadcast Ready 0x4a7e810 (0x4a7e788)
+Hello from D18
+start dongle_main_loop D18
+D18: Broadcast Ready 0x4a7f690 (0x4a7f608)
+C13 Stat!
+C13 in Compile
+C13 in take_dongles
+C13 requests 1st D13
+C13 requests 2nd D14
+	C13 request done
+C13 Checking D13 & D14
+C13 waiting for 1st D13-ready 0x4a7f208 (0x4a7f180)
+Hello from D46
+start dongle_main_loop D46
+D46: Broadcast Ready 0x4a80ff0 (0x4a80f68)
+C30 Stat!
+Hello from D50
+start dongle_main_loop D50
+D50: Broadcast Ready 0x4a81390 (0x4a81308)
+C31 Stat!
+C31 in Compile
+C31 in take_dongles
+C31 requests 1st D31
+C31 requests 2nd D32
+	C31 request done
+C31 Checking D31 & D32
+C31: D31 & D32 FREE
+In Printing Queue of D31:	1: 31
+In Printing Queue of D32:	1: 31
+C31 taking Dongles
+Out Printing Queue of D31:
+Hello from D41
+start dongle_main_loop D41
+D41: Broadcast Ready 0x4a80b68 (0x4a80ae0)
+C24 Stat!
+C47 Stat!
+C47 in Compile
+C47 in take_dongles
+C47 requests 1st D47
+C47 requests 2nd D48
+	C47 request done
+C47 Checking D47 & D48
+C47: D47 & D48 FREE
+In Printing Queue of D47:	1: 47
+In Printing Queue of D48:	1: 47
+C47 taking Dongles
+Out Printing Queue of D47:
+Hello from D24
+start dongle_main_loop D24
+D24: Broadcast Ready 0x4a7fc00 (0x4a7fb78)
+C1 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+C1 Both Ready 1 & 2
+C1 Checking D1 & D2
+C1: D1 & D2 FREE
+In Printing Queue of D1:	1: 1
+In Printing Queue of D2:	1: 1
+C1 taking Dongles
+Out Printing Queue of D1:
+C25 waiting for 2nd D26-ready 0x4a7fdd0 (0x4a7fd48)
+C25 Both Ready 25 & 26
+C25 Checking D25 & D26
+C25 waiting for 1st D25-ready 0x4a7fce8 (0x4a7fc60)
+Burnout on C1 time: 0
+C19 waiting for 2nd D20-ready 0x4a7f860 (0x4a7f7d8)
+C19 Both Ready 19 & 20
+C19 Checking D19 & D20
+C19 waiting for 1st D19-ready 0x4a7f778 (0x4a7f6f0)
+Hello from D37
+start dongle_main_loop D37
+D37: Broadcast Ready 0x4a807c8 (0x4a80740)
+Hello from D20
+C23 Stat!
+C23 in Compile
+C23 in take_dongles
+C23 requests 1st D23
+C23 requests 2nd D24
+	C23 request done
+C23 Checking D23 & D24
+C23 waiting for 1st D23-ready 0x4a7fb18 (0x4a7fa90)
+C45 Stat!
+C45 in Compile
+C45 in take_dongles
+C45 requests 1st D45
+C45 requests 2nd D46
+	C45 request done
+C45 Checking D45 & D46
+C45: D45 & D46 FREE
+In Printing Queue of D45:	1: 45
+In Printing Queue of D46:	1: 45
+C45 taking Dongles
+Out Printing Queue of D45:
+C44 Stat!
+Hello from D40
+start dongle_main_loop D40
+D40: Broadcast Ready 0x4a80a80 (0x4a809f8)
+C33 Stat!
+C33 in Compile
+C33 in take_dongles
+C33 requests 1st D33
+C33 requests 2nd D34
+	C33 request done
+C33 Checking D33 & D34
+C33: D33 & D34 FREE
+In Printing Queue of D33:	1: 33
+In Printing Queue of D34:	1: 33
+C33 taking Dongles
+Out Printing Queue of D33:
+C17 Stat!
+C17 in Compile
+C17 in take_dongles
+C17 requests 1st D17
+C17 requests 2nd D18
+	C17 request done
+C17 Checking D17 & D18
+C17 waiting for 1st D17-ready 0x4a7f5a8 (0x4a7f520)
+C27 waiting for 2nd D28-ready 0x4a7ffa0 (0x4a7ff18)
+C27 Both Ready 27 & 28
+C27 Checking D27 & D28
+C27 waiting for 1st D27-ready 0x4a7feb8 (0x4a7fe30)
+Hello from D4
+start dongle_main_loop D4
+D4: Broadcast Ready 0x4a7e9e0 (0x4a7e958)
+Hello from D25
+C50 in Compile
+C50 in take_dongles
+C50 requests 1st D1
+C21 Stat!
+C21 in Compile
+C21 in take_dongles
+C21 requests 1st D21
+C21 requests 2nd D22
+	C21 request done
+C21 Checking D21 & D22
+C21: D21 & D22 FREE
+In Printing Queue of D21:	1: 21
+In Printing Queue of D22:	1: 21
+C21 taking Dongles
+Out Printing Queue of D21:
+C29 Stat!
+C29 in Compile
+C29 in take_dongles
+C29 requests 1st D29
+C29 requests 2nd D30
+	C29 request done
+C29 Checking D29 & D30
+C29: D29 & D30 FREE
+In Printing Queue of D29:	1: 29
+In Printing Queue of D30:	1: 29
+C29 taking Dongles
+Out Printing Queue of D29:
+Hello from D39
+start dongle_main_loop D39
+D39: Broadcast Ready 0x4a80998 (0x4a80910)
+Hello from D49
+start dongle_main_loop D49
+D49: Broadcast Ready 0x4a812a8 (0x4a81220)
+C39 waiting for 2nd D40-ready 0x4a80a80 (0x4a809f8)
+C39 Both Ready 39 & 40
+C39 Checking D39 & D40
+C39: D39 & D40 FREE
+In Printing Queue of D39:	1: 39
+In Printing Queue of D40:	1: 39
+C39 taking Dongles
+Out Printing Queue of D39:
+C37 waiting for 2nd D38-ready 0x4a808b0 (0x4a80828)
+C41 Stat!
+C41 in Compile
+C41 in take_dongles
+C41 requests 1st D41
+Hello from D7
+start dongle_main_loop D7
+D7: Broadcast Ready 0x4a7ec98 (0x4a7ec10)
+C3 Both Ready 3 & 4
+C37 Both Ready 37 & 38
+C37 Checking D37 & D38
+C37 waiting for 1st D37-ready 0x4a807c8 (0x4a80740)
+C37 waiting for 2nd D38-ready 0x4a808b0 (0x4a80828)
+C7 Stat!
+C7 in Compile
+C7 in take_dongles
+C7 requests 1st D7
+C7 requests 2nd D8
+	C7 request done
+C7 Checking D7 & D8
+C7: D7 & D8 FREE
+In Printing Queue of D7:	1: 7
+In Printing Queue of D8:	1: 7
+C7 taking Dongles
+Out Printing Queue of D7:
+Hello from D17
+start dongle_main_loop D17
+Hello from D44
+start dongle_main_loop D44
+D44: Broadcast Ready 0x4a80e20 (0x4a80d98)
+D17: Broadcast Ready 0x4a7f5a8 (0x4a7f520)
+C26 Stat!
+C17 waiting for 2nd D18-ready 0x4a7f690 (0x4a7f608)
+C17 Both Ready 17 & 18
+C17 Checking D17 & D18
+C17: D17 & D18 FREE
+In Printing Queue of D17:	1: 17
+In Printing Queue of D18:	1: 17
+C17 taking Dongles
+Out Printing Queue of D17:
+C15 waiting for 2nd D16-ready 0x4a7f4c0 (0x4a7f438)
+C15 Both Ready 15 & 16
+C15 Checking D15 & D16
+C15: D15 & D16 FREE
+In Printing Queue of D15:	1: 15
+In Printing Queue of D16:	1: 15
+C15 taking Dongles
+Out Printing Queue of D15:
+Hello from D27
+start dongle_main_loop D27
+D27: Broadcast Ready 0x4a7feb8 (0x4a7fe30)
+C5 waiting for 2nd D6-ready 0x4a7ebb0 (0x4a7eb28)
+C27 waiting for 2nd D28-ready 0x4a7ffa0 (0x4a7ff18)
+C27 Both Ready 27 & 28
+C27 Checking D27 & D28
+C27: D27 & D28 FREE
+In Printing Queue of D27:C9 waiting for 2nd D10-ready 0x4a7ef50 (0x4a7eec8)
+C9 Both Ready 9 & 10
+C9 Checking D9 & D10
+C38 in Compile
+C38 in take_dongles
+C38 requests 1st D39
+C49 Stat!
+C49 in Compile
+C49 in take_dongles
+C49 requests 1st D49
+C49 requests 2nd D50
+	C49 request done
+C49 Checking D49 & D50
+C49: D49 & D50 FREE
+In Printing Queue of D49:	1: 49
+In Printing Queue of D50:	1: 49
+C49 taking Dongles
+Out Printing Queue of D49:
+Hello from D23
+start dongle_main_loop D23
+D23: Broadcast Ready 0x4a7fb18 (0x4a7fa90)
+start dongle_main_loop D12
+D12: Broadcast Ready 0x4a7f120 (0x4a7f098)
+C13 waiting for 2nd D14-ready 0x4a7f2f0 (0x4a7f268)
+C13 Both Ready 13 & 14
+C13 Checking D13 & D14
+C13 waiting for 1st D13-ready 0x4a7f208 (0x4a7f180)
+C22 Stat!
+C23 waiting for 2nd D24-ready 0x4a7fc00 (0x4a7fb78)
+C23 Both Ready 23 & 24
+C23 Checking D23 & D24
+C23: D23 & D24 FREE
+In Printing Queue of D23:	1: 23
+In Printing Queue of D24:	1: 23
+C23 taking Dongles
+Out Printing Queue of D23:
+C11 Both Ready 11 & 12
+C11 Checking D11 & D12
+C11: D11 & D12 FREE
+In Printing Queue of D11:	1: 11
+In Printing Queue of D12:	1: 11
+C11 taking Dongles
+Out Printing Queue of D11:
+start dongle_main_loop D20
+D20: Broadcast Ready 0x4a7f860 (0x4a7f7d8)
+	----- 184 31 has taken a dongle -----
+C9 waiting for 1st D9-ready 0x4a7ee68 (0x4a7ede0)
+C41 requests 2nd D42
+Hello from D42
+start dongle_main_loop D42
+D42: Broadcast Ready 0x4a80c50 (0x4a80bc8)
+Hello from D9
+start dongle_main_loop D9
+D9: Broadcast Ready 0x4a7ee68 (0x4a7ede0)
+C2 Stat!
+Hello from D38
+start dongle_main_loop D38
+D38: Broadcast Ready 0x4a808b0 (0x4a80828)
+Hello from D13
+start dongle_main_loop D13
+D13: Broadcast Ready 0x4a7f208 (0x4a7f180)
+Hello from D19
+C13 waiting for 2nd D14-ready 0x4a7f2f0 (0x4a7f268)
+C13 Both Ready 13 & 14
+C13 Checking D13 & D14
+C13: D13 & D14 FREE
+In Printing Queue of D13:	1: 13
+In Printing Queue of D14:	1: 13
+C13 taking Dongles
+Out Printing Queue of D13:
+	----- 286 47 has taken a dongle -----
+	Broadcast 0x4a81078 (0x4a81050)
+Out Printing Queue of D48:
+C3 Checking D3 & D4
+C3: D3 & D4 FREE
+In Printing Queue of D3:	1: 3
+In Printing Queue of D4:	1: 3
+C3 taking Dongles
+Out Printing Queue of D3:
+	1: 27
+In Printing Queue of D28:	1: 27
+C27 taking Dongles
+Out Printing Queue of D27:
+C8 Stat!
+C9 waiting for 2nd D10-ready 0x4a7ef50 (0x4a7eec8)
+C9 Both Ready 9 & 10
+C19 waiting for 2nd D20-ready 0x4a7f860 (0x4a7f7d8)
+C19 Both Ready 19 & 20
+C19 Checking D19 & D20
+C19 waiting for 1st D19-ready 0x4a7f778 (0x4a7f6f0)
+C25 waiting for 2nd D26-ready 0x4a7fdd0 (0x4a7fd48)
+C25 Both Ready 25 & 26
+C25 Checking D25 & D26
+C25 waiting for 1st D25-ready 0x4a7fce8 (0x4a7fc60)
+	Broadcast 0x4a801f8 (0x4a801d0)
+Out Printing Queue of D32:
+C18 in Compile
+C18 in take_dongles
+C18 requests 1st D19
+C18 requests 2nd D18
+	----- 296 1 has taken a dongle -----
+	Broadcast 0x4a7e6c8 (0x4a7e6a0)
+Out Printing Queue of D2:
+	----- 311 1 has taken a dongle -----
+	Broadcast 0x4a7e7b0 (0x4a7e788)
+C1 Dongles taken
+start dongle_main_loop D25
+D25: Broadcast Ready 0x4a7fce8 (0x4a7fc60)
+C5 Both Ready 5 & 6
+C25 waiting for 2nd D26-ready 0x4a7fdd0 (0x4a7fd48)
+C25 Both Ready 25 & 26
+C25 Checking D25 & D26
+C25: D25 & D26 FREE
+In Printing Queue of D25:	1: 25
+In Printing Queue of D26:	1: 25
+C25 taking Dongles
+Out Printing Queue of D25:
+C5 Checking D5 & D6
+C5: D5 & D6 FREE
+In Printing Queue of D5:	1: 5
+In Printing Queue of D6:	1: 5
+C5 taking Dongles
+Out Printing Queue of D5:
+C48 in Compile
+C48 in take_dongles
+C48 requests 1st D49
+C12 in Compile
+C12 in take_dongles
+C12 requests 1st D13
+C40 Stat!
+C16 in Compile
+C16 in take_dongles
+C16 requests 1st D17
+C50 requests 2nd D50
+	----- 312 1 is compiling -----
+C9 Checking D9 & D10
+C37 Both Ready 37 & 38
+C37 Checking D37 & D38
+C37: D37 & D38 FREE
+In Printing Queue of D37:	1: 37
+In Printing Queue of D38:	1: 37
+C37 taking Dongles
+Out Printing Queue of D37:
+	----- 328 37 has taken a dongle -----
+	Broadcast 0x4a80768 (0x4a80740)
+Out Printing Queue of D38:
+	----- 329 37 has taken a dongle -----
+	Broadcast 0x4a80850 (0x4a80828)
+C37 Dongles taken
+	----- 330 37 is compiling -----
+C9: D9 & D10 FREE
+In Printing Queue of D9:	1: 9
+In Printing Queue of D10:	1: 9
+C9 taking Dongles
+Out Printing Queue of D9:
+	C35 FREEs D35 & D36
+C4 in Compile
+C4 in take_dongles
+C4 requests 1st D5
+start dongle_main_loop D19
+D19: Broadcast Ready 0x4a7f778 (0x4a7f6f0)
+C19 waiting for 2nd D20-ready 0x4a7f860 (0x4a7f7d8)
+C19 Both Ready 19 & 20
+C19 Checking D19 & D20
+C19: D19 & D20 FREE
+In Printing Queue of D19:	1: 19	2: 18
+In Printing Queue of D20:	1: 19
+C19 taking Dongles
+Out Printing Queue of D19:	1: 18
+C32 in Compile
+	C41 request done
+C41 Checking D41 & D42
+C10 in Compile
+C10 in take_dongles
+C10 requests 1st D11
+C43 Stat!
+C43 in Compile
+C43 in take_dongles
+C43 requests 1st D43
+C43 requests 2nd D44
+	C43 request done
+C43 Checking D43 & D44
+C43: D43 & D44 FREE
+In Printing Queue of D43:C41: D41 & D42 FREE
+In Printing Queue of D41:	1: 41
+In Printing Queue of D42:	1: 41
+C41 taking Dongles
+Out Printing Queue of D41:
+C20 in Compile
+C20 in take_dongles
+C20 requests 1st D21
+C32 in take_dongles
+C32 requests 1st D33
+	Broadcast 0x4a805c8 (0x4a80570)
+	1: 43
+C34 in Compile
+C42 in Compile
+C46 in Compile
+C46 in take_dongles
+C46 requests 1st D47
+C28 in Compile
+C28 in take_dongles
+C28 requests 1st D29
+In Printing Queue of D44:	1: 43
+C43 taking Dongles
+Out Printing Queue of D43:
+C42 in take_dongles
+C42 requests 1st D43
+C14 in Compile
+C14 in take_dongles
+C14 requests 1st D15
+C6 in Compile
+C6 in take_dongles
+C6 requests 1st D7
+	Broadcast 0x4a806b0 (0x4a80658)
+D35: Received FREE Broadcast
+C30 in Compile
+C35 out Compile
+D36: Received FREE Broadcast
+C36 in Compile
+C36 in take_dongles
+C36 requests 1st D37
+C36 requests 2nd D36
+	C36 request done
+C36 Checking D37 & D36
+C36 waiting for 1st D37-ready 0x4a807c8 (0x4a80740)
+  Compiles Complete by C35: 1
+	----- 332 9 has taken a dongle -----
+C30 in take_dongles
+C30 requests 1st D31
+	Broadcast 0x4a7ee08 (0x4a7ede0)
+Out Printing Queue of D10:
+	----- 364 33 has taken a dongle -----
+C34 in take_dongles
+	----- 367 21 has taken a dongle -----
+C34 requests 1st D35
+C34 requests 2nd D34
+C24 in Compile
+C24 in take_dongles
+C24 requests 1st D25
+	Broadcast 0x4a7f8e8 (0x4a7f8c0)
+Out Printing Queue of D22:
+	Broadcast 0x4a803c8 (0x4a803a0)
+Out Printing Queue of D34:
+	----- 368 29 has taken a dongle -----
+	Broadcast 0x4a80028 (0x4a80000)
+Out Printing Queue of D30:
+	----- 374 39 has taken a dongle -----
+	Broadcast 0x4a80938 (0x4a80910)
+Out Printing Queue of D40:
+	----- 375 7 has taken a dongle -----
+	Broadcast 0x4a7ec38 (0x4a7ec10)
+Out Printing Queue of D8:
+	----- 377 17 has taken a dongle -----
+	Broadcast 0x4a7f548 (0x4a7f520)
+Out Printing Queue of D18:
+	----- 378 15 has taken a dongle -----
+	Broadcast 0x4a7f378 (0x4a7f350)
+Out Printing Queue of D16:
+	----- 379 49 has taken a dongle -----
+	Broadcast 0x4a81248 (0x4a81220)
+Out Printing Queue of D50:
+	----- 380 23 has taken a dongle -----
+	Broadcast 0x4a7fab8 (0x4a7fa90)
+Out Printing Queue of D24:
+	----- 382 11 has taken a dongle -----
+	Broadcast 0x4a7efd8 (0x4a7efb0)
+Out Printing Queue of D12:
+	----- 383 13 has taken a dongle -----
+	Broadcast 0x4a7f1a8 (0x4a7f180)
+Out Printing Queue of D14:
+	----- 385 47 has taken a dongle -----
+	Broadcast 0x4a81160 (0x4a81138)
+	----- 386 3 has taken a dongle -----
+C46 requests 2nd D46
+	Broadcast 0x4a7e898 (0x4a7e870)
+Out Printing Queue of D4:
+C47 Dongles taken
+	----- 388 27 has taken a dongle -----
+	Broadcast 0x4a7fe58 (0x4a7fe30)
+Out Printing Queue of D28:
+	----- 390 31 has taken a dongle -----
+	Broadcast 0x4a802e0 (0x4a802b8)
+	----- 391 1 burned out -----
+D31: Received FREE Broadcast
+C30 requests 2nd D30
+C31 Dongles taken
+C31 exits compilation prematurely
+	C31 FREEs D31 & D32
+	Broadcast 0x4a80228 (0x4a801d0)
+C44 in Compile
+C44 out Compile
+		C44 is Finished!
+C44 END!
+	Broadcast 0x4a80310 (0x4a802b8)
+end dongle_main_loop D31
+D32: Received FREE Broadcast
+end dongle_main_loop D32
+Goodbye from D32
+C31 out Compile
+		C31 is Finished!
+C31 END!
+Goodbye from D31
+D47: Received FREE Broadcast
+end dongle_main_loop D47
+Goodbye from D47
+D48: Received FREE Broadcast
+end dongle_main_loop D48
+Goodbye from D48
+C26 in Compile
+C26 out Compile
+		C26 is Finished!
+C26 END!
+Ending CB!
+	Broadcast 0x4a7fc88 (0x4a7fc60)
+	Broadcast 0x4a7ea68 (0x4a7ea40)
+D26: Received FREE Broadcast
+C35 out Compile
+		C35 is Finished!
+C35 END!
+C25 Dongles taken
+C25 exits compilation prematurely
+	C25 FREEs D25 & D26
+	Broadcast 0x4a7fcb8 (0x4a7fc60)
+	Broadcast 0x4a7fda0 (0x4a7fd48)
+C25 out Compile
+		C25 is Finished!
+C25 END!
+	Broadcast 0x4a80b08 (0x4a80ae0)
+C41 Dongles taken
+C41 exits compilation prematurely
+	C41 FREEs D41 & D42
+	Broadcast 0x4a7f460 (0x4a7f438)
+	Broadcast 0x4a80b38 (0x4a80ae0)
+	Broadcast 0x4a80c20 (0x4a80bc8)
+C41 out Compile
+		C41 is Finished!
+C41 END!
+D41: Received FREE Broadcast
+end dongle_main_loop D41
+Goodbye from D41
+D16: Received FREE Broadcast
+end dongle_main_loop D16
+Goodbye from D16
+D15: Received FREE Broadcast
+	Broadcast 0x4a7e980 (0x4a7e958)
+C3 Dongles taken
+C3 exits compilation prematurely
+	C3 FREEs D3 & D4
+	Broadcast 0x4a7e8c8 (0x4a7e870)
+	Broadcast 0x4a7e9b0 (0x4a7e958)
+C3 out Compile
+		C3 is Finished!
+C3 END!
+end dongle_main_loop D36
+Goodbye from D36
+C24 requests 2nd D24
+	Broadcast 0x4a804b0 (0x4a80488)
+C22 in Compile
+C22 out Compile
+		C22 is Finished!
+C22 END!
+end dongle_main_loop D35
+Goodbye from D35
+	Broadcast 0x4a80a20 (0x4a809f8)
+C39 Dongles taken
+C39 exits compilation prematurely
+	C39 FREEs D39 & D40
+	Broadcast 0x4a80968 (0x4a80910)
+	Broadcast 0x4a7ed20 (0x4a7ecf8)
+C5 Dongles taken
+C5 exits compilation prematurely
+	C5 FREEs D5 & D6
+	Broadcast 0x4a7ea98 (0x4a7ea40)
+	Broadcast 0x4a7eb80 (0x4a7eb28)
+C5 out Compile
+		C5 is Finished!
+C5 END!
+C2 in Compile
+C2 out Compile
+		C2 is Finished!
+C2 END!
+	Broadcast 0x4a7fba0 (0x4a7fb78)
+D1: Received FREE Broadcast
+end dongle_main_loop D1
+Goodbye from D1
+C4 requests 2nd D4
+	C4 request done
+C4 out take_dongles, state: 0
+C4 exits compilation prematurely
+	C4 FREEs D5 & D4
+	Broadcast 0x4a7ea98 (0x4a7ea40)
+	Broadcast 0x4a7e9b0 (0x4a7e958)
+D37: Received FREE Broadcast
+end dongle_main_loop D37
+Goodbye from D37
+end dongle_main_loop D15
+Goodbye from D15
+end dongle_main_loop D26
+Goodbye from D26
+	Broadcast 0x4a7ff40 (0x4a7ff18)
+C27 Dongles taken
+C27 exits compilation prematurely
+	C27 FREEs D27 & D28
+	Broadcast 0x4a7fe88 (0x4a7fe30)
+	Broadcast 0x4a7ff70 (0x4a7ff18)
+D3: Received FREE Broadcast
+end dongle_main_loop D3
+Goodbye from D3
+	C47 FREEs D47 & D48
+	Broadcast 0x4a810a8 (0x4a81050)
+	Broadcast 0x4a81190 (0x4a81138)
+C47 out Compile
+		C47 is Finished!
+C47 END!
+	C34 request done
+C34 out take_dongles, state: 0
+C34 exits compilation prematurely
+	C34 FREEs D35 & D34
+	Broadcast 0x4a805c8 (0x4a80570)
+	Broadcast 0x4a804e0 (0x4a80488)
+C34 out Compile
+		C34 is Finished!
+C34 END!
+D6: Received FREE Broadcast
+end dongle_main_loop D6
+Goodbye from D6
+C38 requests 2nd D38
+	C38 request done
+C38 out take_dongles, state: 0
+	C37 FREEs D37 & D38
+	Broadcast 0x4a80798 (0x4a80740)
+	Broadcast 0x4a80880 (0x4a80828)
+C37 out Compile
+		C37 is Finished!
+C37 END!
+C6 requests 2nd D6
+	C6 request done
+C6 out take_dongles, state: 0
+C6 exits compilation prematurely
+	C6 FREEs D7 & D6
+	Broadcast 0x4a7ec68 (0x4a7ec10)
+	Broadcast 0x4a7eb80 (0x4a7eb28)
+C6 out Compile
+		C6 is Finished!
+C6 END!
+	Broadcast 0x4a7f630 (0x4a7f608)
+	C18 request done
+C17 Dongles taken
+C17 exits compilation prematurely
+	C17 FREEs D17 & D18
+C15 Dongles taken
+C15 exits compilation prematurely
+	C15 FREEs D15 & D16
+	Broadcast 0x4a7f3a8 (0x4a7f350)
+	Broadcast 0x4a7f490 (0x4a7f438)
+C15 out Compile
+		C15 is Finished!
+C15 END!
+C23 Dongles taken
+C23 exits compilation prematurely
+	C23 FREEs D23 & D24
+D24: Received FREE Broadcast
+end dongle_main_loop D24
+Goodbye from D24
+C4 out Compile
+		C4 is Finished!
+C4 END!
+D5: Received FREE Broadcast
+end dongle_main_loop D5
+Goodbye from D5
+C40 in Compile
+C40 out Compile
+		C40 is Finished!
+C40 END!
+C27 out Compile
+		C27 is Finished!
+C27 END!
+D4: Received FREE Broadcast
+end dongle_main_loop D4
+Goodbye from D4
+C32 requests 2nd D32
+	C32 request done
+C32 out take_dongles, state: 0
+C32 exits compilation prematurely
+	C32 FREEs D33 & D32
+	Broadcast 0x4a803f8 (0x4a803a0)
+	Broadcast 0x4a80310 (0x4a802b8)
+C32 out Compile
+		C32 is Finished!
+C32 END!
+D33: Received FREE Broadcast
+end dongle_main_loop D33
+Goodbye from D33
+	C1 FREEs D1 & D2
+	Broadcast 0x4a7e6f8 (0x4a7e6a0)
+	Broadcast 0x4a7e7e0 (0x4a7e788)
+C1 out Compile
+		C1 is Finished!
+C1 END!
+	Broadcast 0x4a80a50 (0x4a809f8)
+		Main C1 Done
+		Main C2 Done
+		Main C3 Done
+		Main C4 Done
+		Main C5 Done
+		Main C6 Done
+D40: Received FREE Broadcast
+end dongle_main_loop D40
+Goodbye from D40
+C16 requests 2nd D16
+	C16 request done
+C16 out take_dongles, state: 0
+C16 exits compilation prematurely
+	C16 FREEs D17 & D16
+	Broadcast 0x4a81330 (0x4a81308)
+	Broadcast 0x4a7f578 (0x4a7f520)
+	C50 request done
+C50 out take_dongles, state: 0
+C50 exits compilation prematurely
+	C50 FREEs D1 & D50
+	Broadcast 0x4a7e6f8 (0x4a7e6a0)
+	Broadcast 0x4a81360 (0x4a81308)
+C50 out Compile
+		C50 is Finished!
+C50 END!
+	Broadcast 0x4a7fae8 (0x4a7fa90)
+	Broadcast 0x4a7fbd0 (0x4a7fb78)
+D49: Received FREE Broadcast
+C23 out Compile
+		C23 is Finished!
+C23 END!
+end dongle_main_loop D49
+Goodbye from D49
+	Broadcast 0x4a80ea8 (0x4a80e80)
+	Broadcast 0x4a7f290 (0x4a7f268)
+C13 Dongles taken
+C13 exits compilation prematurely
+	C13 FREEs D13 & D14
+D28: Received FREE Broadcast
+end dongle_main_loop D28
+Goodbye from D28
+C33 Dongles taken
+C33 exits compilation prematurely
+	C33 FREEs D33 & D34
+	Broadcast 0x4a803f8 (0x4a803a0)
+	Broadcast 0x4a804e0 (0x4a80488)
+C33 out Compile
+		C33 is Finished!
+C33 END!
+D8: Received FREE Broadcast
+end dongle_main_loop D8
+Goodbye from D8
+D38: Received FREE Broadcast
+end dongle_main_loop D38
+Goodbye from D38
+D7: Received FREE Broadcast
+end dongle_main_loop D7
+Goodbye from D7
+	Broadcast 0x4a80cd8 (0x4a80cb0)
+D44: Received FREE Broadcast
+end dongle_main_loop D44
+D43: Received FREE Broadcast
+end dongle_main_loop D43
+Goodbye from D43
+D42: Received FREE Broadcast
+end dongle_main_loop D42
+Goodbye from D42
+	C24 request done
+C24 out take_dongles, state: 0
+C24 exits compilation prematurely
+	C24 FREEs D25 & D24
+	Broadcast 0x4a7fcb8 (0x4a7fc60)
+	Broadcast 0x4a7fbd0 (0x4a7fb78)
+C24 out Compile
+		C24 is Finished!
+C24 END!
+C45 Dongles taken
+C45 exits compilation prematurely
+	C45 FREEs D45 & D46
+	Broadcast 0x4a80ed8 (0x4a80e80)
+	Broadcast 0x4a80fc0 (0x4a80f68)
+C45 out Compile
+		C45 is Finished!
+C45 END!
+	Broadcast 0x4a80110 (0x4a800e8)
+C29 Dongles taken
+C29 exits compilation prematurely
+	C29 FREEs D29 & D30
+	Broadcast 0x4a80058 (0x4a80000)
+	Broadcast 0x4a80140 (0x4a800e8)
+C29 out Compile
+		C29 is Finished!
+C29 END!
+	C30 request done
+C30 out take_dongles, state: 0
+C30 exits compilation prematurely
+	C30 FREEs D31 & D30
+	Broadcast 0x4a80228 (0x4a801d0)
+	Broadcast 0x4a80140 (0x4a800e8)
+C30 out Compile
+		C30 is Finished!
+C30 END!
+D29: Received FREE Broadcast
+end dongle_main_loop D29
+Goodbye from D29
+D39: Received FREE Broadcast
+end dongle_main_loop D39
+Goodbye from D39
+D18: Received FREE Broadcast
+end dongle_main_loop D18
+Goodbye from D18
+C42 requests 2nd D42
+	C42 request done
+C42 out take_dongles, state: 0
+C42 exits compilation prematurely
+	C42 FREEs D43 & D42
+	Broadcast 0x4a80d08 (0x4a80cb0)
+	Broadcast 0x4a80c20 (0x4a80bc8)
+C42 out Compile
+		C42 is Finished!
+C42 END!
+C14 requests 2nd D14
+	C14 request done
+C14 out take_dongles, state: 0
+C14 exits compilation prematurely
+	C14 FREEs D15 & D14
+	Broadcast 0x4a7f3a8 (0x4a7f350)
+	Broadcast 0x4a7f2c0 (0x4a7f268)
+C14 out Compile
+		C14 is Finished!
+C14 END!
+D45: Received FREE Broadcast
+end dongle_main_loop D45
+Goodbye from D45
+C8 in Compile
+C8 out Compile
+		C8 is Finished!
+C8 END!
+C36 waiting for 2nd D36-ready 0x4a806e0 (0x4a80658)
+C36 Both Ready 37 & 36
+C36 out take_dongles, state: 0
+C36 exits compilation prematurely
+	C36 FREEs D37 & D36
+	Broadcast 0x4a80798 (0x4a80740)
+	Broadcast 0x4a806b0 (0x4a80658)
+C36 out Compile
+		C36 is Finished!
+C36 END!
+C43 Dongles taken
+C43 exits compilation prematurely
+	C43 FREEs D43 & D44
+	Broadcast 0x4a80d08 (0x4a80cb0)
+	Broadcast 0x4a80df0 (0x4a80d98)
+C43 out Compile
+		C43 is Finished!
+C43 END!
+C49 Dongles taken
+C49 exits compilation prematurely
+	C49 FREEs D49 & D50
+	Broadcast 0x4a81278 (0x4a81220)
+	Broadcast 0x4a81360 (0x4a81308)
+C49 out Compile
+		C49 is Finished!
+C49 END!
+	Broadcast 0x4a7eef0 (0x4a7eec8)
+	C46 request done
+C46 out take_dongles, state: 0
+C46 exits compilation prematurely
+	C46 FREEs D47 & D46
+	Broadcast 0x4a810a8 (0x4a81050)
+	Broadcast 0x4a80fc0 (0x4a80f68)
+C46 out Compile
+		C46 is Finished!
+C46 END!
+	Broadcast 0x4a7f718 (0x4a7f6f0)
+D25: Received FREE Broadcast
+end dongle_main_loop D25
+Goodbye from D25
+C7 Dongles taken
+C7 exits compilation prematurely
+	C7 FREEs D7 & D8
+	Broadcast 0x4a7ec68 (0x4a7ec10)
+	Broadcast 0x4a7ed50 (0x4a7ecf8)
+C7 out Compile
+		C7 is Finished!
+C7 END!
+		Main C7 Done
+		Main C8 Done
+Goodbye from D44
+D17: Received FREE Broadcast
+end dongle_main_loop D17
+Goodbye from D17
+	Broadcast 0x4a7f0c0 (0x4a7f098)
+	Broadcast 0x4a7f578 (0x4a7f520)
+	Broadcast 0x4a7f490 (0x4a7f438)
+C16 out Compile
+		C16 is Finished!
+C16 END!
+C48 requests 2nd D48
+C11 Dongles taken
+	C48 request done
+D11: Received FREE Broadcast
+end dongle_main_loop D11
+Goodbye from D11
+D14: Received FREE Broadcast
+end dongle_main_loop D14
+Goodbye from D14
+	Broadcast 0x4a7f1d8 (0x4a7f180)
+C28 requests 2nd D28
+C12 requests 2nd D12
+	C12 request done
+C12 out take_dongles, state: 0
+C12 exits compilation prematurely
+	C12 FREEs D13 & D12
+C38 exits compilation prematurely
+	C38 FREEs D39 & D38
+	Broadcast 0x4a80968 (0x4a80910)
+	Broadcast 0x4a80880 (0x4a80828)
+C38 out Compile
+		C38 is Finished!
+C38 END!
+C39 out Compile
+		C39 is Finished!
+C39 END!
+D2: Received FREE Broadcast
+end dongle_main_loop D2
+Goodbye from D2
+D50: Received FREE Broadcast
+end dongle_main_loop D50
+Goodbye from D50
+D23: Received FREE Broadcast
+end dongle_main_loop D23
+Goodbye from D23
+C11 exits compilation prematurely
+	C11 FREEs D11 & D12
+	Broadcast 0x4a7f008 (0x4a7efb0)
+	Broadcast 0x4a7f0f0 (0x4a7f098)
+C11 out Compile
+		C11 is Finished!
+C11 END!
+D46: Received FREE Broadcast
+end dongle_main_loop D46
+Goodbye from D46
+	C28 request done
+C28 out take_dongles, state: 0
+C28 exits compilation prematurely
+	C28 FREEs D29 & D28
+	Broadcast 0x4a80058 (0x4a80000)
+	Broadcast 0x4a7ff70 (0x4a7ff18)
+C28 out Compile
+		C28 is Finished!
+C28 END!
+C18 out take_dongles, state: 0
+C18 exits compilation prematurely
+	C18 FREEs D19 & D18
+	Broadcast 0x4a7f748 (0x4a7f6f0)
+D27: Received FREE Broadcast
+end dongle_main_loop D27
+Goodbye from D27
+C9 Dongles taken
+C9 exits compilation prematurely
+	C9 FREEs D9 & D10
+	Broadcast 0x4a7ee38 (0x4a7ede0)
+	Broadcast 0x4a7ef20 (0x4a7eec8)
+C9 out Compile
+		C9 is Finished!
+C9 END!
+D20: Received FREE Broadcast
+end dongle_main_loop D20
+Goodbye from D20
+	Broadcast 0x4a7f1d8 (0x4a7f180)
+D19: Received FREE Broadcast
+end dongle_main_loop D19
+Goodbye from D19
+C10 requests 2nd D10
+	C10 request done
+C10 out take_dongles, state: 0
+C10 exits compilation prematurely
+	C10 FREEs D11 & D10
+	Broadcast 0x4a7f008 (0x4a7efb0)
+	Broadcast 0x4a7ef20 (0x4a7eec8)
+C10 out Compile
+		C10 is Finished!
+C10 END!
+		Main C9 Done
+		Main C10 Done
+		Main C11 Done
+	Broadcast 0x4a7f660 (0x4a7f608)
+C17 out Compile
+		C17 is Finished!
+C17 END!
+D9: Received FREE Broadcast
+end dongle_main_loop D9
+Goodbye from D9
+D13: Received FREE Broadcast
+end dongle_main_loop D13
+Goodbye from D13
+C19 Dongles taken
+C19 exits compilation prematurely
+	C19 FREEs D19 & D20
+	Broadcast 0x4a7f748 (0x4a7f6f0)
+	Broadcast 0x4a7f830 (0x4a7f7d8)
+C19 out Compile
+		C19 is Finished!
+C19 END!
+	Broadcast 0x4a7f9d0 (0x4a7f9a8)
+D30: Received FREE Broadcast
+C21 Dongles taken
+C21 exits compilation prematurely
+	C21 FREEs D21 & D22
+	Broadcast 0x4a7f918 (0x4a7f8c0)
+D12: Received FREE Broadcast
+end dongle_main_loop D12
+Goodbye from D12
+	Broadcast 0x4a7f660 (0x4a7f608)
+D10: Received FREE Broadcast
+end dongle_main_loop D10
+Goodbye from D10
+end dongle_main_loop D30
+Goodbye from D30
+D22: Received FREE Broadcast
+end dongle_main_loop D22
+Goodbye from D22
+D21: Received FREE Broadcast
+end dongle_main_loop D21
+Goodbye from D21
+	Broadcast 0x4a7f2c0 (0x4a7f268)
+C13 out Compile
+		C13 is Finished!
+C13 END!
+C20 requests 2nd D20
+	C20 request done
+C20 out take_dongles, state: 0
+C20 exits compilation prematurely
+	C20 FREEs D21 & D20
+	Broadcast 0x4a7f918 (0x4a7f8c0)
+	Broadcast 0x4a7f830 (0x4a7f7d8)
+C20 out Compile
+		C20 is Finished!
+C20 END!
+	Broadcast 0x4a7f0f0 (0x4a7f098)
+C12 out Compile
+		C12 is Finished!
+C12 END!
+D34: Received FREE Broadcast
+end dongle_main_loop D34
+Goodbye from D34
+	Broadcast 0x4a7fa00 (0x4a7f9a8)
+C21 out Compile
+		C21 is Finished!
+C21 END!
+C48 out take_dongles, state: 0
+C48 exits compilation prematurely
+	C48 FREEs D49 & D48
+	Broadcast 0x4a81278 (0x4a81220)
+	Broadcast 0x4a81190 (0x4a81138)
+C48 out Compile
+		C48 is Finished!
+C48 END!
+		Main C12 Done
+		Main C13 Done
+		Main C14 Done
+		Main C15 Done
+		Main C16 Done
+		Main C17 Done
+C18 out Compile
+		C18 is Finished!
+C18 END!
+		Main C18 Done
+		Main C19 Done
+		Main C20 Done
+		Main C21 Done
+		Main C22 Done
+		Main C23 Done
+		Main C24 Done
+		Main C25 Done
+		Main C26 Done
+		Main C27 Done
+		Main C28 Done
+		Main C29 Done
+		Main C30 Done
+		Main C31 Done
+		Main C32 Done
+		Main C33 Done
+		Main C34 Done
+		Main C35 Done
+		Main C36 Done
+		Main C37 Done
+		Main C38 Done
+		Main C39 Done
+		Main C40 Done
+		Main C41 Done
+		Main C42 Done
+		Main C43 Done
+		Main C44 Done
+		Main C45 Done
+		Main C46 Done
+		Main C47 Done
+		Main C48 Done
+		Main C49 Done
+		Main C50 Done
+		Waiting for D1
+		Main D1 Done
+		Waiting for D2
+		Main D2 Done
+		Waiting for D3
+		Main D3 Done
+		Waiting for D4
+		Main D4 Done
+		Waiting for D5
+		Main D5 Done
+		Waiting for D6
+		Main D6 Done
+		Waiting for D7
+		Main D7 Done
+		Waiting for D8
+		Main D8 Done
+		Waiting for D9
+		Main D9 Done
+		Waiting for D10
+		Main D10 Done
+		Waiting for D11
+		Main D11 Done
+		Waiting for D12
+		Main D12 Done
+		Waiting for D13
+		Main D13 Done
+		Waiting for D14
+		Main D14 Done
+		Waiting for D15
+		Main D15 Done
+		Waiting for D16
+		Main D16 Done
+		Waiting for D17
+		Main D17 Done
+		Waiting for D18
+		Main D18 Done
+		Waiting for D19
+		Main D19 Done
+		Waiting for D20
+		Main D20 Done
+		Waiting for D21
+		Main D21 Done
+		Waiting for D22
+		Main D22 Done
+		Waiting for D23
+		Main D23 Done
+		Waiting for D24
+		Main D24 Done
+		Waiting for D25
+		Main D25 Done
+		Waiting for D26
+		Main D26 Done
+		Waiting for D27
+		Main D27 Done
+		Waiting for D28
+		Main D28 Done
+		Waiting for D29
+		Main D29 Done
+		Waiting for D30
+		Main D30 Done
+		Waiting for D31
+		Main D31 Done
+		Waiting for D32
+		Main D32 Done
+		Waiting for D33
+		Main D33 Done
+		Waiting for D34
+		Main D34 Done
+		Waiting for D35
+		Main D35 Done
+		Waiting for D36
+		Main D36 Done
+		Waiting for D37
+		Main D37 Done
+		Waiting for D38
+		Main D38 Done
+		Waiting for D39
+		Main D39 Done
+		Waiting for D40
+		Main D40 Done
+		Waiting for D41
+		Main D41 Done
+		Waiting for D42
+		Main D42 Done
+		Waiting for D43
+		Main D43 Done
+		Waiting for D44
+		Main D44 Done
+		Waiting for D45
+		Main D45 Done
+		Waiting for D46
+		Main D46 Done
+		Waiting for D47
+		Main D47 Done
+		Waiting for D48
+		Main D48 Done
+		Waiting for D49
+		Main D49 Done
+		Waiting for D50
+		Main D50 Done
+==11187== 
+==11187== Use --history-level=approx or =none to gain increased speed, at
+==11187== the cost of reduced accuracy of conflicting-access information
+==11187== For lists of detected and suppressed errors, rerun with: -s
+==11187== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 28281 from 640)

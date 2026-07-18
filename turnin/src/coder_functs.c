@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:09:17 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/17 23:31:40 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/18 17:49:59 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,8 @@ static void	do_compile(t_coder *self)
 
 static void	do_compile_loop(t_coder *self)
 {
-	if (check_burnout(self->room))
-		return ;
 	print_event(self->room, self->id, "is debugging");
 	safe_msleep(self->room->inputs->time_to_debug, self->room);
-	if (check_burnout(self->room))
-		return ;
 	print_event(self->room, self->id, "is refactoring");
 	safe_msleep(self->room->inputs->time_to_refactor, self->room);
 	do_compile(self);
@@ -68,7 +64,7 @@ static int	wait_for_burnout(t_programming_room *room)
 				continue ;
 			}
 			if (room->coders[i].last_ct
-				+ (long long)room->inputs->time_to_burnout
+				+ (unsigned long long)room->inputs->time_to_burnout
 				<= timeout)
 				id = room->coders[i].id;
 			out = 1;
@@ -81,6 +77,7 @@ static int	wait_for_burnout(t_programming_room *room)
 void	*coder_burnout(void *input_raw)
 {
 	t_programming_room	*room;
+	unsigned long long	time_past;
 	int					id;
 
 	room = (t_programming_room *) input_raw;
@@ -90,8 +87,16 @@ void	*coder_burnout(void *input_raw)
 	id = wait_for_burnout(room);
 	if (id == -1)
 		return (NULL);
-	safe_mod_val_int(&room->burnout_state, DONE, &room->burnout_m);
-	print_event(room, id, "burned out");
+	pthread_mutex_lock(&room->print_m);
+	pthread_mutex_lock(&room->burnout_m);
+	time_past = get_time_past(room->start_time);
+	printf("%llu %i %s\n", time_past, id, "burned out");
+	fprintf(stderr, "\t----- %llu %i %s -----\n",
+		time_past, id, "burned out");
+	room->burnout_state = DONE;
+	pthread_mutex_unlock(&room->burnout_m);
+	msleep(room->inputs->time_to_burnout / 2);
+	pthread_mutex_unlock(&room->print_m);
 	return (NULL);
 }
 

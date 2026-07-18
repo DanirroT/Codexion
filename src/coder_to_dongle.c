@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 22:31:12 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/17 17:15:04 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/18 17:47:21 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
 {
-	if (check_burnout(self->room) || self->dongle_l == self->dongle_r)
-		return (0);
 	if (self->id % 2)
 	{
 		*first = self->dongle_l;
@@ -26,6 +24,8 @@ static int	request_dongles(t_coder *self, t_dongle **first, t_dongle **second)
 		*first = self->dongle_r;
 		*second = self->dongle_l;
 	}
+	if (self->dongle_l == self->dongle_r)
+		return (msleep(self->room->inputs->time_to_burnout + 5));
 	if (check_burnout(self->room))
 		return (1);
 	fprintf(stderr, "C%i requests 1st D%i\n", self->id, (*first)->id);
@@ -65,7 +65,7 @@ void	take_dongles(t_coder *self)
 	fprintf(stderr, "C%i in take_dongles\n", self->id);
 	if (request_dongles(self, &first, &second))
 		return ;
-	while (!check_burnout(self->room) && first != second)
+	while (!check_burnout(self->room))
 	{
 		pthread_mutex_lock(&first->state_m);
 		pthread_mutex_lock(&second->state_m);

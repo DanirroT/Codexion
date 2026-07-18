@@ -1,0 +1,253 @@
+==10173== Helgrind, a thread error detector
+==10173== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==10173== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==10173== Command: ./Codexion 2 8000 200 200 200 3 1000 fifo
+==10173== 
+burnout_m at 0x4a7e560, print_m at 0x4a7e4b8, burnout_state at 0x4a7e588, complete_state at 0x4a7e58c
+Hello from D1
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 208ms
+D1 - state 0x4a7e758, state_m 0x4a7e6a0, take 0x4a7e6c8, free 0x4a7e6f8, ready 0x4a7e728
+Hello from D2
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 208ms
+D2 - state 0x4a7e840, state_m 0x4a7e788, take 0x4a7e7b0, free 0x4a7e7e0, ready 0x4a7e810
+Hello from C1 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 208ms
+C1 - state 0x4a7eb50 compiling_m 0x4a7eb60
+Hello from C2 thread!
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 208ms
+C2 - state 0x4a7ebe8 compiling_m 0x4a7ebf8
+Starting CB
+waiting 0x4a7e530 (0x4a7e508): 1 1 for 208ms
+	Room Prepped!
+	Time initialized!
+	Broadcast 0x4a7e530 (0x4a7e508)
+Hello from D1
+	LET THE GAMES BEGIN!
+C2 Stat!
+C1 Stat!
+C1 in Compile
+C1 in take_dongles
+C1 requests 1st D1
+C1 requests 2nd D2
+	C1 request done
+C1 Checking D1 & D2
+C1 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+Hello from D2
+start dongle_main_loop D2
+D2: Broadcast Ready 0x4a7e810 (0x4a7e788)
+start dongle_main_loop D1
+D1: Broadcast Ready 0x4a7e728 (0x4a7e6a0)
+C1 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+C1 Both Ready 1 & 2
+C1 Checking D1 & D2
+C1: D1 & D2 FREE
+In Printing Queue of D1:	1: 1
+In Printing Queue of D2:	1: 1
+C1 taking Dongles
+Out Printing Queue of D1:
+	----- 27 1 has taken a dongle -----
+	Broadcast 0x4a7e6c8 (0x4a7e6a0)
+Out Printing Queue of D2:
+	----- 29 1 has taken a dongle -----
+	Broadcast 0x4a7e7b0 (0x4a7e788)
+C1 Dongles taken
+	----- 31 1 is compiling -----
+C2 in Compile
+C2 in take_dongles
+C2 requests 1st D1
+C2 requests 2nd D2
+	C2 request done
+C2 Checking D1 & D2
+C2 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+	C1 FREEs D1 & D2
+	Broadcast 0x4a7e6f8 (0x4a7e6a0)
+D1: Received FREE Broadcast
+	Broadcast 0x4a7e7e0 (0x4a7e788)
+C1 out Compile
+  Compiles Complete by C1: 1
+D2: Received FREE Broadcast
+	----- 238 1 is debugging -----
+	----- 441 1 is refactoring -----
+C1 in Compile
+C1 in take_dongles
+C1 requests 1st D1
+C1 requests 2nd D2
+	C1 request done
+C1 Checking D1 & D2
+C1 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+D1: Broadcast Ready 0x4a7e728 (0x4a7e6a0)
+C2 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+C1 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+D2: Broadcast Ready 0x4a7e810 (0x4a7e788)
+C2 Both Ready 1 & 2
+C2 Checking D1 & D2
+C2: D1 & D2 FREE
+In Printing Queue of D1:	1: 2	2: 1
+In Printing Queue of D2:	1: 2	2: 1
+C2 taking Dongles
+Out Printing Queue of D1:	1: 1
+	----- 1243 2 has taken a dongle -----
+	Broadcast 0x4a7e6c8 (0x4a7e6a0)
+Out Printing Queue of D2:	1: 1
+	----- 1243 2 has taken a dongle -----
+	Broadcast 0x4a7e7b0 (0x4a7e788)
+C2 Dongles taken
+	----- 1244 2 is compiling -----
+C1 Both Ready 1 & 2
+C1 Checking D1 & D2
+C1 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+	C2 FREEs D1 & D2
+	Broadcast 0x4a7e6f8 (0x4a7e6a0)
+	Broadcast 0x4a7e7e0 (0x4a7e788)
+C2 out Compile
+  Compiles Complete by C2: 1
+D2: Received FREE Broadcast
+D1: Received FREE Broadcast
+	----- 1448 2 is debugging -----
+	----- 1649 2 is refactoring -----
+C2 in Compile
+C2 in take_dongles
+C2 requests 1st D1
+C2 requests 2nd D2
+	C2 request done
+C2 Checking D1 & D2
+C2 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+D2: Broadcast Ready 0x4a7e810 (0x4a7e788)
+D1: Broadcast Ready 0x4a7e728 (0x4a7e6a0)
+C1 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+C1 Both Ready 1 & 2
+C1 Checking D1 & D2
+C1: D1 & D2 FREE
+In Printing Queue of D1:	1: 1	2: 2
+In Printing Queue of D2:	1: 1	2: 2
+C1 taking Dongles
+Out Printing Queue of D1:	1: 2
+	----- 2454 1 has taken a dongle -----
+	Broadcast 0x4a7e6c8 (0x4a7e6a0)
+Out Printing Queue of D2:	1: 2
+	----- 2456 1 has taken a dongle -----
+	Broadcast 0x4a7e7b0 (0x4a7e788)
+C1 Dongles taken
+	----- 2457 1 is compiling -----
+C2 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+	C1 FREEs D1 & D2
+	Broadcast 0x4a7e6f8 (0x4a7e6a0)
+D1: Received FREE Broadcast
+	Broadcast 0x4a7e7e0 (0x4a7e788)
+C1 out Compile
+  Compiles Complete by C1: 2
+D2: Received FREE Broadcast
+	----- 2661 1 is debugging -----
+	----- 2862 1 is refactoring -----
+C1 in Compile
+C1 in take_dongles
+C1 requests 1st D1
+C1 requests 2nd D2
+	C1 request done
+C1 Checking D1 & D2
+C1 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+D1: Broadcast Ready 0x4a7e728 (0x4a7e6a0)
+C1 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+D2: Broadcast Ready 0x4a7e810 (0x4a7e788)
+C2 Both Ready 1 & 2
+C2 Checking D1 & D2
+C2: D1 & D2 FREE
+In Printing Queue of D1:	1: 2	2: 1
+In Printing Queue of D2:	1: 2	2: 1
+C2 taking Dongles
+Out Printing Queue of D1:	1: 1
+	----- 3663 2 has taken a dongle -----
+	Broadcast 0x4a7e6c8 (0x4a7e6a0)
+Out Printing Queue of D2:	1: 1
+	----- 3664 2 has taken a dongle -----
+	Broadcast 0x4a7e7b0 (0x4a7e788)
+C2 Dongles taken
+C1 Both Ready 1 & 2
+C1 Checking D1 & D2
+C1 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+	----- 3665 2 is compiling -----
+	C2 FREEs D1 & D2
+	Broadcast 0x4a7e6f8 (0x4a7e6a0)
+D1: Received FREE Broadcast
+	Broadcast 0x4a7e7e0 (0x4a7e788)
+C2 out Compile
+  Compiles Complete by C2: 2
+D2: Received FREE Broadcast
+	----- 3869 2 is debugging -----
+	----- 4069 2 is refactoring -----
+C2 in Compile
+C2 in take_dongles
+C2 requests 1st D1
+C2 requests 2nd D2
+	C2 request done
+C2 Checking D1 & D2
+C2 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+D1: Broadcast Ready 0x4a7e728 (0x4a7e6a0)
+C2 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+C1 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+D2: Broadcast Ready 0x4a7e810 (0x4a7e788)
+C1 Both Ready 1 & 2
+C1 Checking D1 & D2
+C1: D1 & D2 FREE
+In Printing Queue of D1:	1: 1	2: 2
+In Printing Queue of D2:	1: 1	2: 2
+C1 taking Dongles
+Out Printing Queue of D1:	1: 2
+	----- 4873 1 has taken a dongle -----
+	Broadcast 0x4a7e6c8 (0x4a7e6a0)
+Out Printing Queue of D2:	1: 2
+	----- 4873 1 has taken a dongle -----
+	Broadcast 0x4a7e7b0 (0x4a7e788)
+C1 Dongles taken
+C2 Both Ready 1 & 2
+C2 Checking D1 & D2
+C2 waiting for 1st D1-ready 0x4a7e728 (0x4a7e6a0)
+	----- 4875 1 is compiling -----
+	C1 FREEs D1 & D2
+	Broadcast 0x4a7e6f8 (0x4a7e6a0)
+D1: Received FREE Broadcast
+	Broadcast 0x4a7e7e0 (0x4a7e788)
+C1 out Compile
+		C1 is Finished!
+C1 END!
+D2: Received FREE Broadcast
+D1: Broadcast Ready 0x4a7e728 (0x4a7e6a0)
+C2 waiting for 2nd D2-ready 0x4a7e810 (0x4a7e788)
+D2: Broadcast Ready 0x4a7e810 (0x4a7e788)
+C2 Both Ready 1 & 2
+C2 Checking D1 & D2
+C2: D1 & D2 FREE
+In Printing Queue of D1:	1: 2
+In Printing Queue of D2:	1: 2
+C2 taking Dongles
+Out Printing Queue of D1:
+	----- 6083 2 has taken a dongle -----
+	Broadcast 0x4a7e6c8 (0x4a7e6a0)
+Out Printing Queue of D2:
+	----- 6084 2 has taken a dongle -----
+	Broadcast 0x4a7e7b0 (0x4a7e788)
+C2 Dongles taken
+	----- 6085 2 is compiling -----
+		Main C1 Done
+	C2 FREEs D1 & D2
+	Broadcast 0x4a7e6f8 (0x4a7e6a0)
+D1: Received FREE Broadcast
+	Broadcast 0x4a7e7e0 (0x4a7e788)
+C2 out Compile
+		C2 is Finished!
+C2 END!
+D2: Received FREE Broadcast
+		Main C2 Done
+		Waiting for D1
+end dongle_main_loop D1
+Goodbye from D1
+		Main D1 Done
+		Waiting for D2
+end dongle_main_loop D2
+Goodbye from D2
+		Main D2 Done
+==10173== 
+==10173== Use --history-level=approx or =none to gain increased speed, at
+==10173== the cost of reduced accuracy of conflicting-access information
+==10173== For lists of detected and suppressed errors, rerun with: -s
+==10173== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 13951 from 527)

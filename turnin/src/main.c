@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/17 16:42:06 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/18 11:09:37 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,36 +71,6 @@ static int	prep_room(t_programming_room *room)
 		coder_burnout, room);
 	return (ACTIVE);
 }
-
-/*
-t_input_args	*get_inputs()
-{
-	t_input_args	*input;
-
-	input = malloc((size_t)(sizeof(t_input_args)));
-	if (!input)
-		return (NULL);
-
-	input->number_of_coders = 5;
-	input->time_to_burnout = 1000;
-	input->time_to_compile = 200;
-	input->time_to_debug = 100;
-	input->time_to_refactor = 100;
-	input->number_of_compiles_required = 3;
-	input->dongle_cooldown = 50;
-	input->scheduler = 1;
-
-	return (input);
-}
-// input = get_inputs();
-*/
-
-/*
-0	- fifo means First In, First Out: the dongle is granted to the coder whose
-request arrived first.
-1	-edf means Earliest Deadline First with deadline = last_compile_start +
-time_to_burnout.
-*/
 
 static void	wait_all_ready(t_programming_room *room, int out, int i)
 {
