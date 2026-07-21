@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 14:54:49 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/18 11:22:46 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/19 12:54:43 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int	check_do_atoi_strict_pos(char **arg,
 
 int	check_burnout(t_programming_room *room)
 {
+	int out;
+
+	out = 0;
 	pthread_mutex_lock(&room->burnout_m);
 	if (room->burnout_state == DONE
 		|| room->complete_state == DONE)
-	{
-		pthread_mutex_unlock(&room->burnout_m);
-		return (1);
-	}
+		out = 1;
 	pthread_mutex_unlock(&room->burnout_m);
-	return (0);
+	return (out);
 }
 
 unsigned long long	print_event(t_programming_room *room, int id, char *msg)

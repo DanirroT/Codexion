@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 19:36:53 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/17 14:23:17 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/20 14:13:25 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,24 @@ void	add_d_queue(t_dongle *dongle, t_coder *coder)
 	pthread_mutex_unlock(&dongle->state_m);
 }
 
-void	remove_from_queue(t_dongle *dongle, int id)
+void	remove_from_queues(t_coder *coder)
 {
 	t_list	*temp;
 	t_list	**queue;
 
-	queue = &dongle->queue;
-	if (!queue || !*queue || check_burnout(dongle->room))
-		return ;
+	queue = &coder->dongle_l->queue;
 	temp = (*queue);
 	(*queue) = temp->next;
-	dongle->state = HELD;
-	print_event(dongle->room, id, "has taken a dongle");
+	coder->dongle_l->state = HELD;
+	print_event(coder->room, coder->id, "has taken a dongle");
+	free(temp);
+
+	queue = &coder->dongle_r->queue;
+	temp = (*queue);
+	(*queue) = temp->next;
+	coder->dongle_r->state = HELD;
+	print_event(coder->room, coder->id, "has taken a dongle");
+
 	free(temp);
 }
 

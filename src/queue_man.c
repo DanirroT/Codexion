@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 19:36:53 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/17 14:23:12 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/20 14:07:06 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,30 @@ void	add_d_queue(t_dongle *dongle, t_coder *coder)
 	pthread_mutex_unlock(&dongle->state_m);
 }
 
-void	remove_from_queue(t_dongle *dongle, int id)
+void	remove_from_queues(t_coder *coder)
 {
 	t_list	*temp;
 	t_list	**queue;
 
-	queue = &dongle->queue;
-	if (!queue || !*queue || check_burnout(dongle->room))
-		return ;
+	queue = &coder->dongle_l->queue;
 	temp = (*queue);
 	(*queue) = temp->next;
-	print_queue(dongle->queue, dongle->id, "Out");
-	dongle->state = HELD;
-	print_event(dongle->room, id, "has taken a dongle");
-	fprintf(stderr, "\tBroadcast %p (%p)\n",
-		&dongle->take, &dongle->state_m);
+	print_queue(coder->dongle_l->queue, coder->dongle_l->id, "Out");
+	coder->dongle_l->state = HELD;
+	print_event(coder->room, coder->id, "has taken a dongle");
+	fprintf(stderr, "\tBroadcast Take D%i %p (%p)\n",
+		coder->dongle_l->id, &coder->dongle_l->take, &coder->dongle_l->state_m);
+	free(temp);
+
+	queue = &coder->dongle_r->queue;
+	temp = (*queue);
+	(*queue) = temp->next;
+	print_queue(coder->dongle_r->queue, coder->dongle_r->id, "Out");
+	coder->dongle_r->state = HELD;
+	print_event(coder->room, coder->id, "has taken a dongle");
+	fprintf(stderr, "\tBroadcast Take D%i %p (%p)\n",
+		coder->dongle_r->id, &coder->dongle_r->take, &coder->dongle_r->state_m);
+
 	free(temp);
 }
 

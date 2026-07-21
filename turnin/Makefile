@@ -6,7 +6,7 @@
 #    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/18 17:59:26 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/07/17 17:11:57 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/07/21 22:50:38 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC =	$(SRC_DIR)main.c\
 		$(SRC_DIR)ft_split_space.c\
 		$(SRC_DIR)coder_functs.c\
 		$(SRC_DIR)coder_to_dongle.c\
-		$(SRC_DIR)dongle_functs.c\
+		$(SRC_DIR)dongle_n_burnout_functs.c\
 		$(SRC_DIR)lst_functs.c\
 		$(SRC_DIR)queue_man.c\
 		$(SRC_DIR)ft_trashs.c\
@@ -69,7 +69,7 @@ re: fclean all
 
 # valid
 #       nb bout com deb ref nbc dcd sk
-INPUTS = 3 100 200 200 200 3 100 edf
+INPUTS = 200 200 200 200 200 3 100 edf
 # INPUTS = 100 8000 200 200 200 3 1000 fifo
 # invalid
 #       nb bout com deb ref nbc dcd sk
@@ -86,10 +86,10 @@ helgrind: $(NAME) db/
 	-$(HELGRIND) ./$(NAME) $(INPUTS) 2> db/debugging_hell.txt
 
 # no extras
-TESTING =
+# TESTING =
 
 # Memory leaks
-# TESTING = valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all
+TESTING = valgrind --tool=memcheck --track-origins=yes --leak-check=full --show-leak-kinds=all
 
 # Threading issues
 # TESTING = valgrind --tool=helgrind
@@ -134,6 +134,21 @@ test_many: $(NAME)
 	$(TESTING) ./$(NAME) 3 100 200 200 200 3 100 fifo 2> dbm/debugging_3bf.txt
 	@echo "\nTesting with 3 Coders, Burnout! EDF\n"
 	$(TESTING) ./$(NAME) 3 100 200 200 200 3 100 edf 2> dbm/debugging_3be.txt
+
+# 	@echo "\nTesting with 10 Coders, no Burnout FIFO\n"
+# 	$(TESTING) ./$(NAME) 10 8000 200 200 200 3 100 fifo 2> dbm/debugging_10sf.txt
+# 	@echo "\nTesting with 10 Coders, no Burnout EDF\n"
+# 	$(TESTING) ./$(NAME) 10 10000 200 200 200 3 100 edf 2> dbm/debugging_10se.txt
+
+# 	@echo "\nTesting with 10 Coders, no Burnout FIFO, long cooldown\n"
+# 	$(TESTING) ./$(NAME) 10 8000 200 200 200 3 1000 fifo 2> dbm/debugging_10lf.txt
+# 	@echo "\nTesting with 10 Coders, no Burnout EDF, long cooldown\n"
+# 	$(TESTING) ./$(NAME) 10 8000 200 200 200 3 1000 edf 2> dbm/debugging_10le.txt
+
+# 	@echo "\nTesting with 10 Coders, Burnout! FIFO\n"
+# 	$(TESTING) ./$(NAME) 10 100 200 200 200 3 100 fifo 2> dbm/debugging_10bf.txt
+# 	@echo "\nTesting with 10 Coders, Burnout! EDF\n"
+# 	$(TESTING) ./$(NAME) 10 100 200 200 200 3 100 edf 2> dbm/debugging_10be.txt
 
 	@echo "\nTesting with 50 Coders, no Burnout FIFO\n"
 	$(TESTING) ./$(NAME) 50 12000 200 200 200 3 100 fifo 2> dbm/debugging_50sf.txt

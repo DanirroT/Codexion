@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 19:03:01 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/18 17:51:17 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/20 14:01:30 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void	take_dongles(t_coder *self)
 			if (self == second->queue->content
 				&& self == first->queue->content)
 			{
-				remove_from_queue(first, self->id);
-				remove_from_queue(second, self->id);
+				remove_from_queues(self);
 				pthread_mutex_unlock(&second->state_m);
 				pthread_mutex_unlock(&first->state_m);
 				return ;
@@ -73,6 +72,7 @@ void	take_dongles(t_coder *self)
 		}
 		pthread_mutex_unlock(&second->state_m);
 		pthread_mutex_unlock(&first->state_m);
+		safe_msleep(5, self->room);
 		wait_for_ready(self, first, second);
 	}
 }

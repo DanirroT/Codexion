@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:09:17 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/18 17:49:59 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/20 13:57:22 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,67 +39,6 @@ static void	do_compile_loop(t_coder *self)
 	do_compile(self);
 }
 
-static int	wait_for_burnout(t_programming_room *room)
-{
-	unsigned long long	timeout;
-	int					i;
-	int					id;
-	int					out;
-
-	out = 1;
-	id = -1;
-	while (out)
-	{
-		msleep(4);
-		timeout = get_time_past(room->start_time);
-		i = -1;
-		out = 0;
-		while (++i < room->inputs->number_of_coders && id == -1)
-		{
-			pthread_mutex_lock(&room->coders[i].compiling_m);
-			if (room->coders[i].compilations_complete
-				== room->inputs->number_of_compiles_required)
-			{
-				pthread_mutex_unlock(&room->coders[i].compiling_m);
-				continue ;
-			}
-			if (room->coders[i].last_ct
-				+ (unsigned long long)room->inputs->time_to_burnout
-				<= timeout)
-				id = room->coders[i].id;
-			out = 1;
-			pthread_mutex_unlock(&room->coders[i].compiling_m);
-		}
-	}
-	return (id);
-}
-
-void	*coder_burnout(void *input_raw)
-{
-	t_programming_room	*room;
-	unsigned long long	time_past;
-	int					id;
-
-	room = (t_programming_room *) input_raw;
-	safe_mod_val_int(&room->b_ready, DONE, &room->ready_m);
-	safe_cond_timedwait(&room->start_sim_c, &room->start_sim_m,
-		power(room->inputs->number_of_coders, 3) + 200, room);
-	id = wait_for_burnout(room);
-	if (id == -1)
-		return (NULL);
-	pthread_mutex_lock(&room->print_m);
-	pthread_mutex_lock(&room->burnout_m);
-	time_past = get_time_past(room->start_time);
-	printf("%llu %i %s\n", time_past, id, "burned out");
-	fprintf(stderr, "\t----- %llu %i %s -----\n",
-		time_past, id, "burned out");
-	room->burnout_state = DONE;
-	pthread_mutex_unlock(&room->burnout_m);
-	msleep(room->inputs->time_to_burnout / 2);
-	pthread_mutex_unlock(&room->print_m);
-	return (NULL);
-}
-
 void	*coder_funct(void *input_raw)
 {
 	t_coder	*self;
@@ -110,7 +49,6 @@ void	*coder_funct(void *input_raw)
 		power(self->room->inputs->number_of_coders, 3) + 200, self->room);
 	// safe_cond_wait(&self->room->start_sim_c, &self->room->start_sim_m,
 	// 	self->room);
-	fprintf(stderr, "C%i Stat!\n", self->id);
 	if (!(self->id % 2))
 		safe_msleep(self->room->inputs->time_to_compile - 20, self->room);
 	do_compile(self);

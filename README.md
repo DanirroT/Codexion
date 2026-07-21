@@ -27,11 +27,11 @@ Threads cannot be left free to access shared memory and run without control, so 
 
 ### Mutexes Used
 
-`Mutexes` work like Locks. When you want to access some shared information or state, you must have the key. To do that, you use pthread_mutex_lock to take the key, and now you may look at and alter anything that is protected by that `Mutex`. To let go of the Key, you use pthread_mutex_unlock. If a second thread wants to use the key while it is taken by another, it will wait until the unlock happens, and the thread in waiting will immediately wake up and take it. Granted, there is not a data race between multiple threads all looking to get the same `Mutex`
+`Mutexes` work like Locks. When you want to access some shared information or state, you must have the key. To do that, you use pthread_mutex_lock to take the key, and now you may look at and alter anything that is protected by that `Mutex`. To let go of the Key, you use pthread_mutex_unlock. If a second thread wants to use the key while it is taken by another, it will wait until the unlock happens, and the thread in waiting will immediately wake up and take it. Granted, there are not multiple threads all looking to get the same `Mutex`, in which case it is random which of the threads will get the key.
 
 Shared:
 - `Print` - Protects the Console log from corruption
-- `Burnout` - Protects the `Burnout State` Condition Variable
+- `Burnout` - Protects the `Burnout State` and `Complete State` Condition Variables
 
 Used by Dongles
 - `State` - Protects the `Lock State` of the `Dongle`, as well as all Condition Variables relating to the `Dongle`
@@ -43,20 +43,16 @@ Used by Dongles
 Shared:
 - `Start Sim` - Serves as the Start Signal that makes all threads start working. Has a private `Mutex`.
 
-Used by Coders
-- `Compiling` - Serves to communicate between the `Main Coder Thread` and its `Coder Burnout Thread` to detect if a Burnout has occurred. Has a private `Mutex`.
-
 Used by Dongles
-- `Take` - Used to communicate between the `Main Coder Thread` and `Dongle Thread` to have the `Dongle` Lock itself
-- `Free` - Used to Communicate Between `Main Coder Thread` and `Dongle Thread` to have the `Dongle` start it's Cooldown and free itself when Ready
-- `Ready` - Used to Communicate Between `Dongle Thread` and `Main Coder Thread` to signal the `Dongle` has been freed and to allow the Coders to check if they are next in line to take it
+- `Free` - Used to communicate between the `Coder Thread` and `Dongle Thread` to have the `Dongle` start Cooldown
+- `Ready` - Used to Communicate Between the `Dongle Thread` and `Coder Thread` to signal the `Dongle` has been freed and to allow the Coders to check if they are next in line to take it
 
 ### Shared State Variables Used
 
 not to be confused with `Condition Variables`, these Variables are shared `Variables` that tell the `Threads` how to behave. Unlike `Condition Variables` that are instantaneous, `Variables` are lingering and can be detected at any time, so long as they are protected by a Designated `Mutex`.
 
 Shared:
-- `Burnout State` - set as **ACTIVE** for as long as there is no Burnout. as soon as a Burnout is detected, the `Burnout Thread` in question will change this variable to **DONE** which will be detected by all other parts of the code and start the death of all the threads and a successful closing of the program.
+- `Burnout State` - set as **ACTIVE** for as long as there is no Burnout. as soon as a Burnout is detected, the `Monitor Burnout Thread` in question will change this variable to **DONE** which will be detected by all other parts of the code and start the death of all the threads and a successful closing of the program.
 - `Complete State` - Similar to `Burnout State`, but this one will be changed to `Done` when all `Coder Functions` have returned successfully so we can have the Dongle threads return without touching `Burnout State`. Protected by `Burnout Mutex` as well
 
 Used by Coders
@@ -84,11 +80,14 @@ The `Schedulers` will be the ones preventing burnouts in the case that the coold
 
 ### Cooldown handling
 
-`Dongles`, after being freed, must enter a Cooldown State; this is done by the dedicated `Dongle` Thread. this thread monitors others' access to it. this thread waits for a take signal (`condition`) to lock itself, then it will wait for a Free signal to start Cooldown. after `dongle_cooldown` ms, it will unlock itself and send out a Ready signal that can be detected by any `Coder` waiting for the `Dongle`.
+`Dongles`, after being freed, must enter a Cooldown State; this is done by the dedicated `Dongle Thread`. This thread monitors others' access to it. This thread waits for a `Free` signal (`condition`) to start Cooldown from a `Coder`, starts the cooldown timer. After `dongle_cooldown` ms, it will unlock itself and send out a `Ready` signal that can be detected by any `Coder` waiting for the `Dongle`.
 
 ### Burnout detection
 
-If a `Coder` doesn't compile in `time_to_burnout`, it will burn out and must send a signal to stop all of the simulation and any console logs from being displayed. Since the `Main Coder Thread` is busy in the Compilation Loop, I use a `Coder Burnout Thread` to control each `Coder`. when a `Coder` starts compiling, it sends a Compiling Signal (`Condition`) that is detected by the `Coder Burnout Thread`. So long as the `Coder Burnout Thread` keeps detecting the Compiling Signal in intervals of `time_to_burnout`, nothing will go wrong. However, if a Signal is not detected, Burnout is activated. We change an internal Variable that is checked before any sleep or print functions, and that will make all the threads return as fast as possible so we can exit with no memory issues.
+If a `Coder` doesn't compile in `time_to_burnout`, it will burn out and  the simulation must terminate. Since each `Coder Thread` is busy in the Compilation Loop, a dedicated `Monitor Burnout Thread` periodically checks every `Coder`. Whenever a `Coder` starts compiling, it updates its protected `Last Compile Time`. `Monitor Burnout Thread` checks if current time against this value, and if more than `time_to_burnout` milliseconds have elapsed, the `Coder` is declared burned out.
+
+Once a burnout is detected, the shared `Burnout State` is set to `DONE`. Every thread checks this shared state before sleeping, waiting on condition variables, or printing to the console, allowing the entire simulation to terminate quickly and cleanly.
+
 
 ### Log serialization
 

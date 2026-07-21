@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/17 23:32:33 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/20 13:37:55 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	init_coder(t_programming_room *room, int id)
 	pthread_mutex_init(&room->coders[id].compiling_m, NULL);
 	pthread_create(&room->coders[id].thread, NULL,
 		coder_funct, &room->coders[id]);
-	fprintf(stderr, "C%i - state %p compiling_m %p\n",
+	fprintf(stderr, "C%i: - state %p compiling_m %p\n",
 		room->coders[id].id,
 		&room->coders[id].last_ct,
 		&room->coders[id].compiling_m);

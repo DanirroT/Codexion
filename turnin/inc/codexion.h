@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/17 23:33:03 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/20 14:07:58 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstclear(t_list **lst);
 
 void				add_d_queue(t_dongle *dongle, t_coder *self);
-void				remove_from_queue(t_dongle *dongle, int id);
+void				remove_from_queues(t_coder *coder);
 void				print_queue(t_list *queue, int d_id, char *s);
 
 // Time
