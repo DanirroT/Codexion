@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 15:40:09 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/20 16:03:28 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/22 14:18:18 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	*coder_burnout(void *input_raw)
 	safe_mod_val_int(&room->b_ready, DONE, &room->ready_m);
 	safe_cond_timedwait(&room->start_sim_c, &room->start_sim_m,
 		power(room->inputs->number_of_coders, 3) + 200, room);
+	msleep(2);
 	id = wait_for_burnout(room);
 	if (id == -1)
 		return (NULL);

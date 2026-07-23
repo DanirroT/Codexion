@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/18 11:09:37 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/22 14:26:41 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	prep_room(t_programming_room *room)
 
 	pthread_mutex_init(&(room->burnout_m), NULL);
 	pthread_mutex_init(&room->print_m, NULL);
+	pthread_mutex_lock(&room->print_m);
 	pthread_mutex_init(&room->ready_m, NULL);
 	pthread_mutex_init(&room->start_sim_m, NULL);
 	pthread_cond_init(&room->start_sim_c, NULL);
@@ -123,6 +124,7 @@ int	main(int argc, char *argv[])
 		return (ft_out(room, NULL, -1));
 	wait_all_ready(room, 0, 0);
 	gettimeofday(&room->start_time, NULL);
+	pthread_mutex_unlock(&room->print_m);
 	safe_broadcast(&room->start_sim_c, &room->start_sim_m);
 	return (ft_out(room, NULL, 0));
 }
