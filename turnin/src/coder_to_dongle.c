@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 19:03:01 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/20 14:01:30 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:50:05 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,32 @@ void	free_dongles(t_coder *self)
 	}
 	safe_broadcast(&first->free, &first->state_m);
 	safe_broadcast(&second->free, &second->state_m);
+}
+
+void	wait_coder_dongle(t_programming_room *room)
+{
+	int	out;
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		out = 0;
+		while (i < room->inputs->number_of_coders)
+		{
+			pthread_mutex_lock(&room->ready_m);
+			if (room->coders[i].c_ready == ACTIVE
+				|| room->dongles[i].d_ready == ACTIVE)
+			{
+				out = 1;
+				pthread_mutex_unlock(&room->ready_m);
+				break ;
+			}
+			pthread_mutex_unlock(&room->ready_m);
+			i++;
+		}
+		if (out == 0)
+			break ;
+		msleep(room->inputs->number_of_coders - i);
+	}
 }

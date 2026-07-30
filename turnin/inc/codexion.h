@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/20 14:07:58 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:50:36 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,12 +167,14 @@ typedef struct s_programming_room
 int					ft_out(t_programming_room *room,
 						void *temp, int code);
 
+void				wait_coder_dongle(t_programming_room *room);
+
 // Input
 int					parse_args_inputs(char *argv[], t_programming_room *room);
 // void				print_inputs(t_input_args *inputs);
 // int					ft_num_count(char *args[], int num_count);
 int					check_do_atoi_strict_pos(char **arg, int rep,
-								int *temp, t_programming_room *room);
+						int *temp, t_programming_room *room);
 
 // Coder functions
 void				*coder_funct(void *input_raw);
@@ -215,8 +217,8 @@ void				safe_broadcast(pthread_cond_t *cond,
 void				safe_cond_wait(pthread_cond_t *cond,
 						pthread_mutex_t *mutex, t_programming_room *room);
 int					safe_cond_timedwait(pthread_cond_t *cond,
-								pthread_mutex_t *mutex,
-								int offset, t_programming_room *room);
+						pthread_mutex_t *mutex,
+						int offset, t_programming_room *room);
 
 // // Utils
 int					ft_isspace(int c);

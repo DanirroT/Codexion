@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:09:17 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/20 13:57:06 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:35:07 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	*coder_funct(void *input_raw)
 	safe_mod_val_int(&self->c_ready, DONE, &self->room->ready_m);
 	safe_cond_timedwait(&self->room->start_sim_c, &self->room->start_sim_m,
 		power(self->room->inputs->number_of_coders, 3) + 200, self->room);
-	// safe_cond_wait(&self->room->start_sim_c, &self->room->start_sim_m,
-	// 	self->room);
 	fprintf(stderr, "%llu C%i: Stat!\n",
 		get_time_past(self->room->start_time), self->id);
 	if (!(self->id % 2))
