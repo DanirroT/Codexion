@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 22:31:12 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/20 14:02:11 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:44:42 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,36 @@ void	free_dongles(t_coder *self)
 	fprintf(stderr, "\t%llu C%i FREEs D%i & D%i\n", get_time_past(self->room->start_time), self->id, first->id, second->id);
 	safe_broadcast(&first->free, &first->state_m);
 	safe_broadcast(&second->free, &second->state_m);
+}
+
+void	wait_coder_dongle(t_programming_room *room)
+{
+	int	out;
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		out = 0;
+		while (i < room->inputs->number_of_coders)
+		{
+			// fprintf(stderr, "  %i", i);
+			pthread_mutex_lock(&room->ready_m);
+			if (room->coders[i].c_ready == ACTIVE
+				|| room->dongles[i].d_ready == ACTIVE)
+			{
+				// fprintf(stderr, " - not ready\n");
+				out = 1;
+				pthread_mutex_unlock(&room->ready_m);
+				break ;
+			}
+			pthread_mutex_unlock(&room->ready_m);
+			i++;
+		}
+		if (out == 0)
+			break ;
+		msleep(room->inputs->number_of_coders - i);
+	}
+	// fprintf(stderr, "\n\tAll Ready!\n");
+	// fflush(stderr);
 }

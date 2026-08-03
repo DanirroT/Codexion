@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/30 15:50:36 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:32:32 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void				*dongle_funct(void *input_raw);
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstadd_front(t_list **lst, t_list *new);
 void				ft_lstclear(t_list **lst);
 
 void				add_d_queue(t_dongle *dongle, t_coder *self);

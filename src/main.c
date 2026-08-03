@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:40:31 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/22 14:26:46 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:45:10 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ static void	init_dongle(t_programming_room *room, int id)
 		&room->dongles[id].ready);
 }
 
-static int	prep_room(t_programming_room *room)
+static int	prep_room(t_programming_room *room, int id)
 {
-	int	id;
-
 	pthread_mutex_init(&(room->burnout_m), NULL);
 	pthread_mutex_init(&room->print_m, NULL);
 	pthread_mutex_lock(&room->print_m);
@@ -73,7 +71,6 @@ static int	prep_room(t_programming_room *room)
 				* (room->inputs->number_of_coders)));
 	if (!room->dongles)
 		return (DONE);
-	id = -1;
 	while (++id < room->inputs->number_of_coders)
 		init_dongle(room, id);
 	room->coders = malloc((size_t)(sizeof(t_coder)
@@ -118,34 +115,11 @@ request arrived first.
 time_to_burnout.
 */
 
-static void	wait_all_ready(t_programming_room *room, int out, int i)
+static void	wait_all_ready(t_programming_room *room)
 {
 	// fprintf(stderr, "Waiting for Ready\n");
 	msleep(room->inputs->number_of_coders);
-	while (1)
-	{
-		out = 0;
-		while (i < room->inputs->number_of_coders)
-		{
-			// fprintf(stderr, "  %i", i);
-			pthread_mutex_lock(&room->ready_m);
-			if (room->coders[i].c_ready == ACTIVE
-				|| room->dongles[i].d_ready == ACTIVE)
-			{
-				// fprintf(stderr, " - not ready\n");
-				out = 1;
-				pthread_mutex_unlock(&room->ready_m);
-				break ;
-			}
-			pthread_mutex_unlock(&room->ready_m);
-			i++;
-		}
-		if (out == 0)
-			break ;
-		msleep(room->inputs->number_of_coders - i);
-	}
-	// fprintf(stderr, "\n\tAll Ready!\n");
-	// fflush(stderr);
+	wait_coder_dongle(room);
 	while (1)
 	{
 		pthread_mutex_lock(&room->ready_m);
@@ -176,11 +150,11 @@ int	main(int argc, char *argv[])
 	// print_inputs(room->inputs);
 	// fflush(stdout);
 	if (parse_args_inputs(argv, room) == DONE
-		|| prep_room(room) == DONE)
+		|| prep_room(room, -1) == DONE)
 		return (ft_out(room, NULL, -1));
 	fprintf(stderr, "\tRoom Prepped!\n");
 	fflush(stderr);
-	wait_all_ready(room, 0, 0);
+	wait_all_ready(room);
 	gettimeofday(&room->start_time, NULL);
 	fprintf(stderr, "\tTime initialized!\n");
 	fflush(stderr);

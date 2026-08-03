@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:09:17 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/30 15:35:06 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:36:12 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	*coder_funct(void *input_raw)
 		power(self->room->inputs->number_of_coders, 3) + 200, self->room);
 	if (!(self->id % 2))
 		safe_msleep(self->room->inputs->time_to_compile - 20, self->room);
-	do_compile(self);
+	if (self->room->inputs->number_of_compiles_required)
+		do_compile(self);
 	pthread_mutex_lock(&self->compiling_m);
 	while (self->compilations_complete
 		< self->room->inputs->number_of_compiles_required

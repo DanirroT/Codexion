@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 17:01:36 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/07/14 18:06:43 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:43:48 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ static void	check_inputs(t_input_args *inputs, t_programming_room *room)
 	int	print;
 
 	print = 0;
-	if (inputs->number_of_coders <= 0)
-		print = printf("Error: number_of_coders must be greater than 0.");
-	if (inputs->time_to_burnout <= 0)
-		print = printf("Error: time_to_burnout must be greater than 0.");
-	if (inputs->time_to_compile <= 0)
-		print = printf("Error: time_to_compile must be greater than 0.");
-	if (inputs->time_to_debug <= 0)
-		print = printf("Error: time_to_debug must be greater than 0.");
-	if (inputs->time_to_refactor <= 0)
-		print = printf("Error: time_to_refactor must be greater than 0.");
-	if (inputs->number_of_compiles_required <= 0)
+	if (inputs->number_of_coders < 0)
+		print = printf("Error: number_of_coders must be a positive integer.");
+	if (inputs->time_to_burnout < 0)
+		print = printf("Error: time_to_burnout must be a positive integer.");
+	if (inputs->time_to_compile < 0)
+		print = printf("Error: time_to_compile must be a positive integer.");
+	if (inputs->time_to_debug < 0)
+		print = printf("Error: time_to_debug must be a positive integer.");
+	if (inputs->time_to_refactor < 0)
+		print = printf("Error: time_to_refactor must be a positive integer.");
+	if (inputs->number_of_compiles_required < 0)
 		print = printf("Error: number_of_compiles_required "
-				"must be greater than 0.");
-	if (inputs->dongle_cooldown <= 0)
-		print = printf("Error: dongle_cooldown must be greater than 0.");
+				"must be a positive integer.");
+	if (inputs->dongle_cooldown < 0)
+		print = printf("Error: dongle_cooldown must be a positive integer.");
 	if (inputs->scheduler != FIFO && inputs->scheduler != EDF)
 		print = printf("Error: Invalid scheduler. Must be "
 				"'fifo' (0) or 'edf' (1).");
