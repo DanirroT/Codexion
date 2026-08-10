@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 17:01:36 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/08/03 17:43:48 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/08/10 14:27:22 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int	parse_args_inputs(char *argv[], t_programming_room *room)
 	argc = ft_num_count_strict(&argv[1], 0, room);
 	if (argc != 8)
 	{
-		printf("Incorrect argument input.\nUsage: ./Codexion number_of_coders "
+		printf("Incorrect argument input.\nUsage: ./codexion number_of_coders "
 			"time_to_burnout time_to_compile time_to_debug time_to_refactor "
 			"number_of_compiles_required dongle_cooldown scheduler\n");
 		return (ft_out(room, NULL, -2), DONE);

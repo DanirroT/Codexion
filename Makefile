@@ -6,7 +6,7 @@
 #    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/18 17:59:26 by dmota-ri          #+#    #+#              #
-#    Updated: 2026/07/20 14:10:35 by dmota-ri         ###   ########.fr        #
+#    Updated: 2026/08/10 15:26:59 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ SRC_DIR = src/
 
 SRC =	$(SRC_DIR)main.c\
 		$(SRC_DIR)inputs.c\
-		$(SRC_DIR)ft_split_space.c\
 		$(SRC_DIR)coder_functs.c\
 		$(SRC_DIR)coder_to_dongle.c\
 		$(SRC_DIR)dongle_n_burnout_functs.c\
@@ -213,4 +212,4 @@ retest: fclean test
 # scheduler
 
 lint:
-	norminette $(SRC) $(INC)
+	@norminette $(SRC) $(INC)
